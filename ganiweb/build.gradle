@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+//    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+
+//    compile 'com.github.castorflex.smoothprogressbar:library:1.0.0'
+
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'org.jsoup:jsoup:1.10.1'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.jrvansuita:PickImage:+'
+
+    //compile 'com.android.volley:volley:1.0.0'
+
+    compile 'com.basecamp:turbolinks:1.0.7'
+
+    compile project(':ganilib')
+}
