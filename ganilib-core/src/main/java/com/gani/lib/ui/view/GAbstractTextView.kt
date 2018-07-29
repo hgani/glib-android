@@ -9,12 +9,12 @@ import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.View
-import com.gani.lib.utils.Res
 import com.gani.lib.ui.layout.GRelativeLayoutParams
+import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
 
-open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView, GView {
+open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
     private var helper: ViewHelper = ViewHelper(this)
 
     constructor(context: Context) : super(context) {
@@ -97,12 +97,12 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView, GVie
         return self()
     }
 
-    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    fun margins(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.margin(l, t, r, b)
         return self()
     }
