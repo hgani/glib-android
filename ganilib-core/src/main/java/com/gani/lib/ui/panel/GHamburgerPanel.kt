@@ -6,7 +6,7 @@ import android.view.View
 import com.gani.lib.ui.layout.GRelativeLayout
 import com.gani.lib.ui.view.ViewHelper
 
-class GHamburgerPanel: GRelativeLayout<GHamburgerPanel> {
+open class GHamburgerPanel: GRelativeLayout<GHamburgerPanel> {
     constructor(context: Context) : super(context) {
         init()
     }
@@ -23,7 +23,7 @@ class GHamburgerPanel: GRelativeLayout<GHamburgerPanel> {
         return this
     }
 
-    fun views(top: View, middle: View, bottom: View): GHamburgerPanel {
+    fun withViews(top: View, middle: View, bottom: View): GHamburgerPanel {
         addView(top)
         addView(middle)
         addView(bottom)

@@ -9,7 +9,7 @@ import android.widget.TabHost;
 import com.gani.lib.R;
 import com.gani.lib.screen.GActivity;
 import com.gani.lib.screen.GFragment;
-import com.gani.lib.ui.layout.GLinearLayout;
+import com.gani.lib.screen.GScreenContainer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,10 +55,10 @@ public abstract class FragmentItemSelect<I extends SelectableItem, T extends Sel
 //  }
 
   @Override
-  public void initContent(@NotNull GActivity activity, @NotNull GLinearLayout container) {
+  public void initContent(@NotNull GActivity activity, @NotNull GScreenContainer container) {
 //    super.initContent(activity, container);
 
-    container.append(LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list,null));
+    container.getContent().append(LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list,null));
 
 //    View.inflate(getContext(), )
   }

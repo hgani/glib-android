@@ -7,7 +7,6 @@ import android.view.*
 import com.gani.lib.R
 import com.gani.lib.model.GBundle
 import com.gani.lib.ui.ProgressIndicator
-import com.gani.lib.ui.layout.GLinearLayout
 import com.gani.lib.ui.menu.GMenu
 
 //open class GFragment : Fragment(), GContainer, ProgressIndicator {
@@ -71,12 +70,12 @@ open class GFragment : Fragment(), GContainer {
         this.refreshView = refreshView
 
         // Execute this after everything has been initialized. At this point, context is guaranteed to be non null.
-        initContent(activity, fragmentLayout.findViewById(R.id.content_layout))
+        initContent(activity, fragmentLayout.findViewById(R.id.container) as GScreenContainer)
 
         return fragmentLayout
     }
 
-    open protected fun initContent(activity: GActivity, container: GLinearLayout) {
+    open protected fun initContent(activity: GActivity, container: GScreenContainer) {
         // To be overridden
     }
 

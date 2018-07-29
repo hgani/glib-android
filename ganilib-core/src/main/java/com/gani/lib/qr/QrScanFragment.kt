@@ -9,7 +9,7 @@ import android.view.SurfaceView
 import com.gani.lib.R
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
-import com.gani.lib.ui.layout.GLinearLayout
+import com.gani.lib.screen.GScreenContainer
 import com.gani.lib.utils.Res
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -34,11 +34,11 @@ open abstract class QrScanFragment : GFragment() {
         }
     }
 
-    override fun initContent(activity: GActivity, container: GLinearLayout) {
+    override fun initContent(activity: GActivity, container: GScreenContainer) {
         disableRefreshPull()
 
-        LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container, true)
-        qrView = container.findViewById<SurfaceView>(R.id.qr_view)
+        LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container.content, true)
+        qrView = container.content.findViewById(R.id.qr_view)
 
         val detector = BarcodeDetector.Builder(activity)
                 .setBarcodeFormats(Barcode.DATA_MATRIX or Barcode.QR_CODE)
