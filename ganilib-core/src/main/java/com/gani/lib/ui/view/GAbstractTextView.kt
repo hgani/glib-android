@@ -9,7 +9,6 @@ import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.View
-import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
@@ -33,9 +32,9 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
         return this as T
     }
 
-    fun relative(): GRelativeLayoutParams<T> {
-        return helper.relative(self())
-    }
+//    fun relative(): GRelativeLayoutParams<T> {
+//        return helper.relative(self())
+//    }
 
     fun spec(spec: Spec): GAbstractTextView<*> {
         spec.decorate(this)

@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import com.gani.lib.utils.Res
 import com.gani.lib.logging.GLog
 import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
+import com.gani.lib.utils.Res
 
 class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams: ViewGroup.LayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)) {
 
@@ -18,11 +18,17 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
         view.layoutParams = layoutParams
     }
 
-    fun <T : View> relative(view: T): GRelativeLayoutParams<T> {
-        //    view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        val params = GRelativeLayoutParams(view)
+//    fun <T : View> relative(view: T): GRelativeLayoutParams<T> {
+//        //    view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//        val params = GRelativeLayoutParams(view)
+//        this.view.layoutParams = params
+//        return params
+//    }
+
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)) {
+        val params = GRelativeLayoutParams()
         this.view.layoutParams = params
-        return params
+        addRules(params)
     }
 
     fun alignParentRight() {

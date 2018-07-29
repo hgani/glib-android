@@ -4,19 +4,34 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 
-class GRelativeLayoutParams<T : View>(private val view: T) : RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT) {
+class GRelativeLayoutParams: RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT) {
+    fun alignTop() {
+        addRule(RelativeLayout.ALIGN_PARENT_TOP)
+    }
 
-    fun alignRight(): GRelativeLayoutParams<T> {
+    fun alignBottom() {
+        addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+    }
+
+    fun above(view: View) {
+        if (view.id == View.NO_ID) {
+            view.id = View.generateViewId()
+        }
+        addRule(RelativeLayout.ABOVE, view.id)
+    }
+
+    fun below(view: View) {
+        if (view.id == View.NO_ID) {
+            view.id = View.generateViewId()
+        }
+        addRule(RelativeLayout.BELOW, view.id)
+    }
+
+    fun alignRight() {
         addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-        return this
     }
 
-    fun centerVertical(): GRelativeLayoutParams<T> {
+    fun centerVertical() {
         addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
-        return this
-    }
-
-    fun end(): T {
-        return view
     }
 }
