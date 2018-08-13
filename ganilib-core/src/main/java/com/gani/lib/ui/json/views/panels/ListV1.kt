@@ -1,12 +1,12 @@
 package com.gani.lib.ui.json.views.panels
 
 import android.view.View
-import com.gani.lib.json.GJsonObject
+import com.gani.lib.json.GJson
 import com.gani.lib.screen.GActivity
 import com.gani.lib.ui.json.JsonView
 import com.gani.lib.ui.list.GRecyclerView
 
-class ListV1(spec: GJsonObject<*, *>, screen: GActivity): JsonView(spec, screen) {
+class ListV1(spec: GJson, screen: GActivity): JsonView(spec, screen) {
     private val recyclerView = GRecyclerView(context)
 
     override fun initView(): View {
