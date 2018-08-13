@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 
-public class GEditText<T extends GEditText> extends AppCompatEditText implements GView {
+public class GEditText<T extends GEditText> extends AppCompatEditText implements IView {
   private ViewHelper helper;
 
   public GEditText(Context context) {

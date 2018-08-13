@@ -7,7 +7,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.widget.SpinnerAdapter;
 
-public class GSpinner extends AppCompatSpinner implements GView {
+public class GSpinner extends AppCompatSpinner implements IView {
 //  private static Spec defaultSpec = new Spec();
 //
 //  public static void setDefaultSpec(Spec defaultSpec) {

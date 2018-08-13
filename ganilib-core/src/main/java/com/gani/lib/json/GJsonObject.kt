@@ -8,6 +8,8 @@ import java.text.ParseException
 import java.text.ParsePosition
 import java.util.*
 
+typealias GJson = GJsonObject<*, *>
+
 abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOverloads protected constructor(val rawString: String? = null) {
     private var rawJson: JSONObject? = null
 
@@ -160,7 +162,8 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
     operator fun get(name: String): JO {
         if (rawJson == null) {
             try {
-                rawJson = JSONObject(rawString)
+                // Default to empty string to avoid NullPointerException
+                rawJson = JSONObject(rawString ?: "")
             } catch (e: JSONException) {
                 rawJson = JSONObject()
             }
