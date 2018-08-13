@@ -4,7 +4,7 @@ import com.gani.lib.collection.SelfTruncatingSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class GJson {
+public class GGson {
   private static Gson GSON = new GsonBuilder().registerTypeAdapter(SelfTruncatingSet.class, new SelfTruncatingSet.GsonSerializer()).create();
   private static Gson DEFAULT_GSON = new Gson();
 

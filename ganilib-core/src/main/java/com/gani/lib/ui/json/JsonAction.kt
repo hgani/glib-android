@@ -1,0 +1,34 @@
+package com.gani.lib.ui.json
+
+import com.gani.lib.json.GJsonObject
+import com.gani.lib.logging.GLog
+import com.gani.lib.screen.GActivity
+
+abstract class JsonAction(val spec: GJsonObject<*, *>, val screen: GActivity) {
+    fun execute() {
+        if (!silentExecute()) {
+            GLog.w(javaClass, "Invalid action spec: $spec")
+        }
+    }
+
+    abstract fun silentExecute(): Boolean
+
+    companion object {
+        private fun create(spec: GJsonObject<*, *>, screen: GActivity): JsonAction? {
+            val klass = JsonUi.loadClass(spec["action"].stringValue, JsonAction::class.java)
+            val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java)
+            if (constructor != null) {
+                return constructor.newInstance(spec, screen)
+            }
+            GLog.w(JsonAction::class.java, "Failed loading action: $spec")
+            return null
+        }
+
+        // TODO: Pass activity
+        fun executeAll(spec: GJsonObject<*, *>, screen: GActivity) {
+            spec.arrayValue.forEach {
+                create(it, screen)?.execute()
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 package com.gani.lib.collection
 
-import com.gani.lib.json.GJson
+import com.gani.lib.json.GGson
 import com.google.gson.*
 import java.io.IOException
 import java.io.ObjectInputStream
@@ -86,7 +86,7 @@ class SelfTruncatingSet<E>(maxCapacity: Int) : AbstractSet<E>(), Serializable {
         override fun serialize(src: SelfTruncatingSet<*>, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
             val `object` = JsonObject()
             `object`.addProperty("max_capacity", src.maxCapacity)
-            `object`.addProperty("delegate", GJson.defaultGson().toJson(src))
+            `object`.addProperty("delegate", GGson.defaultGson().toJson(src))
             return `object`
         }
 
@@ -98,7 +98,7 @@ class SelfTruncatingSet<E>(maxCapacity: Int) : AbstractSet<E>(), Serializable {
 
             val set = SelfTruncatingSet<Any>(maxCapacity)
             // Use typeOfT so that the generic type is still maintained, e.g. LinkedHashSet<Long>
-            val entries = GJson.defaultGson().fromJson<LinkedHashSet<*>>(delegate, typeOfT)
+            val entries = GGson.defaultGson().fromJson<LinkedHashSet<*>>(delegate, typeOfT)
             for (entry in entries) {
                 set.add(entry)
             }

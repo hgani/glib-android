@@ -157,6 +157,18 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
 
     /////
 
+    operator fun get(name: String): JO {
+        if (rawJson == null) {
+            try {
+                rawJson = JSONObject(rawString)
+            } catch (e: JSONException) {
+                rawJson = JSONObject()
+            }
+        }
+        return createObject(string(name))
+    }
+
+    // TODO: Deprecate
     fun json(name: String): JO {
         if (rawJson == null) {
             try {
