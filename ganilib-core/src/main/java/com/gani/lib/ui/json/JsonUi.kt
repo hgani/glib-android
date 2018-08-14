@@ -23,6 +23,7 @@ class JsonUi {
         fun <T> loadClass(name: String, type: Class<T>): Class<T>? {
             val typeName = when (type) {
                 JsonView::class.java -> "views"
+                JsonTemplate::class.java -> "templates"
                 JsonAction::class.java -> "actions"
                 else -> ""
             }

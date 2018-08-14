@@ -42,7 +42,7 @@ abstract class DtoRecyclerAdapter<DO, VH : DtoBindingHolder<DO>> protected const
     }
 
     // Should return 1 or higher
-    protected fun determineViewType(item: DO): Int {
+    open protected fun determineViewType(item: DO): Int {
         return R.id.listitem_normal
     }
 

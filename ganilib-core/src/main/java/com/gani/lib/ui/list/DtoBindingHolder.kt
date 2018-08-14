@@ -7,5 +7,5 @@ abstract class DtoBindingHolder<DO> : AbstractBindingHolder {
 
     constructor(context: Context, selectable: Boolean) : super(context, selectable) {}
 
-    abstract fun update(`object`: DO)
+    abstract fun update(item: DO)
 }

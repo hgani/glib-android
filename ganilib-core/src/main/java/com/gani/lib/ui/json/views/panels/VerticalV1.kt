@@ -1,8 +1,6 @@
 package com.gani.lib.ui.json.views.panels
 
-import android.graphics.Color
 import android.view.View
-import android.view.ViewGroup
 import com.gani.lib.json.GJson
 import com.gani.lib.screen.GActivity
 import com.gani.lib.ui.json.JsonView
@@ -16,8 +14,8 @@ class VerticalV1: JsonView {
     constructor(panel: GLinearLayout, spec: GJson, screen: GActivity): super(spec, screen) {
         this.panel = panel
 
-        // TODO
-        panel.bgColor(Color.RED)
+//        // TODO
+//        panel.bgColor(Color.RED)
 //                .width(ViewGroup.LayoutParams.MATCH_PARENT)
     }
 

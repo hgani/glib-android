@@ -13,7 +13,7 @@ import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
 
-open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
+open class GAbstractTextView : AppCompatTextView {
     private var helper: ViewHelper = ViewHelper(this)
 
     constructor(context: Context) : super(context) {
@@ -28,30 +28,30 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
 //        this.helper = ViewHelper(this)
 //    }
 
-    private fun self(): T {
-        return this as T
+    private fun self(): GAbstractTextView {
+        return this
     }
 
 //    fun relative(): GRelativeLayoutParams<T> {
 //        return helper.relative(self())
 //    }
 
-    fun spec(spec: Spec): GAbstractTextView<*> {
+    fun spec(spec: Spec): GAbstractTextView {
         spec.decorate(this)
         return this
     }
 
-    fun width(width: Int?): T {
+    fun width(width: Int?): GAbstractTextView {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    fun height(height: Int?): GAbstractTextView {
         helper.height(height)
         return self()
     }
 
-    fun processBold(): GAbstractTextView<*> {
+    fun processBold(): GAbstractTextView {
         val matchers = ArrayList<String>()
         val text = text.toString()
         val builder = SpannableStringBuilder(text)
@@ -77,50 +77,50 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
         return this
     }
 
-    fun bgColor(code: String): T {
+    fun bgColor(code: String): GAbstractTextView {
         bgColor(Res.color(code))
         return self()
     }
 
-    fun bgColor(color: Int): T {
+    fun bgColor(color: Int): GAbstractTextView {
         setBackgroundColor(color)
         return self()
     }
 
-    fun color(code: String): T {
+    fun color(code: String): GAbstractTextView {
         return color(Res.color(code))
     }
 
-    fun color(color: Int): T {
+    fun color(color: Int): GAbstractTextView {
         setTextColor(color)
         return self()
     }
 
-    fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): GAbstractTextView {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    fun margins(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    fun margins(l: Int?, t: Int?, r: Int?, b: Int?): GAbstractTextView {
         helper.margin(l, t, r, b)
         return self()
     }
 
-    fun bold(): GAbstractTextView<*> {
+    fun bold(): GAbstractTextView {
         return typeface(Typeface.DEFAULT_BOLD)
     }
 
-    fun typeface(typeface: Typeface): GAbstractTextView<*> {
+    fun typeface(typeface: Typeface): GAbstractTextView {
         setTypeface(typeface)
         return this
     }
 
-    fun text(text: String): GAbstractTextView<*> {
+    fun text(text: String): GAbstractTextView {
         setText(text)
         return this
     }
 
-    fun textSize(textSize: Float): GAbstractTextView<*> {
+    fun textSize(textSize: Float): GAbstractTextView {
         setTextSize(textSize)
         //    setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         return this
@@ -131,30 +131,30 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
     //    return this;
     //  }
 
-    fun gravity(alignment: Int): GAbstractTextView<*> {
+    fun gravity(alignment: Int): GAbstractTextView {
         gravity = alignment
         return this
     }
 
-    fun onClick(listener: View.OnClickListener): GAbstractTextView<*> {
+    fun onClick(listener: View.OnClickListener): GAbstractTextView {
         helper.click(listener)
         return this
     }
 
     // NOTE: Has to be called before setting the text.
     // See https://stackoverflow.com/questions/27927930/android-linkify-clickable-telephone-numbers
-    fun linkify(mask: Int): GAbstractTextView<*> {
+    fun linkify(mask: Int): GAbstractTextView {
         autoLinkMask = mask
         linksClickable = true
         return this
     }
 
-    fun ellipsize(where: TextUtils.TruncateAt): GAbstractTextView<*> {
+    fun ellipsize(where: TextUtils.TruncateAt): GAbstractTextView {
         ellipsize = where
         return this
     }
 
-    fun maxLines(max: Int): GAbstractTextView<*> {
+    fun maxLines(max: Int): GAbstractTextView {
         maxLines = max
         return this
     }
@@ -164,52 +164,24 @@ open class GAbstractTextView<T : GAbstractTextView<T>> : AppCompatTextView {
 
 
     open class Spec {
-        private val decorator: (GAbstractTextView<*>) -> Unit
+        companion object {
+            val cellTitle = GAbstractTextView.Spec() { view ->
+                view.textSize(18f).bold()
+            }
 
-        constructor(decorator: (GAbstractTextView<*>) -> Unit ) {
+            val cellSubtitle = GAbstractTextView.Spec() { view ->
+                view.textSize(16f)
+            }
+        }
+
+        private val decorator: (GAbstractTextView) -> Unit
+
+        constructor(decorator: (GAbstractTextView) -> Unit ) {
             this.decorator = decorator
         }
 
-        fun decorate(view: GAbstractTextView<*>) {
+        fun decorate(view: GAbstractTextView) {
             decorator(view)
         }
-
-//        fun init(textView: GAbstractTextView<*>) {
-//            val backgroundColor = backgroundColor()
-//            if (backgroundColor != null) {
-//                textView.bgColor(backgroundColor)
-//            }
-//
-//            val color = color()
-//            if (color != null) {
-//                textView.color(color)
-//            }
-//
-//            val textSize = textSize()
-//            if (textSize != null) {
-//                textView.textSize(textSize.toFloat())
-//            }
-//
-//            val typeface = typeface()
-//            if (typeface != null) {
-//                textView.typeface(typeface)
-//            }
-//        }
-
-//        fun backgroundColor(): Int? {
-//            return null
-//        }
-//
-//        fun color(): Int? {
-//            return null
-//        }
-//
-//        fun textSize(): Int? {
-//            return null
-//        }
-//
-//        fun typeface(): Typeface? {
-//            return null
-//        }
     }
 }
