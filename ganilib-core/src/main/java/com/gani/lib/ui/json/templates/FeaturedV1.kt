@@ -9,7 +9,7 @@ import com.gani.lib.ui.json.JsonAction
 import com.gani.lib.ui.json.JsonTemplate
 import com.gani.lib.ui.json.views.panels.TemplateHolder
 import com.gani.lib.ui.layout.GLinearLayout
-import com.gani.lib.ui.view.GAbstractTextView
+import com.gani.lib.ui.view.GTextView
 import com.gani.lib.ui.view.GImageView
 
 class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
@@ -27,8 +27,8 @@ class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
     class Holder(context: Context, selectable: Boolean) : TemplateHolder(context, selectable) {
         private val container = GLinearLayout(context).vertical()
         private val image = GImageView(context).height(200).centerCrop()
-        private val name = GAbstractTextView(context).spec(GAbstractTextView.Spec.cellTitle)
-        private val description = GAbstractTextView(context).spec(GAbstractTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
+        private val name = GTextView(context).spec(GTextView.Spec.cellTitle)
+        private val description = GTextView(context).spec(GTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
 
         init {
             layout.addView(container.paddings(10, 10, 10, 10)

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gani.lib.ui.layout.AbstractLinearLayout;
 import com.gani.lib.ui.layout.GLinearLayout;
-import com.gani.lib.ui.view.GAbstractTextView;
+import com.gani.lib.ui.view.GTextView;
 
 //import com.clsreview.clsreview.R;
 
@@ -16,7 +16,7 @@ public abstract class FormField extends AbstractLinearLayout<FormField> {
   private TextView label;
   private View editView;
 
-  public FormField(Context context, String labelText, GAbstractTextView.Spec labelSpec) {
+  public FormField(Context context, String labelText, GTextView.Spec labelSpec) {
     super(context);
 
     horizontal();
@@ -48,8 +48,8 @@ public abstract class FormField extends AbstractLinearLayout<FormField> {
     return this;
   }
 
-  private GAbstractTextView createLabel(Context context) {
-    return new GAbstractTextView(context);
+  private GTextView createLabel(Context context) {
+    return new GTextView(context);
   }
 
   protected abstract View createEditView(Context context);
