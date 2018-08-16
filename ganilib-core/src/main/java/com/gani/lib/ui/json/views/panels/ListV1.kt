@@ -13,7 +13,7 @@ import com.gani.lib.ui.list.GRecyclerView
 typealias TemplateHolder = DtoBindingHolder<JsonTemplate>
 
 class ListV1(spec: GJson, screen: GActivity): JsonView(spec, screen) {
-    private val recyclerView = GRecyclerView(context)
+    private val recyclerView = GRecyclerView(context).separator(true)
     private val templateRegistry = mutableMapOf<Int, JsonTemplate>()
 
     override fun initView(): View {

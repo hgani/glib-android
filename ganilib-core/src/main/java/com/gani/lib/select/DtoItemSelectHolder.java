@@ -16,7 +16,7 @@ public abstract class DtoItemSelectHolder<I extends SelectableItem> extends DtoB
 
     this.helper = activity;
 //    this.multiselect = multiselect;
-    this.selectButton = getLayout().findViewById(R.id.toggle_select);
+    this.selectButton = getContainer().findViewById(R.id.toggle_select);
   }
 
   @Override

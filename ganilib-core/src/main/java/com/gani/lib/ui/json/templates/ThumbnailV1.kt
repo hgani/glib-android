@@ -6,9 +6,9 @@ import com.gani.lib.screen.GActivity
 import com.gani.lib.ui.json.JsonAction
 import com.gani.lib.ui.json.JsonTemplate
 import com.gani.lib.ui.json.views.panels.TemplateHolder
-import com.gani.lib.ui.list.templates.FeaturedHolder
+import com.gani.lib.ui.list.templates.ThumbnailHolder
 
-class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
+class ThumbnailV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
     companion object {
         private val VIEW_TYPE = View.generateViewId()
     }
@@ -17,7 +17,7 @@ class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
         get() = VIEW_TYPE
 
     override fun createHolder(): TemplateHolder {
-        return object : FeaturedHolder<JsonTemplate>(context, true) {
+        return object : ThumbnailHolder<JsonTemplate>(context, true) {
             override fun update(item: JsonTemplate) {
                 val spec = item.spec
                 container.onClick(View.OnClickListener {
