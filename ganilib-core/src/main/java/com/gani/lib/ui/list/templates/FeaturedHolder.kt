@@ -2,8 +2,8 @@ package com.gani.lib.ui.list.templates
 
 import android.content.Context
 import android.text.TextUtils
-import com.gani.lib.ui.layout.GLinearLayout
 import com.gani.lib.ui.list.DtoBindingHolder
+import com.gani.lib.ui.panel.GVerticalPanel
 import com.gani.lib.ui.view.GImageView
 import com.gani.lib.ui.view.GTextView
 
@@ -13,8 +13,8 @@ abstract class FeaturedHolder<DO>(context: Context, selectable: Boolean) : DtoBi
     val description = GTextView(context).spec(GTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
 
     init {
-        container.paddings(10, 10, 10, 10)
+        container.padding(10, 10, 10, 10)
                 .append(image)
-                .append(GLinearLayout(context).vertical().paddings(10, 5, 10, 10).append(name).append(description))
+                .append(GVerticalPanel(context).padding(10, 5, 10, 10).append(name).append(description))
     }
 }

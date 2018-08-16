@@ -2,8 +2,9 @@ package com.gani.lib.ui.list.templates
 
 import android.content.Context
 import android.text.TextUtils
-import com.gani.lib.ui.layout.GLinearLayout
 import com.gani.lib.ui.list.DtoBindingHolder
+import com.gani.lib.ui.panel.GHorizontalPanel
+import com.gani.lib.ui.panel.GVerticalPanel
 import com.gani.lib.ui.view.GImageView
 import com.gani.lib.ui.view.GTextView
 
@@ -14,9 +15,9 @@ abstract class ThumbnailHolder<DO>(context: Context, selectable: Boolean) : DtoB
 
     init {
         container
-                .paddings(10, 10, 10, 10)
-                .append(GLinearLayout(context).horizontal().append(image)
-                        .append(GLinearLayout(context).vertical().paddings(10, 10, 10, 10).append(name).append(description))
+                .padding(10, 10, 10, 10)
+                .append(GHorizontalPanel(context).append(image)
+                        .append(GVerticalPanel(context).padding(10, 10, 10, 10).append(name).append(description))
                 )
     }
 }

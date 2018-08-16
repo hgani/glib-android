@@ -5,10 +5,11 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
+import com.gani.lib.ui.view.IView
 
 import com.gani.lib.ui.view.ViewHelper
 
-open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout {
+open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout, IView {
     private val helper: ViewHelper = ViewHelper(this)
 
     constructor(context: Context) : super(context) {
@@ -37,13 +38,13 @@ open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout {
         return self()
     }
 
-    fun padding(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-        helper.padding(left, top, right, bottom)
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
+        helper.padding(l, t, r, b)
         return self()
     }
 
-    fun margin(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-        helper.margin(left, top, right, bottom)
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
+        helper.margin(l, t, r, b)
         return self()
     }
 

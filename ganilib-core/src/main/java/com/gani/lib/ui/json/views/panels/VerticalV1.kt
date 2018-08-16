@@ -4,19 +4,15 @@ import android.view.View
 import com.gani.lib.json.GJson
 import com.gani.lib.screen.GActivity
 import com.gani.lib.ui.json.JsonView
-import com.gani.lib.ui.layout.GLinearLayout
+import com.gani.lib.ui.panel.GVerticalPanel
 
 class VerticalV1: JsonView {
-    private val panel: GLinearLayout
+    private val panel: GVerticalPanel
 
-    constructor(spec: GJson, screen: GActivity): this(GLinearLayout(screen).vertical(), spec, screen)
+    constructor(spec: GJson, screen: GActivity): this(GVerticalPanel(screen), spec, screen)
 
-    constructor(panel: GLinearLayout, spec: GJson, screen: GActivity): super(spec, screen) {
+    constructor(panel: GVerticalPanel, spec: GJson, screen: GActivity): super(spec, screen) {
         this.panel = panel
-
-//        // TODO
-//        panel.bgColor(Color.RED)
-//                .width(ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     override fun initView(): View {

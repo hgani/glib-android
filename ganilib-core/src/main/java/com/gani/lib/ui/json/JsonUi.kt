@@ -4,7 +4,7 @@ import com.gani.lib.json.GJson
 import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
 import com.gani.lib.ui.json.views.panels.VerticalV1
-import com.gani.lib.ui.layout.GLinearLayout
+import com.gani.lib.ui.panel.GVerticalPanel
 import kotlinx.android.synthetic.main.common_fragment.*
 
 class JsonUi {
@@ -16,7 +16,7 @@ class JsonUi {
             JsonAction.executeAll(spec["onLoad"], screen)
         }
 
-        private fun initVerticalPanel(panel: GLinearLayout, spec: GJson, screen: GActivity) {
+        private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity) {
             VerticalV1(panel, spec, screen).createView()
         }
 

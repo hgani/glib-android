@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.gani.lib.ui.layout.GLinearLayout
+import com.gani.lib.ui.panel.GVerticalPanel
 import com.gani.lib.utils.Res
 
-abstract class AbstractBindingHolder private constructor(val container: GLinearLayout, selectable: Boolean) : RecyclerView.ViewHolder(container) {
+abstract class AbstractBindingHolder private constructor(val container: GVerticalPanel, selectable: Boolean) : RecyclerView.ViewHolder(container) {
     val context: Context
         get() = container.context
 
@@ -22,7 +22,7 @@ abstract class AbstractBindingHolder private constructor(val container: GLinearL
         return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
     }
 
-    protected constructor(context: Context, selectable: Boolean) : this(GLinearLayout(context).vertical().width(ViewGroup.LayoutParams.MATCH_PARENT), selectable) {}
+    protected constructor(context: Context, selectable: Boolean) : this(GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT), selectable) {}
 
 //    protected fun highlightSelectable() {
 //        Res.drawable(R.drawable.background_post_highlight_selector)?.let { container.bg(drawable = it) }

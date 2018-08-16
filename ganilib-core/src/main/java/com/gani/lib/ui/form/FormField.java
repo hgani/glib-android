@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.gani.lib.ui.layout.AbstractLinearLayout;
 import com.gani.lib.ui.layout.GLinearLayout;
+import com.gani.lib.ui.panel.GVerticalPanel;
 import com.gani.lib.ui.view.GTextView;
 
 //import com.clsreview.clsreview.R;
@@ -26,7 +27,7 @@ public abstract class FormField extends AbstractLinearLayout<FormField> {
     this.label = createLabel(context).spec(labelSpec);
     this.editView = createEditView(context);
 
-    GLinearLayout editLayout = new GLinearLayout(context).vertical();
+    GLinearLayout editLayout = new GVerticalPanel(context);
     editLayout.addView(editView);
 
     setWeightOf(label, 10);
