@@ -1,9 +1,11 @@
-package com.gani.lib.ui.view
+package com.gani.lib.ui.layout
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.HorizontalScrollView
+import com.gani.lib.ui.view.IView
+import com.gani.lib.ui.view.ViewHelper
 
 open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrollView, IView {
     private val helper: ViewHelper = ViewHelper(this)

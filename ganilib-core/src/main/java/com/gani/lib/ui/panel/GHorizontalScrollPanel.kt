@@ -3,7 +3,7 @@ package com.gani.lib.ui.panel
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.gani.lib.ui.view.GHorizontalScrollView
+import com.gani.lib.ui.layout.GHorizontalScrollView
 import com.gani.lib.ui.view.ViewHelper
 
 class GHorizontalScrollPanel: GHorizontalScrollView<GHorizontalScrollPanel> {

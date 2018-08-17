@@ -3,7 +3,7 @@ package com.gani.lib.ui.panel
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.gani.lib.ui.view.GScrollView
+import com.gani.lib.ui.layout.GScrollView
 import com.gani.lib.ui.view.ViewHelper
 
 class GScrollPanel: GScrollView<GScrollPanel> {
