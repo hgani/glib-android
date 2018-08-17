@@ -7,26 +7,14 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 
-open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, IView {
+open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
     private var helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
-//    {
-//
-//        init()
-//    }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-//    {
-//        init()
-//    }
-
-//    private fun init() {
-//        this.helper = ViewHelper(this)
-//    }
 
     private fun self(): T {
         return this as T
@@ -103,7 +91,7 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, IView {
         return self()
     }
 
-    fun append(child: View): T {
+    override fun append(child: View): T {
         addView(child)
         return self()
     }

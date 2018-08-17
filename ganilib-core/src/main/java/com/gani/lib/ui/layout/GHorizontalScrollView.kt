@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.HorizontalScrollView
-import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 
-open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrollView, IView {
+open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrollView, ILayout {
     private val helper: ViewHelper = ViewHelper(this)
 
     constructor(context: Context) : super(context) {
@@ -56,7 +55,7 @@ open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrol
         return this as T
     }
 
-    open fun append(child: View): T {
+    override fun append(child: View): T {
         addView(child)
         return self()
     }

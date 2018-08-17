@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTabHost
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -19,22 +20,25 @@ import com.gani.lib.utils.Res
 open class GTabHost : FragmentTabHost {
     private val helper: ViewHelper = ViewHelper(this)
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    private fun init() {
-        val scroller = GHorizontalScrollPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
-        scroller.isHorizontalScrollBarEnabled = false
+    private fun widgetView(tabWidget: GTabWidget, scroll: Boolean): View {
+        if (scroll) {
+            val scroller = GHorizontalScrollPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+            scroller.isHorizontalScrollBarEnabled = false
 //        scroller.isFillViewport = true
-        scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
+            scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
+            return scroller.append(tabWidget)
+        }
+        return tabWidget
+    }
 
+    private fun initView(scroll: Boolean) {
         val container = GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(scroller.append(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs)))
+        container.addView(widgetView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll))
+
         container.addView(GFramePanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent))
         addView(container)
     }
@@ -43,7 +47,8 @@ open class GTabHost : FragmentTabHost {
         return this
     }
 
-    fun setup(fragmentManager: FragmentManager?): GTabHost {
+    fun setup(fragmentManager: FragmentManager?, scroll: Boolean): GTabHost {
+        initView(scroll)
         super.setup(context, fragmentManager, android.R.id.tabcontent)
         return self()
     }
