@@ -4,6 +4,10 @@ import com.google.gson.internal.bind.util.ISO8601Utils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
 import java.lang.NullPointerException
 import java.text.ParseException
 import java.text.ParsePosition
@@ -12,9 +16,12 @@ import java.util.*
 typealias GJson = GJsonObject<*, *>
 
 //abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOverloads protected constructor(val rawString: String? = null) {
-abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
+abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Serializable {
     private val rawString: String?
-    private val rawJson: JSONObject
+
+    @Transient
+    private var rawJson: JSONObject
+        private set
 
     protected constructor(map: Map<String, Any>) {
         val rawJson = JSONObject(map)
@@ -106,6 +113,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
             return bool ?: false
         }
 
+
 //    val keys: Iterator<String>
 //        get() {
 //            return rawJson.keys()
@@ -118,25 +126,8 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
 //            true
 //        } else backend.names().length() <= 0
 //
-//    protected constructor(`object`: GJsonObject<*, *>) : this(`object`.backend) {}
-//
-//    @Throws(JSONException::class)
-//    protected constructor(rawString: String) : this(JSONObject(rawString)) {
-//    }
 
-//    // Return GJsonArray instead of List<GJsonObject> so we can provide additional info such as
-//    // overriding toString().
-//    @Throws(JSONException::class)
-//    fun getArray(name: String): JA {
-//        return createArray(getRawArray(name))
-//    }
-//
-//    protected abstract fun createArray(array: JSONArray): JA
-//
-//    @Throws(JSONException::class)
-//    private fun getRawArray(name: String): JSONArray {
-//        return backend.getJSONArray(name)
-//    }
+
 
 //    @Throws(JSONException::class)
 //    fun getStringArray(name: String): Array<String> {
@@ -390,24 +381,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
 //        return null
 //    }
 //
-//    fun getNullableArray(name: String): JA? {
-//        try {
-//            return if (backend.isNull(name)) null else getArray(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-//
-//    fun getArray(name: String, defaultValue: JA): JA {
-//        try {
-//            return if (backend.isNull(name)) defaultValue else getArray(name)
-//        } catch (e: JSONException) {
-//            return defaultValue
-//        }
-//
-//    }
-//
 //    @Throws(JSONException::class)
 //    fun strictDate(name: String): Date {
 //        try {
@@ -427,9 +400,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
 
     /////
 
-//    private fun self(): JO {
-//        return this as JO
-//    }
 
     //  public JO put(String name, String value) {
     //    try {
@@ -457,6 +427,17 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
 
     override fun toString(): String {
         return rawString ?: "<null>"
+    }
+
+    @Throws(IOException::class)
+    private fun writeObject(oos: ObjectOutputStream) {
+        oos.defaultWriteObject()
+    }
+
+    @Throws(ClassNotFoundException::class, IOException::class)
+    private fun readObject(ois: ObjectInputStream) {
+        ois.defaultReadObject()
+        this.rawJson = JSONObject(rawString)
     }
 
 

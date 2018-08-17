@@ -5,14 +5,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import com.gani.lib.R
-import com.gani.lib.json.GJson
 import com.gani.lib.model.GBundle
-import com.gani.lib.model.GJsonBundle
 import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.ui.menu.GMenu
 
 open class GFragment : Fragment(), GContainer {
-    private var rawArgs = Bundle()
+//    private var rawArgs = Bundle()
     private var firstVisit: Boolean = false
 
     override val gActivity: GActivity?
@@ -33,21 +31,24 @@ open class GFragment : Fragment(), GContainer {
     val refreshStringId: Int
         get() = RESOURCE_INVALID
 
+    var args = GBundle()
+        private set
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
         // Arguments may be null if the containing screen doesn't have any extras to pass on.
-        getArguments()?.let { this.rawArgs = it }
+        getArguments()?.let { this.args = GBundle(it) }
     }
 
-    protected fun args(): GBundle {
-        return GBundle(rawArgs)
-    }
+//    protected fun args(): GBundle {
+//        return GBundle(rawArgs)
+//    }
 
-    protected fun jsonArgs(): GJson {
-        return GJsonBundle(rawArgs).json
-    }
+//    protected fun jsonArgs(): GJson {
+//        return GJsonBundle(rawArgs).json
+//    }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentLayout = inflater.inflate(R.layout.common_fragment, null)

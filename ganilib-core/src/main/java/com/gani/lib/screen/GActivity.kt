@@ -24,7 +24,6 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     private var container: IScreenView? = null
     private var topNavigation = false
-    private var arguments: Bundle? = null
     override val gActivity: GActivity
         get() = this
 
@@ -39,6 +38,9 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     val mainFragment: GFragment
         get() = supportFragmentManager.findFragmentById(R.id.screen_body) as GFragment
+
+    var args = GBundle()
+        private set
 
     private var shouldRecreateFragmentOnNewIntent = false
 
@@ -75,7 +77,10 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     private fun initOnCreate() {
         val intent = intent
-        this.arguments = if (intent.extras == null) Bundle() else intent.extras  // Intent may not contain extras
+        intent.extras?.let {
+            this.args = GBundle(it)
+        }
+//        this.arguments = if (intent.extras == null) Bundle() else intent.extras  // Intent may not contain extras
     }
 
     protected fun onCreateForScreen(savedInstanceState: Bundle?, container: GScreenView) {
@@ -110,9 +115,9 @@ open class GActivity : AppCompatActivity(), GContainer {
         super.setContentView(container)
     }
 
-    fun args(): GBundle {
-        return GBundle(arguments)
-    }
+//    fun args(): GBundle {
+//        return GBundle(arguments)
+//    }
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -341,6 +346,11 @@ open class GActivity : AppCompatActivity(), GContainer {
 
         fun withArg(key: String, value: List<*>): IntentBuilder {
             intent.putExtra(key, value as Serializable)
+            return this
+        }
+
+        fun withArg(value: Serializable): IntentBuilder {
+            intent.putExtra(GBundle.KEY_SINGLETON, value)
             return this
         }
     }

@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.gani.lib.R
 import com.gani.lib.json.GJson
-import com.gani.lib.model.GJsonBundle
+import com.gani.lib.model.GBundle
 import com.gani.lib.ui.panel.GFramePanel
 import com.gani.lib.ui.panel.GHorizontalScrollPanel
 import com.gani.lib.ui.panel.GVerticalPanel
@@ -49,7 +49,11 @@ open class GTabHost : FragmentTabHost {
     }
 
     fun addTab(label: String, fragmentClass: Class<*>, args: GJson) {
-        super.addTab(newTabSpec(label).setIndicator(label), fragmentClass, GJsonBundle().value(args).native)
+        super.addTab(newTabSpec(label).setIndicator(label), fragmentClass, GBundle().set(args).native)
+    }
+
+    fun addTab(label: String, fragmentClass: Class<*>, args: GBundle = GBundle()) {
+        super.addTab(newTabSpec(label).setIndicator(label), fragmentClass, args.native)
     }
 
     fun width(width: Int?): GTabHost {
