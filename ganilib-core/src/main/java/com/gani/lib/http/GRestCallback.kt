@@ -2,9 +2,9 @@ package com.gani.lib.http
 
 import android.content.Context
 import com.gani.lib.logging.GLog
+import com.gani.lib.notification.Toast
 import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.ProgressIndicator
-import com.gani.lib.notification.Toast
 
 
 abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GHttpError<*>>(// To be used by child.
@@ -84,7 +84,7 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
     companion object {
         fun displayMessage(r: GRestResponse): Boolean {
             val restData = r.result
-            val message = restData.json("message").string
+            val message = restData["message"].string
             if (message != null) {
                 Toast.center(message)
                 return true

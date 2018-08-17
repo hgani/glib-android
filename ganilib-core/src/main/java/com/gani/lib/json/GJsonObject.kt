@@ -4,14 +4,36 @@ import com.google.gson.internal.bind.util.ISO8601Utils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.lang.NullPointerException
 import java.text.ParseException
 import java.text.ParsePosition
 import java.util.*
 
 typealias GJson = GJsonObject<*, *>
 
-abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOverloads protected constructor(val rawString: String? = null) {
-    private var rawJson: JSONObject? = null
+//abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOverloads protected constructor(val rawString: String? = null) {
+abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> {
+    private val rawString: String?
+    private val rawJson: JSONObject
+
+    protected constructor(map: Map<String, Any>) {
+        val rawJson = JSONObject(map)
+        this.rawString = rawJson.toString()
+        this.rawJson = rawJson
+    }
+
+    protected constructor(rawString: String? = null) {
+        this.rawString = rawString
+        var json = JSONObject()
+        try {
+            json = JSONObject(rawString)
+        } catch (e: JSONException) {
+            // Use default
+        } catch (e: NullPointerException) {
+            // Use default
+        }
+        this.rawJson = json
+    }
 
     val array: JA?
         get() {
@@ -84,6 +106,13 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
             return bool ?: false
         }
 
+//    val keys: Iterator<String>
+//        get() {
+//            return rawJson.keys()
+//        }
+//
+//    fun toMap(name: String): Map<String, Any> {
+//    }
 //    val isEmpty: Boolean
 //        get() = if (backend.names() == null) {
 //            true
@@ -160,28 +189,28 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
     /////
 
     operator fun get(name: String): JO {
-        if (rawJson == null) {
-            try {
-                // Default to empty string to avoid NullPointerException
-                rawJson = JSONObject(rawString ?: "")
-            } catch (e: JSONException) {
-                rawJson = JSONObject()
-            }
-        }
+//        if (rawJson == null) {
+//            try {
+//                // Default to empty string to avoid NullPointerException
+//                rawJson = JSONObject(rawString ?: "")
+//            } catch (e: JSONException) {
+//                rawJson = JSONObject()
+//            }
+//        }
         return createObject(string(name))
     }
 
-    // TODO: Deprecate
-    fun json(name: String): JO {
-        if (rawJson == null) {
-            try {
-                rawJson = JSONObject(rawString)
-            } catch (e: JSONException) {
-                rawJson = JSONObject()
-            }
-        }
-        return createObject(string(name))
-    }
+//    // TODO: Deprecate
+//    fun json(name: String): JO {
+//        if (rawJson == null) {
+//            try {
+//                rawJson = JSONObject(rawString)
+//            } catch (e: JSONException) {
+//                rawJson = JSONObject()
+//            }
+//        }
+//        return createObject(string(name))
+//    }
 
     private fun string(name: String): String? {
         try {
@@ -428,14 +457,14 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
 
     override fun toString(): String {
         return rawString ?: "<null>"
-//        return backend.toString()
     }
 
 
+
     class Default : GJsonObject<GJsonObject.Default, GJsonArray.Default> {
-//        @Throws(JSONException::class)
-        constructor(rawString: String? = null) : super(rawString) {
-        }
+        constructor(rawString: String? = null) : super(rawString)
+
+        constructor(map: Map<String, Any>) : super(map)
 
         override fun createArray(array: JSONArray): GJsonArray.Default {
             return GJsonArray.Default(array)

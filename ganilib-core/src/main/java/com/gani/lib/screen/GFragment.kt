@@ -5,12 +5,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import com.gani.lib.R
+import com.gani.lib.json.GJson
 import com.gani.lib.model.GBundle
+import com.gani.lib.model.GJsonBundle
 import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.ui.menu.GMenu
 
 open class GFragment : Fragment(), GContainer {
-    private var rawArgs: Bundle? = null
+    private var rawArgs = Bundle()
     private var firstVisit: Boolean = false
 
     override val gActivity: GActivity?
@@ -36,12 +38,15 @@ open class GFragment : Fragment(), GContainer {
         setHasOptionsMenu(true)
 
         // Arguments may be null if the containing screen doesn't have any extras to pass on.
-        this.rawArgs = if (getArguments() == null) Bundle() else getArguments()
-        //    this.arguments = new GBundle((getArguments() == null) ? new Bundle() : getArguments());
+        getArguments()?.let { this.rawArgs = it }
     }
 
     protected fun args(): GBundle {
         return GBundle(rawArgs)
+    }
+
+    protected fun jsonArgs(): GJson {
+        return GJsonBundle(rawArgs).json
     }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

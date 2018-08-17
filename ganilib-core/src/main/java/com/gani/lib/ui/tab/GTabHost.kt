@@ -5,9 +5,13 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTabHost
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import com.gani.lib.R
 import com.gani.lib.json.GJson
 import com.gani.lib.model.GJsonBundle
 import com.gani.lib.ui.panel.GFramePanel
+import com.gani.lib.ui.panel.GHorizontalScrollPanel
 import com.gani.lib.ui.panel.GVerticalPanel
 import com.gani.lib.ui.view.ViewHelper
 import com.gani.lib.utils.Res
@@ -24,8 +28,13 @@ open class GTabHost : FragmentTabHost {
     }
 
     private fun init() {
+        val scroller = GHorizontalScrollPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+        scroller.isHorizontalScrollBarEnabled = false
+//        scroller.isFillViewport = true
+        scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
+
         val container = GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.WRAP_CONTENT).id(android.R.id.tabs))
+        container.addView(scroller.append(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs)))
         container.addView(GFramePanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent))
         addView(container)
     }

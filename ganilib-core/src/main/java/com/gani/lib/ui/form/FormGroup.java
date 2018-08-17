@@ -2,9 +2,9 @@ package com.gani.lib.ui.form;
 
 import android.content.Context;
 
-import com.gani.lib.ui.layout.AbstractLinearLayout;
+import com.gani.lib.ui.layout.GLinearLayout;
 
-public class FormGroup extends AbstractLinearLayout {
+public class FormGroup extends GLinearLayout {
   private Float labelFontSize;
 
   public FormGroup(Context context) {

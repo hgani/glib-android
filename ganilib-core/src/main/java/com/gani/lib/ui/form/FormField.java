@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gani.lib.ui.layout.AbstractLinearLayout;
 import com.gani.lib.ui.layout.GLinearLayout;
 import com.gani.lib.ui.panel.GVerticalPanel;
 import com.gani.lib.ui.view.GTextView;
 
 //import com.clsreview.clsreview.R;
 
-public abstract class FormField extends AbstractLinearLayout<FormField> {
+public abstract class FormField extends GLinearLayout<FormField> {
   private TextView label;
   private View editView;
 
@@ -22,7 +21,7 @@ public abstract class FormField extends AbstractLinearLayout<FormField> {
 
     horizontal();
     setGravity(Gravity.CENTER_VERTICAL);
-    width(ViewGroup.LayoutParams.MATCH_PARENT).paddings(0, 10, 0, 10);
+    width(ViewGroup.LayoutParams.MATCH_PARENT).padding(0, 10, 0, 10);
 
     this.label = createLabel(context).spec(labelSpec);
     this.editView = createEditView(context);

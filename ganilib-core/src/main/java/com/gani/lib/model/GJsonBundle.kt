@@ -2,6 +2,7 @@ package com.gani.lib.model
 
 import android.os.Bundle
 import com.gani.lib.json.GJson
+import com.gani.lib.json.GJsonObject
 
 class GJsonBundle(val native: Bundle) {
     companion object {
@@ -9,7 +10,7 @@ class GJsonBundle(val native: Bundle) {
     }
 
     val json: GJson
-        get() = native.get(ARG_JSON) as GJson
+        get() = GJsonObject.Default(native.getString(ARG_JSON))
 
     constructor() : this(Bundle()) {}
 
