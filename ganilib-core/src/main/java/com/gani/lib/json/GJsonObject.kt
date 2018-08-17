@@ -434,7 +434,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOv
 
     class Default : GJsonObject<GJsonObject.Default, GJsonArray.Default> {
 //        @Throws(JSONException::class)
-        constructor(rawString: String?) : super(rawString) {
+        constructor(rawString: String? = null) : super(rawString) {
         }
 
         override fun createArray(array: JSONArray): GJsonArray.Default {

@@ -10,26 +10,12 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.gani.lib.utils.Res
 
-class GImageView : AppCompatImageView {
+class GImageView : AppCompatImageView, IView {
     private var helper: ViewHelper = ViewHelper(this)
 
-    constructor(context: Context) : super(context) {
-//        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-//        init()
-    }
-
-
-//    fun imageUrl(url: String?): GImageView {
-//        if (url != null) {
-////            Glide.with(context.applicationContext) //using application context prevents app crash when closing activity during image load
-////                    .load(url)
-////                    .into(this)
-//        }
-//        return this
-//    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     fun width(width: Int?): GImageView {
         helper.width(width)
@@ -89,8 +75,13 @@ class GImageView : AppCompatImageView {
 //        return this
 //    }
 
-    fun margin(left: Int?, top: Int?, right: Int?, bottom: Int?): GImageView {
-        helper.margin(left, top, right, bottom)
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GImageView {
+        helper.padding(l, t, r, b)
+        return this
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GImageView {
+        helper.margin(l, t, r, b)
         return this
     }
 

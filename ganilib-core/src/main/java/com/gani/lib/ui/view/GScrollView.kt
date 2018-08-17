@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ScrollView
 
-open class GScrollView<T : GScrollView<T>> : ScrollView {
+open class GScrollView<T : GScrollView<T>> : ScrollView, IView {
     private val helper: ViewHelper = ViewHelper(this)
 
     constructor(context: Context) : super(context) {
@@ -70,12 +70,12 @@ open class GScrollView<T : GScrollView<T>> : ScrollView {
 //        return self()
 //    }
 
-    open fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    open fun margins(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.margin(l, t, r, b)
         return self()
     }

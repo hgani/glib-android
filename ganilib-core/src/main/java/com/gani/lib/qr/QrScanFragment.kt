@@ -35,7 +35,7 @@ open abstract class QrScanFragment : GFragment() {
     }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {
-        disableRefreshPull()
+//        disableRefreshPull()
 
         LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container.content, true)
         qrView = container.content.findViewById(R.id.qr_view)

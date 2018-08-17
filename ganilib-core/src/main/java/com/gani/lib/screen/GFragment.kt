@@ -9,7 +9,6 @@ import com.gani.lib.model.GBundle
 import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.ui.menu.GMenu
 
-//open class GFragment : Fragment(), GContainer, ProgressIndicator {
 open class GFragment : Fragment(), GContainer {
     private var rawArgs: Bundle? = null
     private var firstVisit: Boolean = false
@@ -17,24 +16,15 @@ open class GFragment : Fragment(), GContainer {
     override val gActivity: GActivity?
         get() = activity as? GActivity
 
-//    private// Might happen when screen has been closed.
-//    val refreshView: SwipeRefreshLayout?
-//        get() {
-//            try {
-//                return view!!.findViewById<View>(R.id.layout_refresh) as SwipeRefreshLayout
-//            } catch (e: NullPointerException) {
-//            }
-//
-//            return null
-//        }
-
     // Implement this in Fragment instead of Activity to ensure it works well on dual panel
-    private var refreshView: SwipeRefreshLayout? = null
+    lateinit var refreshView: SwipeRefreshLayout
 //    var indicator: ProgressIndicator = ProgressIndicator.NULL
 //        private put
     lateinit var launch: LaunchHelper
         private set
     lateinit var indicator: ProgressIndicator
+        private set
+    var container: GScreenContainer? = null
         private set
 
     protected// Override to show a refresh menu item
@@ -54,37 +44,29 @@ open class GFragment : Fragment(), GContainer {
         return GBundle(rawArgs)
     }
 
-//    protected fun defaultContainer(layout: View): GLinearLayout {
-//        return layout.findViewById(R.id.content_layout)
-//    }
-
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentLayout = inflater.inflate(R.layout.common_fragment, null)
         val refreshView = fragmentLayout.findViewById<View>(R.id.layout_refresh) as SwipeRefreshLayout
         refreshView.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener { this@GFragment.onRefresh() })
+        refreshView.isEnabled = false
 
         val activity = gActivity!!
 
+        this.firstVisit = true
         this.launch = LaunchHelper(activity)
         this.indicator = ProgressIndicator.Swipe(refreshView)
         this.refreshView = refreshView
 
+        val screenContainer = fragmentLayout.findViewById(R.id.container) as GScreenContainer
+        this.container = screenContainer
         // Execute this after everything has been initialized. At this point, context is guaranteed to be non null.
-        initContent(activity, fragmentLayout.findViewById(R.id.container) as GScreenContainer)
+        initContent(activity, screenContainer)
 
         return fragmentLayout
     }
 
     open protected fun initContent(activity: GActivity, container: GScreenContainer) {
         // To be overridden
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        firstVisit = true
-
-//        initRefreshView(SwipeRefreshLayout.OnRefreshListener { this@GFragment.onRefresh() })
     }
 
     override fun onStart() {
@@ -137,14 +119,9 @@ open class GFragment : Fragment(), GContainer {
 //
 //    }
 
-    protected fun disableRefreshPull() {
-        refreshView!!.isEnabled = false
+    protected fun enableRefreshPull() {
+        refreshView.isEnabled = true
     }
-
-//    fun initRefreshView(listener: SwipeRefreshLayout.OnRefreshListener) {
-//        val refreshLayout = refreshView
-//        refreshLayout?.setOnRefreshListener(listener)
-//    }
 
     protected open fun onRefresh() {
         indicator.hideProgress()

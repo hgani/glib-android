@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.gani.lib.ui.view.GScrollView
-import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 
-class GScrollPanel: GScrollView<GScrollPanel>, IView {
+class GScrollPanel: GScrollView<GScrollPanel> {
     private var helper = ViewHelper(this)
     private val contentView = GVerticalPanel(context)
 
@@ -32,7 +31,7 @@ class GScrollPanel: GScrollView<GScrollPanel>, IView {
         return self()
     }
 
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): IView {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GScrollPanel {
         helper.margin(l, t, r, b)
         return self()
     }

@@ -107,4 +107,9 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, IView {
         addView(child)
         return self()
     }
+
+    fun id(id: Int): T {
+        this.id = id
+        return self()
+    }
 }

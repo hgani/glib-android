@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.gani.lib.utils.Res;
 
 public class TabHelper {
-  private FragmentActivity activity;
+//  private FragmentActivity activity;
   private TabHost tabs;
 
   public TabHelper(FragmentActivity activity, TabHost tabs) {
-    this.activity = activity;
+//    this.activity = activity;
     this.tabs = tabs;
   }
 

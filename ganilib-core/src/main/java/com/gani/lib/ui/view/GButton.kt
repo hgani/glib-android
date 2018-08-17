@@ -14,7 +14,7 @@ import android.view.View.OnClickListener
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
-class GButton<T : GButton<T>> : AppCompatButton {
+class GButton<T : GButton<T>> : AppCompatButton, IView {
     private var helper: ViewHelper = ViewHelper(this)
 
     private var customClickSound: MediaPlayer? = null
@@ -159,12 +159,12 @@ class GButton<T : GButton<T>> : AppCompatButton {
 //        return self()
 //    }
 
-    fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    fun margins(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.margin(l, t, r, b)
         return self()
     }

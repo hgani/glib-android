@@ -3,16 +3,22 @@ package com.gani.lib.ui.json
 import com.gani.lib.json.GJson
 import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
+import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.json.views.panels.VerticalV1
 import com.gani.lib.ui.panel.GVerticalPanel
-import kotlinx.android.synthetic.main.common_fragment.*
 
 class JsonUi {
     companion object {
-        fun parse(spec: GJson, screen: GActivity) {
-            initVerticalPanel(screen.container.header, spec["header"], screen)
-            initVerticalPanel(screen.container.content, spec["content"], screen)
-            initVerticalPanel(screen.container.footer, spec["footer"], screen)
+        fun parse(spec: GJson, fragment: GFragment) {
+            val screen = fragment.gActivity
+            val container = fragment.container
+            if (screen == null || container == null) {
+                return
+            }
+
+            initVerticalPanel(container.header, spec["header"], screen)
+            initVerticalPanel(container.content, spec["content"], screen)
+            initVerticalPanel(container.footer, spec["footer"], screen)
             JsonAction.executeAll(spec["onLoad"], screen)
         }
 

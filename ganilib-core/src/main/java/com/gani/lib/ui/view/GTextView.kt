@@ -13,20 +13,11 @@ import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
 
-open class GTextView : AppCompatTextView {
-    private var helper: ViewHelper = ViewHelper(this)
+open class GTextView : AppCompatTextView, IView {
+    private val helper: ViewHelper = ViewHelper(this)
 
-    constructor(context: Context) : super(context) {
-//        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-//        init()
-    }
-
-//    private fun init() {
-//        this.helper = ViewHelper(this)
-//    }
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private fun self(): GTextView {
         return this
@@ -96,12 +87,12 @@ open class GTextView : AppCompatTextView {
         return self()
     }
 
-    fun paddings(l: Int?, t: Int?, r: Int?, b: Int?): GTextView {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GTextView {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    fun margins(l: Int?, t: Int?, r: Int?, b: Int?): GTextView {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GTextView {
         helper.margin(l, t, r, b)
         return self()
     }

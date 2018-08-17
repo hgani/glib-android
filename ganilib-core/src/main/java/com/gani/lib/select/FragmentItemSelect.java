@@ -33,9 +33,9 @@ public abstract class FragmentItemSelect<I extends SelectableItem, T extends Sel
   private View onCreateView(LayoutInflater inflater, int layoutId, Bundle savedInstanceState) {
     View fragmentLayout = inflater.inflate(layoutId, null);
 
-    selectedTab = tabHelper.initView(savedInstanceState, getActivity(),
-        (TabHost) fragmentLayout.findViewById(R.id.tabhost),
-        inflater.inflate(R.layout.tabcontent_common_list, null));
+//    selectedTab = tabHelper.initView(savedInstanceState, getActivity(),
+//        (TabHost) fragmentLayout.findViewById(R.id.tabhost),
+//        inflater.inflate(R.layout.tabcontent_common_list, null));
     initTabsIn(inflater);
 
     return fragmentLayout;

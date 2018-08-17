@@ -4,62 +4,10 @@
                                               android:layout_width="match_parent"
                                               android:layout_height="wrap_content">
 
-  <!--
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fillViewport="true">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/alert_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
-        <TextView
-            android:id="@+id/alert_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/alert_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-      </LinearLayout>
-
-      <com.gani.lib.ui.layout.GLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/content_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-      </com.gani.lib.ui.layout.GLinearLayout>
-
-    </LinearLayout>
-
-  </ScrollView>
-
-  <com.gani.lib.ui.layout.GLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        android:id="@+id/content_layout"
+  <com.gani.lib.screen.GScreenContainer xmlns:android="http://schemas.android.com/apk/res/android"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
-  </com.gani.lib.ui.layout.GLinearLayout>
-
-  <com.gani.lib.ui.panel.GHamburgerPanel android:layout_width="match_parent"
-                                         android:layout_height="match_parent"
-                                         android:id="@+id/container">
-
-  </com.gani.lib.ui.panel.GHamburgerPanel>
-  -->
-
-  <com.gani.lib.screen.GScreenContainer android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:id="@+id/container">
   </com.gani.lib.screen.GScreenContainer>
+
 </android.support.v4.widget.SwipeRefreshLayout>
