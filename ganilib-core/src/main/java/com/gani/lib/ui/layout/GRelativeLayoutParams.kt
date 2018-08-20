@@ -34,4 +34,12 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(LinearLayout.LayoutPara
     fun centerVertical() {
         addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
     }
+
+    fun alignParentStart() {
+        addRule(RelativeLayout.ALIGN_PARENT_START)
+    }
+
+    fun alignParentEnd() {
+        addRule(RelativeLayout.ALIGN_PARENT_END)
+    }
 }

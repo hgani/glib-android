@@ -20,6 +20,11 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
         return this as T
     }
 
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): T {
+        helper.relative(addRules)
+        return self()
+    }
+
     fun width(width: Int?): T {
         helper.width(width)
         return self()

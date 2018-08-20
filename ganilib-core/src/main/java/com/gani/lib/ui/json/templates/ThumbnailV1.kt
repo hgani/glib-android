@@ -24,8 +24,8 @@ class ThumbnailV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
                     JsonAction.executeAll(spec["onClick"], item.screen)
                 })
                 image.source(url = spec["imageUrl"].stringValue)
-                name.text(spec["title"].stringValue)
-                description.text(spec["subtitle"].stringValue)
+                title.text(spec["title"].stringValue)
+                subtitle.text(spec["subtitle"].stringValue)
             }
         }
     }
