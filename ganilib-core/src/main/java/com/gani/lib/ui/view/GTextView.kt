@@ -23,13 +23,11 @@ open class GTextView : AppCompatTextView, IView {
         return this
     }
 
-//    fun relative(): GRelativeLayoutParams<T> {
-//        return helper.relative(self())
-//    }
-
-    fun spec(spec: Spec): GTextView {
-        spec.decorate(this)
-        return this
+    fun specs(vararg specs: Spec): GTextView {
+        for (spec in specs) {
+            spec.decorate(this)
+        }
+        return self()
     }
 
     fun width(width: Int?): GTextView {
@@ -154,7 +152,7 @@ open class GTextView : AppCompatTextView, IView {
     //  EnumSet<FileAccess> readWrite = EnumSet.of(FileAccess.Read, FileAccess.Write);
 
 
-    open class Spec {
+    open class Spec(val decorator: (GTextView) -> Unit) {
         companion object {
             val cellTitle = GTextView.Spec() { view ->
                 view.textSize(18f).bold()
@@ -163,12 +161,6 @@ open class GTextView : AppCompatTextView, IView {
             val cellSubtitle = GTextView.Spec() { view ->
                 view.textSize(16f)
             }
-        }
-
-        private val decorator: (GTextView) -> Unit
-
-        constructor(decorator: (GTextView) -> Unit ) {
-            this.decorator = decorator
         }
 
         fun decorate(view: GTextView) {

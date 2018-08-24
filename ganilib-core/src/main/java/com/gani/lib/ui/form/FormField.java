@@ -23,7 +23,7 @@ public abstract class FormField extends GLinearLayout<FormField> {
     setGravity(Gravity.CENTER_VERTICAL);
     width(ViewGroup.LayoutParams.MATCH_PARENT).padding(0, 10, 0, 10);
 
-    this.label = createLabel(context).spec(labelSpec);
+    this.label = createLabel(context).specs(labelSpec);
     this.editView = createEditView(context);
 
     GLinearLayout editLayout = new GVerticalPanel(context);

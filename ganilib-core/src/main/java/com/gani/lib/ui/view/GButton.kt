@@ -46,8 +46,10 @@ class GButton : AppCompatButton, IView {
         return self()
     }
 
-    fun spec(spec: Spec): GButton {
-        spec.init(this)
+    fun specs(vararg specs: Spec): GButton {
+        for (spec in specs) {
+            spec.decorate(this)
+        }
         return self()
     }
 
@@ -197,7 +199,10 @@ class GButton : AppCompatButton, IView {
     }
 
 
-    interface Spec {
-        fun init(button: GButton)
+
+    open class Spec(val decorator: (GButton) -> Unit) {
+        fun decorate(view: GButton) {
+            decorator(view)
+        }
     }
 }

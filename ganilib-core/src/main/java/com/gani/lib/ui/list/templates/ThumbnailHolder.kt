@@ -10,8 +10,8 @@ import com.gani.lib.ui.view.GTextView
 
 abstract class ThumbnailHolder<DO>(context: Context, selectable: Boolean) : DtoBindingHolder<DO>(context, selectable) {
     val image = GImageView(context).height(100).width(100)
-    val title = GTextView(context).spec(GTextView.Spec.cellTitle)
-    val subtitle = GTextView(context).spec(GTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
+    val title = GTextView(context).specs(GTextView.Spec.cellTitle)
+    val subtitle = GTextView(context).specs(GTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
 
     init {
         container
