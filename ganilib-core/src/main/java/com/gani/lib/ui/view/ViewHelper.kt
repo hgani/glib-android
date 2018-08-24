@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import com.gani.lib.logging.GLog
 import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
@@ -31,10 +30,10 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
         addRules(params)
     }
 
-    fun alignParentRight() {
-        val params = view.layoutParams as RelativeLayout.LayoutParams
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-    }
+//    fun alignParentRight() {
+//        val params = view.layoutParams as RelativeLayout.LayoutParams
+//        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+//    }
 
     private fun size(width: Int?, height: Int?) {
         val params = view.layoutParams
@@ -61,6 +60,14 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
 
     fun height(height: Int?) {
         size(null, height)
+    }
+
+    fun weight(weight: Float) {
+        val params = view.layoutParams
+        if (params is LinearLayout.LayoutParams) {
+            params.weight = weight
+        }
+        view.layoutParams = params
     }
 
     fun padding(left: Int?, top: Int?, right: Int?, bottom: Int?) {

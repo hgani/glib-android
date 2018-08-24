@@ -97,6 +97,20 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return int ?: 0
         }
 
+    val double: Double?
+        get() {
+            try {
+                return stringValue.toDouble()
+            } catch (e: NumberFormatException) {
+                return null
+            }
+        }
+
+    val doubleValue: Double
+        get() {
+            return double ?: 0.0
+        }
+
     val bool: Boolean?
         get() {
             if (stringValue.equals("true", ignoreCase = true)) {

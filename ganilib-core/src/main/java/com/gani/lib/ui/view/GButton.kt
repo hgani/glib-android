@@ -14,7 +14,7 @@ import android.view.View.OnClickListener
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
-class GButton<T : GButton<T>> : AppCompatButton, IView {
+class GButton : AppCompatButton, IView {
     private var helper: ViewHelper = ViewHelper(this)
 
     private var customClickSound: MediaPlayer? = null
@@ -27,42 +27,43 @@ class GButton<T : GButton<T>> : AppCompatButton, IView {
         init()
     }
 
-//    fun relative(): GRelativeLayoutParams<T> {
-//        return helper.relative(self())
-//    }
-
     private fun init() {
         this.helper = ViewHelper(this)
     }
 
-    fun width(width: Int?): T {
+    fun width(width: Int): GButton {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    fun height(height: Int): GButton {
         helper.height(height)
         return self()
     }
 
-    fun spec(spec: Spec): T {
+    fun weight(weight: Float): GButton {
+        helper.weight(weight)
+        return self()
+    }
+
+    fun spec(spec: Spec): GButton {
         spec.init(this)
         return self()
     }
 
-    fun bgTint(color: Int): T {
+    fun bgTint(color: Int): GButton {
         // Alternative implementation: http://stackoverflow.com/questions/1521640/standard-android-button-with-a-different-color
         background.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
         //    ViewCompat.setBackgroundTintList(this, ContextCompat.getColorStateList(getContext(), colorResId));
         return self()
     }
 
-    fun bgColor(code: String): T {
+    fun bgColor(code: String): GButton {
         return bgColor(Res.color(code), 0)
     }
 
     @JvmOverloads
-    fun bgColor(color: Int, cornerRadius: Int = 0): T {
+    fun bgColor(color: Int, cornerRadius: Int = 0): GButton {
         val drawable = GradientDrawable()
         drawable.setColor(color)
         drawable.cornerRadius = cornerRadius.toFloat()
@@ -71,7 +72,7 @@ class GButton<T : GButton<T>> : AppCompatButton, IView {
     }
 
     // Can't be used before setting bgColor()
-    fun borders(color: Int, thickness: Int, cornerRadius: Int): T {
+    fun borders(color: Int, thickness: Int, cornerRadius: Int): GButton {
         val borderColorDrawable = GradientDrawable()
         borderColorDrawable.cornerRadius = Length.dpToPx(cornerRadius).toFloat()
         borderColorDrawable.setStroke(Length.dpToPx(thickness), color)
@@ -105,73 +106,53 @@ class GButton<T : GButton<T>> : AppCompatButton, IView {
     //    return self();
     //  }
 
-    fun color(code: String): T {
+    fun color(code: String): GButton {
         color(Res.color(code))
         return self()
     }
 
-    fun color(color: Int): T {
+    fun color(color: Int): GButton {
         setTextColor(color)
         return self()
     }
 
-    fun text(text: String): T {
+    fun text(text: String): GButton {
         setText(text)
         return self()
     }
 
-    fun textSize(textSize: Float): T {
+    fun textSize(textSize: Float): GButton {
         setTextSize(textSize)
         return self()
     }
 
-    fun bold(): T {
+    fun bold(): GButton {
         return typeface(Typeface.DEFAULT_BOLD)
     }
 
-    fun typeface(typeface: Typeface): T {
+    fun typeface(typeface: Typeface): GButton {
         setTypeface(typeface)
         return self()
     }
 
-    fun gravity(alignment: Int): T {
+    fun gravity(alignment: Int): GButton {
         gravity = alignment
         return self()
     }
 
-//    override fun paddings(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-//        helper.padding(left, top, right, bottom)
-//        return self()
-//    }
-//
-//    override fun margins(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-//        helper.margin(left, top, right, bottom)
-//        return self()
-//    }
-//
-//    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
-//        helper.padding(l, t, r, b)
-//        return self()
-//    }
-//
-//    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
-//        helper.margin(l, t, r, b)
-//        return self()
-//    }
-
-    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
         helper.margin(l, t, r, b)
         return self()
     }
 
 
 
-    fun onClick(listener: View.OnClickListener): T {
+    fun onClick(listener: View.OnClickListener): GButton {
         if (customClickSound == null) {
             helper.click(listener)
         } else {
@@ -183,7 +164,7 @@ class GButton<T : GButton<T>> : AppCompatButton, IView {
         return self()
     }
 
-    fun sound(customClickSound: MediaPlayer): T {
+    fun sound(customClickSound: MediaPlayer): GButton {
         this.customClickSound = customClickSound
         //        int maxVolume = 10;
         //        mp.setVolume();
@@ -199,24 +180,24 @@ class GButton<T : GButton<T>> : AppCompatButton, IView {
     //    return (RelativeLayout.LayoutParams) super.getLayoutParams();
     //  }
 
-    private fun self(): T {
-        return this as T
+    private fun self(): GButton {
+        return this
     }
 
-    fun alignParentRight(): T {
-        //    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getLayoutParams();
-        //    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        helper.alignParentRight()
-        return self()
-    }
+//    fun alignParentRight(): T {
+//        //    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getLayoutParams();
+//        //    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//        helper.alignParentRight()
+//        return self()
+//    }
 
-    fun compoundDrawables(left: Drawable, top: Drawable, right: Drawable, bottom: Drawable): T {
+    fun compoundDrawables(left: Drawable, top: Drawable, right: Drawable, bottom: Drawable): GButton {
         setCompoundDrawables(left, top, right, bottom)
         return self()
     }
 
 
     interface Spec {
-        fun init(button: GButton<*>)
+        fun init(button: GButton)
     }
 }

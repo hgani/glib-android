@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 abstract class IScreenView(activity: GActivity) : FrameLayout(activity) {
     abstract val toolbar: Toolbar?
 
-    internal abstract fun initNavigation(topNavigation: Boolean, actionBar: ActionBar?)
+    internal abstract fun initNavigation(topNavigation: Boolean, actionBar: ActionBar)
     abstract fun setBody(resId: Int)
     abstract fun openDrawer()
 }

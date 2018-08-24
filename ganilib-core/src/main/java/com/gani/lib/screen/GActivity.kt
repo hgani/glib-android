@@ -20,15 +20,15 @@ import java.io.Serializable
 import kotlin.reflect.KClass
 
 open class GActivity : AppCompatActivity(), GContainer {
-    public val launch = LaunchHelper(context)
+    val launch = LaunchHelper(context)
 
     private var container: IScreenView? = null
     private var topNavigation = false
     override val gActivity: GActivity
         get() = this
 
-    val navBar: ActionBar?
-        get() = supportActionBar
+    val navBar: ActionBar
+        get() = supportActionBar!!  // It should exist because setSupportActionBar() should have been called
 
 //    protected val trackingSpec: TrackingSpec
 //        get() = TrackingSpec.DO_NOTHING
@@ -100,7 +100,7 @@ open class GActivity : AppCompatActivity(), GContainer {
             override val toolbar: Toolbar?
                 get() = null  // Not applicable to dialog
 
-            override fun initNavigation(topNavigation: Boolean, actionBar: ActionBar?) {
+            override fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
                 // Not applicable to dialog
             }
 
@@ -162,7 +162,7 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     private fun setContent(resId: Int) {
-        container!!.initNavigation(topNavigation, supportActionBar)
+        container!!.initNavigation(topNavigation, navBar)
         container!!.setBody(resId)
     }
 
@@ -221,7 +221,7 @@ open class GActivity : AppCompatActivity(), GContainer {
     ///// Fragment management /////
 
     private fun setFragment(fragment: GFragment, savedInstanceState: Bundle?) {
-        container!!.initNavigation(topNavigation!!, supportActionBar)
+        container!!.initNavigation(topNavigation!!, navBar)
 
         if (savedInstanceState == null) {  // During initial setup, plug in the fragment
             fragment.arguments = intent.extras

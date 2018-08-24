@@ -44,7 +44,10 @@ class GImageView : AppCompatImageView, IView {
 
     fun source(url: String?): GImageView {
         if (url != null) {
-            Glide.with(context.applicationContext) //using application context prevents app crash when closing activity during image load
+//            Glide.with(context.applicationContext)  // Using application context prevents app crash when closing activity during image load
+//                    .load(url)
+//                    .into(this)
+            Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load
                     .load(url)
                     .into(this)
         }

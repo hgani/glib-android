@@ -4,36 +4,39 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-import android.os.Build
 import com.gani.lib.R
 import com.gani.lib.ui.style.Length
+import com.gani.lib.utils.Res
 
 internal class NavigationHomeBadge(private val screenView: GScreenView) {
     private val context: Context
     internal val drawable: LayerDrawable
 
+//    internal val drawable: LayerDrawable
+
     init {
         this.context = screenView.context
+        this.drawable = Res.drawable(R.drawable.action_bar_home_drawable) as LayerDrawable
 
-        // Gets the drawable layerlist that has the navigation view and the badger
-        drawable = (if (Build.VERSION.SDK_INT >= 21)
-            context.applicationContext.getDrawable(R.drawable.action_bar_home_drawable)
-        else
-            context.resources.getDrawable(R.drawable.action_bar_home_drawable)) as LayerDrawable
+//        // Gets the drawable layerlist that has the navigation view and the badger
+//        drawable = (if (Build.VERSION.SDK_INT >= 21)
+//            context.applicationContext.getDrawable(R.drawable.action_bar_home_drawable)
+//        else
+//            context.resources.getDrawable(R.drawable.action_bar_home_drawable)) as LayerDrawable
 
         setCount(0)
     }
 
-    fun getDrawable(): Drawable {
-        return drawable
-    }
+//    fun getDrawable(): Drawable {
+//        return drawable
+//    }
 
     fun setCount(count: Int) {
         val badge: BadgeDrawable
 
         val icon = screenView.menuIcon()
         if (icon != null) {
-            val actionBarIcon = icon.drawable().sizeDp(24)
+            val actionBarIcon = icon
 
             // Experiment with not reusing and see if it causes any issue
             badge = BadgeDrawable(context)

@@ -1,6 +1,7 @@
 package com.gani.lib.screen
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -19,15 +20,16 @@ open class GScreenView(private val activity: GActivity) : IScreenView(activity) 
     private var selectedItem: MenuItem? = null
     private var navMenu: NavigationMenu? = null
     private val badge: NavigationHomeBadge
-    override val toolbar: Toolbar?
-        get() = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
+//    override val toolbar: Toolbar
+//        get() = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
+    override final val toolbar: Toolbar
 
     init {
-
         this.layout = LayoutInflater.from(context).inflate(R.layout.view_screen, this) as ViewGroup
         this.body = layout.findViewById<View>(R.id.screen_body) as ViewGroup
         this.drawer = findViewById<View>(R.id.screen_drawer) as DrawerLayout
         this.badge = NavigationHomeBadge(this)
+        this.toolbar = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
     }
 
     override fun openDrawer() {
@@ -44,11 +46,11 @@ open class GScreenView(private val activity: GActivity) : IScreenView(activity) 
 
     ///// Navigation /////
 
-    override public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar?) {
+    override public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
         val drawer = drawer
         val navView = drawer.findViewById<View>(R.id.view_navigation) as NavigationView
 
-        this.navMenu = NavigationMenu(navView.menu, actionBar!!)
+        this.navMenu = NavigationMenu(navView.menu, actionBar)
 
         if (topNavigation) {
             val icon = menuIcon()
@@ -65,7 +67,7 @@ open class GScreenView(private val activity: GActivity) : IScreenView(activity) 
         badge.setCount(count)
     }
 
-    open fun menuIcon(): GIcon? {
+    open fun menuIcon(): Drawable? {
         return null
     }
 

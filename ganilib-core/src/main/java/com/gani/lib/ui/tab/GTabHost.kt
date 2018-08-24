@@ -35,9 +35,9 @@ open class GTabHost : FragmentTabHost {
         return tabWidget
     }
 
-    private fun initView(scroll: Boolean) {
+    private fun initView(scroll: Boolean, tabWidget: GTabWidget) {
         val container = GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(widgetView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll))
+        container.addView(widgetView(tabWidget.width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll))
 
         container.addView(GFramePanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent))
         addView(container)
@@ -47,8 +47,8 @@ open class GTabHost : FragmentTabHost {
         return this
     }
 
-    fun setup(fragmentManager: FragmentManager?, scroll: Boolean): GTabHost {
-        initView(scroll)
+    fun setup(fragmentManager: FragmentManager?, scroll: Boolean, tabWidget: GTabWidget): GTabHost {
+        initView(scroll, tabWidget)
         super.setup(context, fragmentManager, android.R.id.tabcontent)
         return self()
     }
