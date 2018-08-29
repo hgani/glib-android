@@ -24,11 +24,9 @@ class GApp {
             return DEFAULT_GSON
         }
     }
-    
+
     lateinit var version: String
         private set
-//    lateinit var deviceId: String
-//        private set
 
     // NOTE: Make sure the handler is created in UI thread.
     fun initialize(context: Context, handler: Handler) {
@@ -36,7 +34,6 @@ class GApp {
         Ui.init(handler);
 
         this.version = extractAppVersionName(context)
-//        this.deviceId = extractDeviceId()
     }
 
     fun notificationIconRes(): Int {

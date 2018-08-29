@@ -1,11 +1,15 @@
 package com.gani.lib.ui.json
 
+import android.content.Context
 import com.gani.lib.json.GJson
 import com.gani.lib.json.GJsonObject
 import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
 
 abstract class JsonAction(val spec: GJson, val screen: GActivity) {
+    val context: Context
+        get() = screen.context
+
     fun execute() {
         if (!silentExecute()) {
             GLog.w(javaClass, "Invalid action spec: $spec")

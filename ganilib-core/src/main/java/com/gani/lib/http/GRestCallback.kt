@@ -1,18 +1,16 @@
 package com.gani.lib.http
 
-import android.content.Context
-import com.gani.lib.logging.GLog
 import com.gani.lib.notification.Toast
 import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.ProgressIndicator
 
 
-abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GHttpError<*>>(// To be used by child.
-        protected val context: Context, private val indicator: ProgressIndicator) : GHttpCallback<HR, HE> {
+abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GHttpError<*>>(  // To be used by child.
+        private val indicator: ProgressIndicator) : GHttpCallback<HR, HE> {
 //    private var async: Boolean = false
 
 //    constructor(fragment: GFragment) : this(fragment.context, fragment.indicator) {}
-    constructor(fragment: GFragment) : this(fragment.context!!, fragment.indicator) {}
+    constructor(fragment: GFragment) : this(fragment.indicator) {}
 
 //    constructor(dialog: GDialogProgress) : this(dialog, dialog) {}
 
@@ -69,12 +67,11 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
 //    }
 
     fun onBeforeHttp() {
-        GLog.t(javaClass, "SHOW PROGRESS1")
         indicator.showProgress()
     }
 
-    open protected fun onRestResponse(r: RR) {
-        displayMessage(r)
+    open protected fun onRestResponse(response: RR) {
+        displayMessage(response)
     }
 
     protected fun doFinally() {
@@ -94,9 +91,7 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
     }
 
     open class Default : GRestCallback<GHttpResponse.Default, GRestResponse, GHttpError.Default> {
-//        constructor(context: Context, indicator: ProgressIndicator) : super(context, indicator) {}
-
+        constructor(indicator: ProgressIndicator) : super(indicator) {}
         constructor(fragment: GFragment) : super(fragment) {}
     }
-
 }

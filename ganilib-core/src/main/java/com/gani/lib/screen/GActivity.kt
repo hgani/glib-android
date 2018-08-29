@@ -92,11 +92,14 @@ open class GActivity : AppCompatActivity(), GContainer {
         setSupportActionBar(container.toolbar)
     }
 
-    // TODO: Potentially not needed anymore. We should probably use dialog fragment.
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
         initOnCreate()
         this.container = object : IScreenView(this) {
+//            private val layout: ViewGroup = LayoutInflater.from(context).inflate(R.layout.view_screen, this) as ViewGroup
+
+            init {
+                LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, this)
+            }
             override val toolbar: Toolbar?
                 get() = null  // Not applicable to dialog
 
@@ -221,8 +224,6 @@ open class GActivity : AppCompatActivity(), GContainer {
     ///// Fragment management /////
 
     private fun setFragment(fragment: GFragment, savedInstanceState: Bundle?) {
-        container!!.initNavigation(topNavigation!!, navBar)
-
         if (savedInstanceState == null) {  // During initial setup, plug in the fragment
             fragment.arguments = intent.extras
             // R.id.screen_body has to be unique or else we might be attaching the fragment to the wrong view
@@ -230,7 +231,7 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
     }
 
-    fun setFragmentWithoutToolbar(fragment: GFragment?, savedInstanceState: Bundle) {
+    fun setFragmentWithoutToolbar(fragment: GFragment?, savedInstanceState: Bundle?) {
         this.topNavigation = false
         if (fragment != null) {
             setFragment(fragment, savedInstanceState)
@@ -243,6 +244,7 @@ open class GActivity : AppCompatActivity(), GContainer {
             setFragment(fragment, savedInstanceState)
         }
 
+        container!!.initNavigation(topNavigation!!, navBar)
         val toolbar = container!!.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
