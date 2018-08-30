@@ -79,7 +79,7 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
     }
 
     companion object {
-        fun displayMessage(r: GRestResponse): Boolean {
+        private fun displayMessage(r: GRestResponse): Boolean {
             val restData = r.result
             val message = restData["message"].string
             if (message != null) {

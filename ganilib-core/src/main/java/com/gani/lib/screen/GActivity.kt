@@ -22,7 +22,8 @@ import kotlin.reflect.KClass
 open class GActivity : AppCompatActivity(), GContainer {
     val launch = LaunchHelper(context)
 
-    private var container: IScreenView? = null
+    private lateinit var container: IScreenView
+
     private var topNavigation = false
     override val gActivity: GActivity
         get() = this
@@ -60,43 +61,12 @@ open class GActivity : AppCompatActivity(), GContainer {
             }
         }
 
-//    // This is a last resort indicator that should be used only when at the time, there's no better simple solution.
-//    val genericProgressIndicator: ProgressIndicator
-//        get() {
-//            val indicator = findViewById<View>(R.id.progress_common)
-//            return object : ProgressIndicator {
-//                override fun showProgress() {
-//                    indicator.visibility = View.VISIBLE
-//                }
-//
-//                override fun hideProgress() {
-//                    indicator.visibility = View.GONE
-//                }
-//            }
-//        }
-
     private fun initOnCreate() {
-        val intent = intent
         intent.extras?.let {
             this.args = GBundle(it)
         }
-//        this.arguments = if (intent.extras == null) Bundle() else intent.extras  // Intent may not contain extras
-    }
 
-    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: GScreenView) {
-//        super.onCreate(savedInstanceState)
-        initOnCreate()
-        this.container = container
-
-        super.setContentView(container)
-        setSupportActionBar(container.toolbar)
-    }
-
-    protected fun onCreateForDialog(savedInstanceState: Bundle?) {
-        initOnCreate()
-        this.container = object : IScreenView(this) {
-//            private val layout: ViewGroup = LayoutInflater.from(context).inflate(R.layout.view_screen, this) as ViewGroup
-
+        container = object : IScreenView(this) {
             init {
                 LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, this)
             }
@@ -115,6 +85,38 @@ open class GActivity : AppCompatActivity(), GContainer {
                 // Not applicable to dialog
             }
         }
+    }
+
+    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: GScreenView) {
+//        super.onCreate(savedInstanceState)
+        initOnCreate()
+        this.container = container
+
+        super.setContentView(container)
+        setSupportActionBar(container.toolbar)
+    }
+
+    protected fun onCreateForDialog(savedInstanceState: Bundle?) {
+        initOnCreate()
+//        this.container = object : IScreenView(this) {
+//            init {
+//                LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, this)
+//            }
+//            override val toolbar: Toolbar?
+//                get() = null  // Not applicable to dialog
+//
+//            override fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
+//                // Not applicable to dialog
+//            }
+//
+//            override fun setBody(resId: Int) {
+//                LayoutInflater.from(context).inflate(resId, this)
+//            }
+//
+//            override fun openDrawer() {
+//                // Not applicable to dialog
+//            }
+//        }
         super.setContentView(container)
     }
 
@@ -165,15 +167,15 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     private fun setContent(resId: Int) {
-        container!!.initNavigation(topNavigation, navBar)
-        container!!.setBody(resId)
+        container.initNavigation(topNavigation, navBar)
+        container.setBody(resId)
     }
 
     fun setContentWithToolbar(resId: Int, topNavigation: Boolean) {
         this.topNavigation = topNavigation
         setContent(resId)
 
-        val toolbar = container!!.toolbar
+        val toolbar = container.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
         }
@@ -244,8 +246,8 @@ open class GActivity : AppCompatActivity(), GContainer {
             setFragment(fragment, savedInstanceState)
         }
 
-        container!!.initNavigation(topNavigation!!, navBar)
-        val toolbar = container!!.toolbar
+        container.initNavigation(topNavigation, navBar)
+        val toolbar = container.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
         }
@@ -299,8 +301,8 @@ open class GActivity : AppCompatActivity(), GContainer {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (topNavigation!!) {
-                    container!!.openDrawer()
+                if (topNavigation) {
+                    container.openDrawer()
                 } else {
                     onBackPressed()  // Going up is more similar to onBackPressed() than finish(), esp becoz the former can have pre-finish check
                 }

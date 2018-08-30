@@ -9,16 +9,18 @@ import com.gani.lib.ui.panel.GVerticalPanel
 
 class JsonUi {
     companion object {
-        fun parse(spec: GJson, fragment: GFragment) {
+        fun parse(spec: GJson, fragment: GFragment, isScreen: Boolean = true) {
             val screen = fragment.gActivity
             val container = fragment.container
             if (screen == null || container == null) {
                 return
             }
 
-            initVerticalPanel(container.header, spec["header"], screen)
-            initVerticalPanel(container.content, spec["content"], screen)
-            initVerticalPanel(container.footer, spec["footer"], screen)
+            if (isScreen) {
+                initVerticalPanel(container.header, spec["header"], screen)
+                initVerticalPanel(container.content, spec["content"], screen)
+                initVerticalPanel(container.footer, spec["footer"], screen)
+            }
             JsonAction.executeAll(spec["onLoad"], screen)
         }
 

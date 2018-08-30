@@ -10,7 +10,6 @@ import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.ui.menu.GMenu
 
 open class GFragment : Fragment(), GContainer {
-//    private var rawArgs = Bundle()
     private var firstVisit: Boolean = false
 
     override val gActivity: GActivity?
@@ -42,9 +41,10 @@ open class GFragment : Fragment(), GContainer {
         getArguments()?.let { this.args = GBundle(it) }
     }
 
-//    protected fun args(): GBundle {
-//        return GBundle(rawArgs)
-//    }
+    fun withArgs(args: GBundle) : GFragment {
+        this.arguments = args.native
+        return this
+    }
 
 //    protected fun jsonArgs(): GJson {
 //        return GJsonBundle(rawArgs).json
@@ -98,33 +98,6 @@ open class GFragment : Fragment(), GContainer {
         // To be overridden.
     }
 
-
-//    ///// Pull to refresh /////
-//    // NOTE:
-//    // - Implement this in Fragment instead of Activity to ensure it works well on dual panel
-//    // - These methods can only be called when view has been initialized, e.g. in onActivityCreated()
-//
-//    override fun showProgress() {
-//        // Use post() so that this works when called from onCreateForScreen(), which is a common scenario (i.e. auto-populating list view)
-//        // See http://www.androidhive.info/2015/05/android-swipe-down-to-refresh-listview-tutorial/
-//        if (refreshView != null) {
-//            refreshView!!.post {
-//                if (view != null) {  // Still on-screen
-//                    refreshView!!.isRefreshing = true
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun hideProgress() {
-//        try {
-//            refreshView!!.isRefreshing = false
-//        } catch (e: NullPointerException) {
-//            // Might happen when screen has been closed.
-//        }
-//
-//    }
-
     protected fun enableRefreshPull() {
         refreshView.isEnabled = true
     }
@@ -148,6 +121,4 @@ open class GFragment : Fragment(), GContainer {
 
         private val RESOURCE_INVALID = 0
     }
-
-    /////
 }

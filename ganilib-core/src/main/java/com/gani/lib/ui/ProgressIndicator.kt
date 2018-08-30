@@ -28,7 +28,10 @@ interface ProgressIndicator {
         }
 
         override fun hideProgress() {
-            view.isRefreshing = false
+            // Needed to work in GRestDialogProgress's ContentFragment
+            view.post {
+                view.isRefreshing = false
+            }
         }
     }
 }
