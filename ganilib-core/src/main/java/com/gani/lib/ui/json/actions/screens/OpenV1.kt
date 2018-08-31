@@ -50,7 +50,7 @@ class JsonUiScreen : GActivity() {
             val callback = object : GRestCallback.Default(this@ContentFragment) {
                 override fun onRestResponse(response: GRestResponse) {
                     super.onRestResponse(response)
-                    gActivity?.let { JsonUi.parse(response.result, this@ContentFragment) }
+                    JsonUi.parse(response.result, this@ContentFragment)
                 }
             }
             (args.single as? String)?.let {

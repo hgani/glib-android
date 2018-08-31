@@ -16,6 +16,7 @@ import com.gani.lib.logging.GLog
 import com.gani.lib.model.GBundle
 import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.utils.Res
+import org.json.JSONObject
 import java.io.Serializable
 import kotlin.reflect.KClass
 
@@ -225,14 +226,6 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     ///// Fragment management /////
 
-    private fun setFragment(fragment: GFragment, savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {  // During initial setup, plug in the fragment
-            fragment.arguments = intent.extras
-            // R.id.screen_body has to be unique or else we might be attaching the fragment to the wrong view
-            supportFragmentManager.beginTransaction().add(R.id.screen_body, fragment).commit()
-        }
-    }
-
     fun setFragmentWithoutToolbar(fragment: GFragment?, savedInstanceState: Bundle?) {
         this.topNavigation = false
         if (fragment != null) {
@@ -250,6 +243,14 @@ open class GActivity : AppCompatActivity(), GContainer {
         val toolbar = container.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setFragment(fragment: GFragment, savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {  // During initial setup, plug in the fragment
+            fragment.arguments = intent.extras
+            // R.id.screen_body has to be unique or else we might be attaching the fragment to the wrong view
+            supportFragmentManager.beginTransaction().add(R.id.screen_body, fragment).commit()
         }
     }
 

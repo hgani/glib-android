@@ -38,12 +38,7 @@ open class GFragment : Fragment(), GContainer {
         setHasOptionsMenu(true)
 
         // Arguments may be null if the containing screen doesn't have any extras to pass on.
-        getArguments()?.let { this.args = GBundle(it) }
-    }
-
-    fun withArgs(args: GBundle) : GFragment {
-        this.arguments = args.native
-        return this
+        arguments?.let { this.args = GBundle(it) }
     }
 
 //    protected fun jsonArgs(): GJson {

@@ -17,7 +17,7 @@ abstract class JsonTemplate(val spec: GJson, val screen: GActivity) {
 
     companion object {
         fun create(spec: GJson, screen: GActivity): JsonTemplate? {
-            val klass = JsonUi.loadClass(spec["template"].stringValue, JsonTemplate::class.java)
+            val klass = JsonUi.loadClass(spec["template"].stringValue, JsonTemplate::class.java, "templates")
             val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java)
             if (constructor != null) {
                 return constructor.newInstance(spec, screen)

@@ -20,7 +20,7 @@ abstract class JsonAction(val spec: GJson, val screen: GActivity) {
 
     companion object {
         private fun create(spec: GJson, screen: GActivity): JsonAction? {
-            val klass = JsonUi.loadClass(spec["action"].stringValue, JsonAction::class.java)
+            val klass = JsonUi.loadClass(spec["action"].stringValue, JsonAction::class.java, "actions")
             val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java)
             if (constructor != null) {
                 return constructor.newInstance(spec, screen)

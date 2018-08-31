@@ -12,7 +12,7 @@ import java.io.Serializable
 
 class GRestDialogProgress : GDialogProgress() {
     override fun createNewIntentFragment(): GFragment {
-        return ContentFragment().withArgs(args)
+        return ContentFragment()
     }
 
 

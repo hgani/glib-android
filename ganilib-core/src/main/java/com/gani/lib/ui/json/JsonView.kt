@@ -28,7 +28,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity) {
 
     companion object {
         fun create(spec: GJson, screen: GActivity): JsonView? {
-            val klass = JsonUi.loadClass(spec["view"].stringValue, JsonView::class.java)
+            val klass = JsonUi.loadClass(spec["view"].stringValue, JsonView::class.java, "views")
             val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java)
             if (constructor != null) {
                 return constructor.newInstance(spec, screen)
