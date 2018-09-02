@@ -5,7 +5,11 @@ import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.widget.TextView
+import com.gani.lib.R
+import com.gani.lib.logging.GLog
 import com.gani.lib.utils.Res
+
 
 class GEditText : AppCompatEditText, IView {
     private var helper = ViewHelper(this)
@@ -34,6 +38,17 @@ class GEditText : AppCompatEditText, IView {
     }
 
     private fun init() {
+        // See https://stackoverflow.com/questions/21397977/android-edit-text-cursor-is-not-visible
+        // See https://stackoverflow.com/questions/11554078/set-textcursordrawable-programmatically
+        try {
+            // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
+            val f = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            f.isAccessible = true
+            f.set(this, R.drawable.edit_text_cursor)
+        } catch (e: Exception) {
+            GLog.e(javaClass, "Failed setting cursor", e)
+        }
+
         addTextChangedListener(textWatcher)
     }
 
