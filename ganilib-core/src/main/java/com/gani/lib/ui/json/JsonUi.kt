@@ -16,9 +16,9 @@ class JsonUi {
                 return
             }
 
-            initVerticalPanel(container.header, spec["header"], screen)
-            initVerticalPanel(container.content, spec["content"], screen)
-            initVerticalPanel(container.footer, spec["footer"], screen)
+            initVerticalPanel(container.header, spec["header"], screen, fragment)
+            initVerticalPanel(container.content, spec["content"], screen, fragment)
+            initVerticalPanel(container.footer, spec["footer"], screen, fragment)
             JsonAction.executeAll(spec["onLoad"], screen)
         }
 
@@ -26,8 +26,8 @@ class JsonUi {
             JsonBgAction.executeAll(spec["onLoad"])
         }
 
-        private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity) {
-            VerticalV1(panel, spec, screen).createView()
+        private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
+            VerticalV1(panel, spec, screen, fragment).createView()
         }
 
         fun <T> loadClass(name: String, type: Class<T>, namespace: String): Class<T>? {
@@ -36,7 +36,7 @@ class JsonUi {
             val className = substrings.lastOrNull()?.replace("-v", "V")?.capitalize()
             val prefixedName = if (prefix.length > 0) "$prefix.$className" else className
             val qualifiedName = "com.gani.lib.ui.json.$namespace.$prefixedName"
-            GLog.i(JsonUi::class.java, "Loading $qualifiedName from $name")
+            GLog.d(JsonUi::class.java, "Loading $qualifiedName from $name")
             try {
                 return Class.forName(qualifiedName) as? Class<T>
             } catch (ex: Exception) {

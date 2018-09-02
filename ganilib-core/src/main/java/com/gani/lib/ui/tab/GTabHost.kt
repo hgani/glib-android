@@ -12,6 +12,7 @@ import com.gani.lib.R
 import com.gani.lib.json.GJson
 import com.gani.lib.model.GBundle
 import com.gani.lib.ui.panel.GFramePanel
+import com.gani.lib.ui.panel.GHorizontalPanel
 import com.gani.lib.ui.panel.GHorizontalScrollPanel
 import com.gani.lib.ui.panel.GVerticalPanel
 import com.gani.lib.ui.view.ViewHelper
@@ -26,7 +27,7 @@ open class GTabHost : FragmentTabHost {
 
     private fun widgetView(tabWidget: GTabWidget, scroll: Boolean): View {
         if (scroll) {
-            val scroller = GHorizontalScrollPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+            val scroller = GHorizontalScrollPanel(context)
             scroller.isHorizontalScrollBarEnabled = false
 //        scroller.isFillViewport = true
             scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
@@ -35,10 +36,9 @@ open class GTabHost : FragmentTabHost {
         return tabWidget
     }
 
-    private fun initView(scroll: Boolean, tabWidget: GTabWidget) {
+    private fun initView(scroll: Boolean, tabPanel: GHorizontalPanel) {
         val container = GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(widgetView(tabWidget.width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll))
-
+        container.addView(tabPanel.width(ViewGroup.LayoutParams.MATCH_PARENT).append(widgetView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll)))
         container.addView(GFramePanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent))
         addView(container)
     }
@@ -47,8 +47,8 @@ open class GTabHost : FragmentTabHost {
         return this
     }
 
-    fun setup(fragmentManager: FragmentManager?, scroll: Boolean, tabWidget: GTabWidget): GTabHost {
-        initView(scroll, tabWidget)
+    fun setup(fragmentManager: FragmentManager?, scroll: Boolean, tabPanel: GHorizontalPanel): GTabHost {
+        initView(scroll, tabPanel)
         super.setup(context, fragmentManager, android.R.id.tabcontent)
         return self()
     }

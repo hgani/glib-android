@@ -6,9 +6,10 @@ import com.gani.lib.json.GJson
 import com.gani.lib.json.GJsonObject
 import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
+import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.view.IView
 
-abstract class JsonView(val spec: GJson, val screen: GActivity) {
+abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GFragment) {
     val context: Context
         get() = screen.context
 
@@ -27,11 +28,11 @@ abstract class JsonView(val spec: GJson, val screen: GActivity) {
     abstract fun initView(): View
 
     companion object {
-        fun create(spec: GJson, screen: GActivity): JsonView? {
+        fun create(spec: GJson, screen: GActivity, fragment: GFragment): JsonView? {
             val klass = JsonUi.loadClass(spec["view"].stringValue, JsonView::class.java, "views")
-            val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java)
+            val constructor = klass?.getConstructor(GJsonObject::class.java, GActivity::class.java, GFragment::class.java)
             if (constructor != null) {
-                return constructor.newInstance(spec, screen)
+                return constructor.newInstance(spec, screen, fragment)
             }
             GLog.w(JsonView::class.java, "Failed loading view: $spec")
             return null

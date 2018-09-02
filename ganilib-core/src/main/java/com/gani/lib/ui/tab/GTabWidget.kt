@@ -2,15 +2,27 @@ package com.gani.lib.ui.tab
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.TabWidget
+import com.gani.lib.ui.panel.GHorizontalPanel
 import com.gani.lib.ui.view.ViewHelper
 import com.gani.lib.utils.Res
 
 open class GTabWidget : TabWidget {
     private val helper: ViewHelper = ViewHelper(this)
+    private val container = GHorizontalPanel(context)
 
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    private fun init() {
+        addView(container)
+    }
 
     private fun self(): GTabWidget {
         return this
@@ -50,6 +62,12 @@ open class GTabWidget : TabWidget {
         this.id = id
         return self()
     }
+
+    fun append(child: View): GTabWidget {
+        addView(child)
+        return self()
+    }
+
 
 //    fun onClick(listener: View.OnClickListener): GTabHost {
 //        helper.click(listener)
