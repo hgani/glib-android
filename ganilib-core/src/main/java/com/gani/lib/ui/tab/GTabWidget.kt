@@ -4,25 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TabWidget
-import com.gani.lib.ui.panel.GHorizontalPanel
 import com.gani.lib.ui.view.ViewHelper
 import com.gani.lib.utils.Res
 
 open class GTabWidget : TabWidget {
     private val helper: ViewHelper = ViewHelper(this)
-    private val container = GHorizontalPanel(context)
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
-
-    private fun init() {
-        addView(container)
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private fun self(): GTabWidget {
         return this
