@@ -23,6 +23,15 @@ object GLog {
         Log.w(cls.name, msg)
     }
 
+    fun i(cls: Class<*>, msg: String) {
+        if (msg.length > LOGCAT_CHAR_LIMIT) {
+            Log.i(cls.name, msg.substring(0, LOGCAT_CHAR_LIMIT))
+            i(cls, msg.substring(LOGCAT_CHAR_LIMIT))
+        } else {
+            Log.i(cls.name, msg)
+        }
+    }
+
     fun d(cls: Class<*>, msg: String) {
         if (msg.length > LOGCAT_CHAR_LIMIT) {
             Log.d(cls.name, msg.substring(0, LOGCAT_CHAR_LIMIT))
@@ -32,13 +41,8 @@ object GLog {
         }
     }
 
-    fun i(cls: Class<*>, msg: String) {
-        if (msg.length > LOGCAT_CHAR_LIMIT) {
-            Log.i(cls.name, msg.substring(0, LOGCAT_CHAR_LIMIT))
-            i(cls, msg.substring(LOGCAT_CHAR_LIMIT))
-        } else {
-            Log.i(cls.name, msg)
-        }
+    fun v(cls: Class<*>, msg: String) {
+        Log.v(cls.name, msg)
     }
 
     // Prominent logging to accomodate temporary testing.

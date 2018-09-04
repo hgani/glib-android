@@ -13,6 +13,14 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(LinearLayout.LayoutPara
         addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
     }
 
+    fun alignLeft() {
+        addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+    }
+
+    fun alignRight() {
+        addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+    }
+
     fun above(view: View) {
         if (view.id == View.NO_ID) {
             view.id = View.generateViewId()
@@ -27,8 +35,18 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(LinearLayout.LayoutPara
         addRule(RelativeLayout.BELOW, view.id)
     }
 
-    fun alignRight() {
-        addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+    fun leftOf(view: View) {
+        if (view.id == View.NO_ID) {
+            view.id = View.generateViewId()
+        }
+        addRule(RelativeLayout.LEFT_OF, view.id)
+    }
+
+    fun rightOf(view: View) {
+        if (view.id == View.NO_ID) {
+            view.id = View.generateViewId()
+        }
+        addRule(RelativeLayout.RIGHT_OF, view.id)
     }
 
     fun centerVertical() {

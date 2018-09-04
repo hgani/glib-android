@@ -3,6 +3,7 @@ package com.gani.lib.ui.view
 import android.content.Context
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
+import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.widget.TextView
@@ -93,6 +94,19 @@ class GEditText : AppCompatEditText, IView {
 
     fun maxLines(lines: Int) : GEditText {
         this.maxLines = lines
+        return self()
+    }
+
+    // See https://stackoverflow.com/questions/41594657/android-bug-with-edittext-maxlines/41595500
+    fun singleLine() : GEditText {
+        this.maxLines = 1
+        this.inputType = TYPE_CLASS_TEXT
+
+        return self()
+    }
+
+    fun hint(hint: String) : GEditText {
+        this.hint = hint
         return self()
     }
 }

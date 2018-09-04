@@ -36,7 +36,7 @@ class JsonUi {
             val className = substrings.lastOrNull()?.replace("-v", "V")?.capitalize()
             val prefixedName = if (prefix.length > 0) "$prefix.$className" else className
             val qualifiedName = "com.gani.lib.ui.json.$namespace.$prefixedName"
-            GLog.d(JsonUi::class.java, "Loading $qualifiedName from $name")
+            GLog.v(JsonUi::class.java, "Loading $qualifiedName from $name")
             try {
                 return Class.forName(qualifiedName) as? Class<T>
             } catch (ex: Exception) {

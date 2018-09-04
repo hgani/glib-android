@@ -11,6 +11,7 @@ import android.view.animation.LayoutAnimationController
 import com.gani.lib.R
 import com.gani.lib.json.GJson
 import com.gani.lib.model.GBundle
+import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.panel.GFramePanel
 import com.gani.lib.ui.panel.GHorizontalPanel
 import com.gani.lib.ui.panel.GHorizontalScrollPanel
@@ -20,6 +21,11 @@ import com.gani.lib.utils.Res
 
 open class GTabHost : FragmentTabHost {
     private val helper: ViewHelper = ViewHelper(this)
+
+    private var fragmentManager: FragmentManager? = null
+
+    val currentTabFragment: GFragment
+        get() = fragmentManager?.findFragmentByTag(currentTabTag) as GFragment
 
     constructor(context: Context) : super(context)
 
@@ -48,6 +54,8 @@ open class GTabHost : FragmentTabHost {
     }
 
     fun setup(fragmentManager: FragmentManager?, scroll: Boolean, tabPanel: GHorizontalPanel): GTabHost {
+        this.fragmentManager = fragmentManager
+
         initView(scroll, tabPanel)
         super.setup(context, fragmentManager, android.R.id.tabcontent)
         return self()

@@ -132,7 +132,7 @@ open abstract class GHttpResponse<RR : GRestResponse>(val url: String) : Seriali
             try {
                 return Integer.parseInt(connection.getHeaderField("Content-Length"))
             } catch (e: Exception) {
-                GLog.i(GHttpResponse::class.java, "Using default buffer length, because we cant get content length from header")
+                GLog.d(GHttpResponse::class.java, "Using default buffer length, because we cant get content length from header")
                 return BUFFER_SIZE
             }
 

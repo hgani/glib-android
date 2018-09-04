@@ -37,7 +37,7 @@ internal abstract class HttpDelegate(val url: String, hook: HttpHook<*>) : Seria
     fun launch(): GHttpResponse.Default {
         //    GHttpResponse response = new GHttpResponse(getFullUrl());
         val response = GHttp.instance.listener.createHttpResponse(fullUrl)
-        GLog.d(javaClass, "Connecting to: $fullUrl ($method)")
+        GLog.i(javaClass, "Connecting to: $fullUrl ($method)")
         try {
             synchronized(this) {
                 connection = makeConnection()
