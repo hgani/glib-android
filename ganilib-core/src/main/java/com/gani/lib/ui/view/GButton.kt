@@ -152,7 +152,10 @@ class GButton : AppCompatButton, IView {
         return self()
     }
 
-
+    fun onClick(listener: (GButton) -> Unit) : GButton {
+        onClick(OnClickListener { listener(this) })
+        return self()
+    }
 
     fun onClick(listener: View.OnClickListener): GButton {
         if (customClickSound == null) {

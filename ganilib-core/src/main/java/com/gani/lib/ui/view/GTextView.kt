@@ -115,6 +115,13 @@ open class GTextView : AppCompatTextView, IView {
         return this
     }
 
+    fun lineSpacing(add: Float, multiplier: Float? = null): GTextView {
+        var m = this.lineSpacingMultiplier
+        multiplier?.let { m = multiplier }
+        setLineSpacing(add, m)
+        return this
+    }
+
     //  public GTextView textSize(int unit, float textSize) {
     //    setTextSize(unit, textSize);
     //    return this;

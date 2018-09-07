@@ -57,9 +57,17 @@ class GEditText : AppCompatEditText, IView {
         return this
     }
 
-    fun bgColor(code: String): GEditText {
-        bgColor(Res.color(code))
+    fun color(code: String): GEditText {
+        return color(Res.color(code))
+    }
+
+    fun color(color: Int): GEditText {
+        setTextColor(color)
         return self()
+    }
+
+    fun bgColor(code: String): GEditText {
+        return bgColor(Res.color(code))
     }
 
     fun bgColor(color: Int): GEditText {

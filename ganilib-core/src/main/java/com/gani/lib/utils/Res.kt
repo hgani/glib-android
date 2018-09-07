@@ -92,8 +92,8 @@ object Res {
         //  }
     }
 
-    fun ttf(ttf: String): Typeface {
-        return Typeface.createFromAsset(context.assets, ttf)
+    fun font(font: String): Typeface {
+        return Typeface.createFromAsset(context.assets, font)
     }
 
     fun integer(resId: Int): Int {
