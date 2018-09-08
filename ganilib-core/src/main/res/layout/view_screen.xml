@@ -29,7 +29,6 @@
           android:layout_height="match_parent"
           android:orientation="horizontal"
           android:id="@+id/circular_progress"
-          android:background="@color/semi_opaque"
           android:gravity="center"
           android:visibility="gone">
 

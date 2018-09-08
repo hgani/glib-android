@@ -3,8 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    android:baselineAligned="false"
-    android:padding="@dimen/padding_small">
+    android:baselineAligned="false">
 
   <ProgressBar android:id="@android:id/progress"
       android:layout_width="wrap_content"
