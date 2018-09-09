@@ -22,17 +22,27 @@ open class GScrollView<T : GScrollView<T>> : ScrollView, IView {
         // Nothing to do
     }
 
-    fun width(width: Int?): T {
+    override fun width(width: Int?): T {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    override fun height(height: Int?): T {
         helper.height(height)
         return self()
     }
 
-    fun bgColor(color: Int): T {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
+        helper.padding(l, t, r, b)
+        return self()
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
+        helper.margin(l, t, r, b)
+        return self()
+    }
+
+    override fun bgColor(color: Int): T {
         setBackgroundColor(color)
         return self()
     }
@@ -61,31 +71,6 @@ open class GScrollView<T : GScrollView<T>> : ScrollView, IView {
 //        gravity = alignment
 //        return self()
 //    }
-
-//    override fun paddings(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-//        helper.padding(left, top, right, bottom)
-//        return self()
-//    }
-//
-//    override fun margins(left: Int?, top: Int?, right: Int?, bottom: Int?): T {
-//        helper.margin(left, top, right, bottom)
-//        return self()
-//    }
-
-    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): T {
-        helper.padding(l, t, r, b)
-        return self()
-    }
-
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
-        helper.margin(l, t, r, b)
-        return self()
-    }
-
-    //  @Override
-    //  public RelativeLayout.LayoutParams getLayoutParams() {
-    //    return (RelativeLayout.LayoutParams) super.getLayoutParams();
-    //  }
 
     private fun self(): T {
         return this as T

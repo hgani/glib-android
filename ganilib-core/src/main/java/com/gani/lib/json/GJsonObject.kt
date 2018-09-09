@@ -127,6 +127,9 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return bool ?: false
         }
 
+    fun isNull() : Boolean {
+        return rawString == null
+    }
 
 //    val keys: Iterator<String>
 //        get() {
@@ -221,7 +224,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
         try {
             // isNull() is needed to check if the property is explicitly specified as null.
             // If the property is not specified (i.e. undefined), we'll get JSONException.
-            return if (rawJson!!.isNull(name)) null else strictString(name)
+            return if (rawJson.isNull(name)) null else strictString(name)
         } catch (e: JSONException) {
             return null
         }
@@ -229,7 +232,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 
     @Throws(JSONException::class)
     private fun strictString(name: String): String {
-        return rawJson!!.getString(name)
+        return rawJson.getString(name)
     }
 
 //

@@ -158,8 +158,8 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
     }
 
 
-    fun bgColor(res: Int) {
-        view.setBackgroundColor(res)
+    fun bgColor(color: Int) {
+        view.setBackgroundColor(color)
     }
 
     fun bgColor(code: String) {

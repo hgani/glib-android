@@ -12,28 +12,13 @@ class GView : View, IView {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    fun width(width: Int?): GView {
+    override fun width(width: Int?): GView {
         helper.width(width)
         return this
     }
 
-    fun height(height: Int?): GView {
+    override fun height(height: Int?): GView {
         helper.height(height)
-        return this
-    }
-
-    fun bgColor(code: String): GView {
-        setBackgroundColor(Res.color(code))
-        return this
-    }
-
-    fun bgColor(res: Int): GView {
-        helper.bgColor(res)
-        return this
-    }
-
-    fun bg(res: Int): GView {
-        helper.bg(res)
         return this
     }
 
@@ -44,6 +29,21 @@ class GView : View, IView {
 
     override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GView {
         helper.margin(l, t, r, b)
+        return this
+    }
+
+    override fun bgColor(color: Int): GView {
+        helper.bgColor(color)
+        return this
+    }
+
+    fun bgColor(code: String): GView {
+        setBackgroundColor(Res.color(code))
+        return this
+    }
+
+    fun bg(res: Int): GView {
+        helper.bg(res)
         return this
     }
 }

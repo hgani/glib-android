@@ -21,23 +21,13 @@ open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrol
         // Nothing to do
     }
 
-    fun width(width: Int?): T {
+    override fun width(width: Int?): T {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    override fun height(height: Int?): T {
         helper.height(height)
-        return self()
-    }
-
-    fun bgColor(color: Int): T {
-        setBackgroundColor(color)
-        return self()
-    }
-
-    fun bgColor(code: String): T {
-        helper.bgColor(code)
         return self()
     }
 
@@ -48,6 +38,16 @@ open class GHorizontalScrollView<T : GHorizontalScrollView<T>> : HorizontalScrol
 
     override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): T {
         helper.margin(l, t, r, b)
+        return self()
+    }
+
+    override fun bgColor(color: Int): T {
+        setBackgroundColor(color)
+        return self()
+    }
+
+    fun bgColor(code: String): T {
+        helper.bgColor(code)
         return self()
     }
 

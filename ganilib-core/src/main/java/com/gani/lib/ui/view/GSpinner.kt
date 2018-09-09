@@ -1,0 +1,67 @@
+package com.gani.lib.ui.view
+
+import android.content.Context
+import android.content.res.ColorStateList
+import android.support.v4.view.ViewCompat
+import android.support.v7.widget.AppCompatSpinner
+import android.util.AttributeSet
+import android.widget.AdapterView
+import android.widget.SpinnerAdapter
+
+class GSpinner : AppCompatSpinner, IView {
+    private var helper = ViewHelper(this)
+
+    constructor(context: Context) : super(context)
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+
+    override fun width(width: Int?): GSpinner {
+        helper.width(width)
+        return this
+    }
+
+    override fun height(height: Int?): GSpinner {
+        helper.height(height)
+        return this
+    }
+
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GSpinner {
+        helper.padding(l, t, r, b)
+        return this
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GSpinner {
+        helper.margin(l, t, r, b)
+        return this
+    }
+
+    override fun bgColor(res: Int): GSpinner {
+        helper.bgColor(res)
+        return this
+    }
+
+    fun adapter(adapter: SpinnerAdapter): GSpinner {
+        setAdapter(adapter)
+        return this
+    }
+
+    fun bgResource(resId: Int): GSpinner {
+        setBackgroundResource(resId)
+        return this
+    }
+
+    fun bgTintList(colorStateList: ColorStateList): GSpinner {
+        ViewCompat.setBackgroundTintList(this, colorStateList)
+        return this
+    }
+
+    fun enabled(enabled: Boolean): GSpinner {
+        isEnabled = enabled
+        return this
+    }
+
+    fun onItemSelected(listener: AdapterView.OnItemSelectedListener): GSpinner {
+        onItemSelectedListener = listener
+        return this
+    }
+}

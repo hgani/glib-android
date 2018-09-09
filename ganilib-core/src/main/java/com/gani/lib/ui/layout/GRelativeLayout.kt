@@ -28,12 +28,12 @@ open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout, IView {
         return this as T
     }
 
-    fun width(width: Int?): T {
+    override fun width(width: Int?): T {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    override fun height(height: Int?): T {
         helper.height(height)
         return self()
     }
@@ -48,18 +48,18 @@ open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout, IView {
         return self()
     }
 
-    fun gravity(gravity: Int): T {
-        setGravity(gravity)
-        return self()
-    }
-
-    fun bgColor(color: Int): T {
+    override fun bgColor(color: Int): T {
         helper.bgColor(color)
         return self()
     }
 
     fun bgColor(color: String): T {
         helper.bgColor(color)
+        return self()
+    }
+
+    fun gravity(gravity: Int): T {
+        setGravity(gravity)
         return self()
     }
 

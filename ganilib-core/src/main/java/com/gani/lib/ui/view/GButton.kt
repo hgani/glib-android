@@ -31,14 +31,28 @@ class GButton : AppCompatButton, IView {
         this.helper = ViewHelper(this)
     }
 
-    fun width(width: Int): GButton {
+    override fun width(width: Int?): GButton {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int): GButton {
+    override fun height(height: Int?): GButton {
         helper.height(height)
         return self()
+    }
+
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
+        helper.padding(l, t, r, b)
+        return self()
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
+        helper.margin(l, t, r, b)
+        return self()
+    }
+
+    override fun bgColor(color: Int): GButton {
+        return bgColor(color, 0)
     }
 
     fun weight(weight: Float): GButton {
@@ -64,7 +78,7 @@ class GButton : AppCompatButton, IView {
         return bgColor(Res.color(code), 0)
     }
 
-    @JvmOverloads
+//    @JvmOverloads
     fun bgColor(color: Int, cornerRadius: Int = 0): GButton {
         val drawable = GradientDrawable()
         drawable.setColor(color)
@@ -88,23 +102,11 @@ class GButton : AppCompatButton, IView {
         return self()
     }
 
-
-    // Use bgColor() instead
-    //  public T background(String code) {
-    //    background(Ui.color(code));
-    //    return self();
-    //  }
-    //
     // Use bgTint() instead
     //  public T background(int color) {
     //    // Alternative implementation: http://stackoverflow.com/questions/1521640/standard-android-button-with-a-different-color
     //     getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
     ////    ViewCompat.setBackgroundTintList(this, ContextCompat.getColorStateList(getContext(), colorResId));
-    //    return self();
-    //  }
-
-    //  public T background() {
-    //
     //    return self();
     //  }
 
@@ -139,16 +141,6 @@ class GButton : AppCompatButton, IView {
 
     fun gravity(alignment: Int): GButton {
         gravity = alignment
-        return self()
-    }
-
-    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
-        helper.padding(l, t, r, b)
-        return self()
-    }
-
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
-        helper.margin(l, t, r, b)
         return self()
     }
 

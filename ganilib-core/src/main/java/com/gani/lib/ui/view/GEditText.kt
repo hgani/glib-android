@@ -1,6 +1,7 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_TEXT
@@ -57,30 +58,12 @@ class GEditText : AppCompatEditText, IView {
         return this
     }
 
-    fun color(code: String): GEditText {
-        return color(Res.color(code))
-    }
-
-    fun color(color: Int): GEditText {
-        setTextColor(color)
-        return self()
-    }
-
-    fun bgColor(code: String): GEditText {
-        return bgColor(Res.color(code))
-    }
-
-    fun bgColor(color: Int): GEditText {
-        setBackgroundColor(color)
-        return self()
-    }
-
-    fun width(width: Int?) : GEditText {
+    override fun width(width: Int?) : GEditText {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?) : GEditText {
+    override fun height(height: Int?) : GEditText {
         helper.height(height)
         return self()
     }
@@ -92,6 +75,24 @@ class GEditText : AppCompatEditText, IView {
 
     override fun margin(l: Int?, t: Int?, r: Int?, b: Int?) : GEditText {
         helper.margin(l, t, r, b)
+        return self()
+    }
+
+    override fun bgColor(color: Int): GEditText {
+        setBackgroundColor(color)
+        return self()
+    }
+
+    fun bgColor(code: String): GEditText {
+        return bgColor(Res.color(code))
+    }
+
+    fun color(code: String): GEditText {
+        return color(Res.color(code))
+    }
+
+    fun color(color: Int): GEditText {
+        setTextColor(color)
         return self()
     }
 
@@ -116,5 +117,15 @@ class GEditText : AppCompatEditText, IView {
     fun hint(hint: String) : GEditText {
         this.hint = hint
         return self()
+    }
+
+    fun inputType(type: Int) : GEditText {
+        this.inputType = type
+        return self()
+    }
+
+    fun typeface(typeface: Typeface): GEditText {
+        setTypeface(typeface)
+        return this
     }
 }

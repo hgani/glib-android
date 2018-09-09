@@ -6,18 +6,18 @@ import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.json.JsonAction
 import com.gani.lib.ui.json.JsonView
-import com.gani.lib.ui.view.GTextView
+import com.gani.lib.ui.view.GButton
 
-class LabelV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
-    private val label = GTextView(context)
+class ButtonV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+    private val button = GButton(context)
 
     override fun initView(): View {
-        spec["text"].string?.let { label.text(it) }
+        spec["text"].string?.let { button.text(it) }
 
-        label.onClick {
+        button.onClick {
             JsonAction.executeAll(spec["onClick"], screen)
         }
 
-        return label
+        return button
     }
 }

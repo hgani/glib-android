@@ -27,12 +27,12 @@ open class GFrameLayout<T : GFrameLayout<T>>: FrameLayout, IView {
         return this as T
     }
 
-    fun width(width: Int?): T {
+    override fun width(width: Int?): T {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    override fun height(height: Int?): T {
         helper.height(height)
         return self()
     }
@@ -47,7 +47,7 @@ open class GFrameLayout<T : GFrameLayout<T>>: FrameLayout, IView {
         return self()
     }
 
-    fun bgColor(color: Int): T {
+    override fun bgColor(color: Int): T {
         helper.bgColor(color)
         return self()
     }

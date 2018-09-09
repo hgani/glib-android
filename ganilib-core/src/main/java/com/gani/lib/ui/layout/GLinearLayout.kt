@@ -25,23 +25,13 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
         return self()
     }
 
-    fun width(width: Int?): T {
+    override fun width(width: Int?): T {
         helper.width(width)
         return self()
     }
 
-    fun height(height: Int?): T {
+    override fun height(height: Int?): T {
         helper.height(height)
-        return self()
-    }
-
-    protected fun vertical(): T {
-        this.orientation = LinearLayout.VERTICAL
-        return self()
-    }
-
-    protected fun horizontal(): T {
-        this.orientation = LinearLayout.HORIZONTAL
         return self()
     }
 
@@ -55,18 +45,28 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
         return self()
     }
 
-    fun gravity(gravity: Int): T {
-        setGravity(gravity)
+    override fun bgColor(color: Int): T {
+        setBackgroundColor(color)
         return self()
     }
 
-    fun bgColor(color: Int): T {
-        setBackgroundColor(color)
+    protected fun vertical(): T {
+        this.orientation = LinearLayout.VERTICAL
+        return self()
+    }
+
+    protected fun horizontal(): T {
+        this.orientation = LinearLayout.HORIZONTAL
         return self()
     }
 
     fun bgColor(code: String): T {
         helper.bgColor(code)
+        return self()
+    }
+
+    fun gravity(gravity: Int): T {
+        setGravity(gravity)
         return self()
     }
 
