@@ -19,7 +19,7 @@ class JsonUi {
             initVerticalPanel(container.header, spec["header"], screen, fragment)
             initVerticalPanel(container.content, spec["content"], screen, fragment)
             initVerticalPanel(container.footer, spec["footer"], screen, fragment)
-            JsonAction.executeAll(spec["onLoad"], screen)
+            JsonAction.executeAll(spec["onLoad"], screen, null)
         }
 
         fun parse(spec: GJson) {

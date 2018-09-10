@@ -40,12 +40,12 @@ enum class Rest {
 
 
     companion object {
-        fun from(method: String): HttpMethod {
+        fun from(method: String): Rest {
             when (method) {
-                "patch" -> return HttpMethod.PATCH
-                "put" -> return HttpMethod.PUT
-                "delete" -> return HttpMethod.DELETE
-                else -> return HttpMethod.POST
+                "patch" -> return Rest.PATCH
+                "put" -> return Rest.PUT
+                "delete" -> return Rest.DELETE
+                else -> return Rest.POST
             }
         }
 

@@ -15,7 +15,7 @@ class ButtonV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(sp
         spec["text"].string?.let { button.text(it) }
 
         button.onClick {
-            JsonAction.executeAll(spec["onClick"], screen)
+            JsonAction.executeAll(spec["onClick"], screen, it)
         }
 
         return button

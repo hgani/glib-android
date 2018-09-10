@@ -128,4 +128,9 @@ class GEditText : AppCompatEditText, IView {
         setTypeface(typeface)
         return this
     }
+
+    fun text(text: String): GEditText {
+        setText(text);
+        return this
+    }
 }
