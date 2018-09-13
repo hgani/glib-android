@@ -93,6 +93,11 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
+    fun scaleType(type: ScaleType): GImageView {
+        setScaleType(type);
+        return this
+    }
+
     fun centerCrop(): GImageView {
         setScaleType(ImageView.ScaleType.CENTER_CROP);
         return this

@@ -12,13 +12,13 @@ import com.gani.lib.R
 import com.gani.lib.ui.icon.GIcon
 
 
-open class GScreenView(private val activity: GActivity) : IScreenView(activity) {
+open class GScreenView(protected val activity: GActivity) : IScreenView(activity) {
 
     private val layout: ViewGroup
     private val body: ViewGroup
     protected val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
-    private var navMenu: NavigationMenu? = null
+    private lateinit var navMenu: NavigationMenu
     private val badge: NavigationHomeBadge
 //    override val toolbar: Toolbar
 //        get() = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
@@ -72,9 +72,12 @@ open class GScreenView(private val activity: GActivity) : IScreenView(activity) 
     }
 
     protected fun addMenu(icon: GIcon, label: String, intent: Intent): MenuItem {
-        return navMenu!!.addItem(GROUP_PRIMARY, icon, label, intent)
+        return navMenu.addItem(GROUP_PRIMARY, icon, label, intent)
     }
 
+    protected fun addMenu(icon: GIcon, label: String, onClick: (MenuItem) -> Unit): MenuItem {
+        return navMenu.addItem(GROUP_PRIMARY, icon, label, onClick)
+    }
     /////
 
 
@@ -114,6 +117,27 @@ open class GScreenView(private val activity: GActivity) : IScreenView(activity) 
             }
             return item
         }
+
+        internal fun addItem(groupId: Int, icon: GIcon?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
+            val item = menu.add(groupId, Menu.NONE, Menu.NONE, string)
+
+            item.setOnMenuItemClickListener {
+                onClick(it)
+                true
+            }
+            if (icon != null) {
+                item.icon = icon.drawable()
+            }
+
+            return item
+        }
+
+
+//        fun onClick(listener: (GButton) -> Unit): GButton {
+//            onClick(OnClickListener { listener(this) })
+//            return self()
+//        }
+
     }
 
     companion object {

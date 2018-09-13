@@ -1,10 +1,7 @@
 package com.gani.lib.dialog
 
 import android.content.Intent
-import com.gani.lib.http.GRestCallback
-import com.gani.lib.http.GRestResponse
-import com.gani.lib.http.HttpAsync
-import com.gani.lib.http.Rest
+import com.gani.lib.http.*
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
 import com.gani.lib.screen.GScreenContainer
@@ -20,14 +17,20 @@ class GRestDialogProgress : GDialogProgress() {
     companion object {
         private val ARG_METHOD = "method"
         private val ARG_URL = "url"
+        private val ARG_PARAMS = "params"
         private val ARG_CALLBACK = "callback"
 
-        fun intent(method: Rest, url: String, callback: Callback): Intent {
+        fun intentForUrl(url: String, method: Rest, params: GParams.Default?, callback: Callback): Intent {
             return intentBuilder(GRestDialogProgress::class)
                     .withArg(ARG_METHOD, method)
                     .withArg(ARG_URL, url)
+                    .withArg(ARG_PARAMS, params)
                     .withArg(ARG_CALLBACK, callback)
                     .intent
+        }
+
+        fun intentForPath(path: String, method: Rest, params: GParams.Default?, callback: Callback): Intent {
+            return intentForUrl("${GHttp.instance.host}${path}", method, params, callback)
         }
     }
 
@@ -44,11 +47,12 @@ class GRestDialogProgress : GDialogProgress() {
         private var httpRequest: HttpAsync? = null
 
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            val method = args.getSerializable(ARG_METHOD) as Rest
-            val url = args.getString(ARG_URL)!!
-            val callback = args.getSerializable(ARG_CALLBACK) as Callback
+            val method = args[ARG_METHOD] as Rest
+            val url = args[ARG_URL] as String
+            val params = args[ARG_PARAMS] as? GParams.Default
+            val callback = args[ARG_CALLBACK] as Callback
 
-            httpRequest = method.asyncUrl(url, null, object : GRestCallback.Default(this@ContentFragment) {
+            httpRequest = method.asyncUrl(url, params, object : GRestCallback.Default(this@ContentFragment) {
                 override fun onRestResponse(response: GRestResponse) {
                     super.onRestResponse(response)
 

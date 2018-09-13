@@ -26,8 +26,18 @@ class OpenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
 
 class JsonUiScreen : GActivity() {
     companion object {
+        val ARG_URL = "url"
+        val ARG_SPEC = "spec"
+
         fun intent(url: String): Intent {
-            return intentBuilder(JsonUiScreen::class).withArg(url).intent
+            return intentBuilder(JsonUiScreen::class)
+                    .withArg(ARG_URL, url).intent
+        }
+
+        fun intent(actionSpec: GJson): Intent {
+            return intentBuilder(JsonUiScreen::class)
+                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .withArg(ARG_SPEC, actionSpec).intent
         }
     }
 
@@ -47,14 +57,19 @@ class JsonUiScreen : GActivity() {
 
     class ContentFragment : GFragment() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            val callback = object : GRestCallback.Default(this@ContentFragment) {
-                override fun onRestResponse(response: GRestResponse) {
-                    super.onRestResponse(response)
-                    JsonUi.parse(response.result, this@ContentFragment)
+            (args[ARG_URL] as? String)?.let {
+                val callback = object : GRestCallback.Default(this@ContentFragment) {
+                    override fun onRestResponse(response: GRestResponse) {
+                        super.onRestResponse(response)
+                        JsonUi.parseScreen(response.result, this@ContentFragment)
+                    }
                 }
-            }
-            (args.single as? String)?.let {
                 Rest.GET.asyncUrl(it, null, callback = callback).execute();
+            }
+
+            (args[ARG_SPEC] as? GJson)?.let {
+                JsonAction.executeAll(it, activity, null)
+                activity.finish()
             }
         }
     }

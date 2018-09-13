@@ -28,7 +28,7 @@ class DbMap {
         }
 
         fun put(key: String, value: String) {
-            var record = row(key)
+            val record = row(key)
             if (record == null) {
                 DbRoom.INSTANCE.map().insert(DbMap().with(key, value))
             }
@@ -40,6 +40,13 @@ class DbMap {
 
         fun get(key: String): GJsonObject.Default {
             return GJsonObject.Default(row(key)?.value)
+        }
+
+        fun remove(key: String) {
+            val record = row(key)
+            if (record != null) {
+                DbRoom.INSTANCE.map().delete(record)
+            }
         }
     }
 

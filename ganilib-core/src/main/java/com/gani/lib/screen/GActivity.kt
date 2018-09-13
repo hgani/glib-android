@@ -16,7 +16,6 @@ import com.gani.lib.logging.GLog
 import com.gani.lib.model.GBundle
 import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.utils.Res
-import org.json.JSONObject
 import java.io.Serializable
 import kotlin.reflect.KClass
 
@@ -344,8 +343,8 @@ open class GActivity : AppCompatActivity(), GContainer {
             return this
         }
 
-        fun withArg(key: String, value: Serializable): IntentBuilder {
-            intent.putExtra(key, value)
+        fun withArg(key: String, value: Serializable?): IntentBuilder {
+            value?.let { intent.putExtra(key, value) }
             return this
         }
 

@@ -144,7 +144,7 @@ class GButton : AppCompatButton, IView {
         return self()
     }
 
-    fun onClick(listener: (GButton) -> Unit) : GButton {
+    fun onClick(listener: (GButton) -> Unit): GButton {
         onClick(OnClickListener { listener(this) })
         return self()
     }

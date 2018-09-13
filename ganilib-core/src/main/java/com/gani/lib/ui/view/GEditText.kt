@@ -54,26 +54,26 @@ class GEditText : AppCompatEditText, IView {
         addTextChangedListener(textWatcher)
     }
 
-    private fun self() : GEditText {
+    private fun self(): GEditText {
         return this
     }
 
-    override fun width(width: Int?) : GEditText {
+    override fun width(width: Int?): GEditText {
         helper.width(width)
         return self()
     }
 
-    override fun height(height: Int?) : GEditText {
+    override fun height(height: Int?): GEditText {
         helper.height(height)
         return self()
     }
 
-    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?) : GEditText {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GEditText {
         helper.padding(l, t, r, b)
         return self()
     }
 
-    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?) : GEditText {
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GEditText {
         helper.margin(l, t, r, b)
         return self()
     }
@@ -96,30 +96,30 @@ class GEditText : AppCompatEditText, IView {
         return self()
     }
 
-    fun onTextChanged(listener: (GEditText) -> Unit) : GEditText {
+    fun onTextChanged(listener: (GEditText) -> Unit): GEditText {
         this.onTextChanged = listener
         return self()
     }
 
-    fun maxLines(lines: Int) : GEditText {
+    fun maxLines(lines: Int): GEditText {
         this.maxLines = lines
         return self()
     }
 
     // See https://stackoverflow.com/questions/41594657/android-bug-with-edittext-maxlines/41595500
-    fun singleLine() : GEditText {
+    fun singleLine(): GEditText {
         this.maxLines = 1
         this.inputType = TYPE_CLASS_TEXT
 
         return self()
     }
 
-    fun hint(hint: String) : GEditText {
+    fun hint(hint: String): GEditText {
         this.hint = hint
         return self()
     }
 
-    fun inputType(type: Int) : GEditText {
+    fun inputType(type: Int): GEditText {
         this.inputType = type
         return self()
     }

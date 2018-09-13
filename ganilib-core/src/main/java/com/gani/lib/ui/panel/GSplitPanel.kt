@@ -24,20 +24,24 @@ open class GSplitPanel: GRelativeLayout<GSplitPanel> {
     }
 
     fun withViews(left: View, center: View, right: View): GSplitPanel {
-        addView(left)
-        addView(center)
-        addView(right)
+        // Need to wrap the views so that we can set their width.
+        val l = GVerticalPanel(context).append(left)
+        val r = GVerticalPanel(context).append(right)
 
-        ViewHelper(left).relative {
+        addView(l)
+        addView(center)
+        addView(r)
+
+        ViewHelper(l).relative {
             it.alignLeft()
         }
 
         ViewHelper(center).relative {
-            it.rightOf(left)
-            it.leftOf(right)
+            it.rightOf(l)
+            it.leftOf(r)
         }
 
-        ViewHelper(right).relative {
+        ViewHelper(r).relative {
             it.alignRight()
         }
 

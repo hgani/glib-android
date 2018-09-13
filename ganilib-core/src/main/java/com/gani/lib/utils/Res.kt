@@ -108,7 +108,7 @@ object Res {
         return resources.getColor(resId)
     }
 
-    fun drawable(resId: Int): Drawable? {
+    fun drawable(resId: Int): Drawable {
         return context.getDrawable(resId)
     }
 

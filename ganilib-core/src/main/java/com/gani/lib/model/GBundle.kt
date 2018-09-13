@@ -20,18 +20,16 @@ class GBundle(val native: Bundle) {
     val single: Serializable?
         get() = if (containsKey(KEY_SINGLETON)) { native.getSerializable(KEY_SINGLETON) } else null
 
-//    fun getSingle(): Serializable? {
-//        return if (containsKey(KEY_SINGLETON)) {
-//            native.getSerializable(KEY_SINGLETON)
-//        } else null
-//    }
-
-    fun getSerializable(key: String): Serializable? {
-        val `object` = native.getSerializable(key)
-        // In lower API levels (e.g. Kitkat), T[] is returned as Object[] so we use a wrapper to retain the original array type.
-        // See http://stackoverflow.com/questions/30154807/java-lang-classcastexception-java-lang-object-cannot-be-cast-to-pfe-essat-obj
-        return (`object` as? ArrayWrapper<*>)?.array ?: `object`
+    operator fun get(key: String): Serializable? {
+        return native.getSerializable(key)
     }
+
+//    fun getSerializable(key: String): Serializable? {
+//        val `object` = native.getSerializable(key)
+//        // In lower API levels (e.g. Kitkat), T[] is returned as Object[] so we use a wrapper to retain the original array type.
+//        // See http://stackoverflow.com/questions/30154807/java-lang-classcastexception-java-lang-object-cannot-be-cast-to-pfe-essat-obj
+//        return (`object` as? ArrayWrapper<*>)?.array ?: `object`
+//    }
 
 //    fun getIntent(key: String): Intent {
 //        return native.getParcelable<Parcelable>(key)
