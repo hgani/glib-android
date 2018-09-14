@@ -10,7 +10,9 @@ class AlertV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
         if (message == null) {
             return false
         }
-        screen.launch.alert(message)
+        screen.launch.alert(message, null, {
+            JsonAction.executeAll(spec["onClose"], screen, null)
+        })
         return true
     }
 }

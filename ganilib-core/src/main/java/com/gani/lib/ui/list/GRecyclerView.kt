@@ -4,9 +4,10 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 
-open class GRecyclerView : RecyclerView {
+open class GRecyclerView : RecyclerView, IView {
     private val helper: ViewHelper = ViewHelper(this)
 
     private val layoutManager = LinearLayoutManager(context)
@@ -20,17 +21,27 @@ open class GRecyclerView : RecyclerView {
         setLayoutManager(layoutManager)
     }
 
-    fun width(width: Int?): GRecyclerView {
+    override fun width(width: Int?): GRecyclerView {
         helper.width(width)
         return this
     }
 
-    fun height(height: Int?): GRecyclerView {
+    override fun height(height: Int?): GRecyclerView {
         helper.height(height)
         return this
     }
 
-    fun bgColor(color: Int): GRecyclerView {
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GRecyclerView {
+        helper.padding(l, t, r, b)
+        return this
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GRecyclerView {
+        helper.margin(l, t, r, b)
+        return this
+    }
+
+    override fun bgColor(color: Int): GRecyclerView {
         setBackgroundColor(color)
         return this
     }

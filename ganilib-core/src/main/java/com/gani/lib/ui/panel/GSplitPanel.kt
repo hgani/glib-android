@@ -24,7 +24,7 @@ open class GSplitPanel: GRelativeLayout<GSplitPanel> {
     }
 
     fun withViews(left: View, center: View, right: View): GSplitPanel {
-        // Need to wrap the views so that we can set their width.
+        // For some reason the views' width cannot be set to an explicit length if they are not wrapped.
         val l = GVerticalPanel(context).append(left)
         val r = GVerticalPanel(context).append(right)
 

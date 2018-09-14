@@ -3,10 +3,12 @@ package com.gani.lib.screen
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.telephony.TelephonyManager
 import com.gani.lib.logging.GLog
+import com.gani.lib.ui.json.JsonAction
 
 class LaunchHelper(private val context: Context) {
     fun map(address: String) {
@@ -45,11 +47,15 @@ class LaunchHelper(private val context: Context) {
         }
     }
 
-    fun alert(message: String, title: String? = null) {
+    fun alert(message: String, title: String? = null, onClose: ((DialogInterface) -> Unit)? = null) {
         val builder = AlertDialog.Builder(context)
 
         if (title != null) {
             builder.setTitle(title)
+        }
+
+        builder.setOnDismissListener {
+            onClose?.invoke(it)
         }
 
         builder.setMessage(message).show()
