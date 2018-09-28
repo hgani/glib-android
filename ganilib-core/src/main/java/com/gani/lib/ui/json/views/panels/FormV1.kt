@@ -68,8 +68,8 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
                     super.onRestResponse(response)
 
                     val result = response.result
-                    // Support generic uncustomizable framework (e.g. Devise)
-                    result["error"].string?.let { screen.launch.alert(it) }
+//                    // Support generic uncustomizable framework (e.g. Devise)
+//                    result["error"].string?.let { screen.launch.alert(it) }
                     JsonAction.executeAll(result["onResponse"], screen, this@FormPanel)
                 }
             }
