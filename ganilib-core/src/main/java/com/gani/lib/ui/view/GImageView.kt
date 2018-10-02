@@ -98,6 +98,8 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
+    // Make sure to explicitly set both the view's width and height (either to a fixed value or MATCH_PARENT), otherwise the image will
+    // get scaled up significantly because there is no upper limit.
     fun centerCrop(): GImageView {
         setScaleType(ImageView.ScaleType.CENTER_CROP);
         return this
