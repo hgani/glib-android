@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentTabHost
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import com.gani.lib.R
 import com.gani.lib.json.GJson
 import com.gani.lib.model.GBundle
 import com.gani.lib.screen.GFragment
@@ -31,12 +28,16 @@ open class GTabHost : FragmentTabHost {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
+//    private var tabWidget: GTabWidget? = null
+
     private fun widgetView(tabWidget: GTabWidget, scroll: Boolean): View {
+//        this.tabWidget = tabWidget
+
         if (scroll) {
             val scroller = GHorizontalScrollPanel(context)
             scroller.isHorizontalScrollBarEnabled = false
 //        scroller.isFillViewport = true
-            scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
+//            scroller.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(Res.context, R.anim.slide_right))
             return scroller.append(tabWidget)
         }
         return tabWidget
@@ -61,12 +62,19 @@ open class GTabHost : FragmentTabHost {
         return self()
     }
 
-    fun addTab(label: String, fragmentClass: Class<*>, args: GJson) {
-        super.addTab(newTabSpec(label).setIndicator(label), fragmentClass, GBundle().set(args).native)
+    fun addTab(label: String, fragmentClass: Class<*>, args: GJson, tag: String? = null) {
+        super.addTab(newTabSpec(tag ?: label).setIndicator(label), fragmentClass, GBundle().set(args).native)
+        enableMoveViewportToFocusOnSelectedTab()
     }
 
-    fun addTab(label: String, fragmentClass: Class<*>, args: GBundle = GBundle()) {
-        super.addTab(newTabSpec(label).setIndicator(label), fragmentClass, args.native)
+    fun addTab(label: String, fragmentClass: Class<*>, args: GBundle = GBundle(), tag: String? = null) {
+        super.addTab(newTabSpec(tag ?: label).setIndicator(label), fragmentClass, args.native)
+        enableMoveViewportToFocusOnSelectedTab()
+    }
+
+    fun enableMoveViewportToFocusOnSelectedTab() {
+        // https://stackoverflow.com/questions/6131218/android-programmatic-scrolling-of-tabwidget
+        (0..tabWidget.childCount - 1).forEach { tabWidget.getChildAt(it).isFocusableInTouchMode = true }
     }
 
     fun width(width: Int?): GTabHost {

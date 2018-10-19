@@ -72,4 +72,9 @@ open class GRelativeLayout<T : GRelativeLayout<T>>: RelativeLayout, IView {
         addView(child)
         return self()
     }
+
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): T {
+        helper.relative(addRules)
+        return self()
+    }
 }

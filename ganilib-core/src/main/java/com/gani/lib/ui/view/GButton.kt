@@ -11,6 +11,7 @@ import android.support.v7.widget.AppCompatButton
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
+import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
@@ -43,6 +44,10 @@ class GButton : AppCompatButton, IView {
 
     override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GButton {
         helper.padding(l, t, r, b)
+        this.minWidth = 0
+        this.minimumWidth = 0
+        this.minHeight = 0
+        this.minimumHeight = 0
         return self()
     }
 
@@ -190,6 +195,11 @@ class GButton : AppCompatButton, IView {
 
     fun compoundDrawables(left: Drawable, top: Drawable, right: Drawable, bottom: Drawable): GButton {
         setCompoundDrawables(left, top, right, bottom)
+        return self()
+    }
+
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): GButton {
+        helper.relative(addRules)
         return self()
     }
 

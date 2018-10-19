@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.view.View
+import android.view.View.OnClickListener
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.gani.lib.utils.Res
@@ -52,6 +52,16 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
+    fun bg(drawable: Drawable): GImageView {
+        helper.bg(drawable)
+        return this
+    }
+
+    fun weight(weight: Float): GImageView {
+        helper.weight(weight)
+        return this
+    }
+
     fun source(url: String?): GImageView {
         if (url != null) {
 //            Glide.with(context.applicationContext)  // Using application context prevents app crash when closing activity during image load
@@ -88,6 +98,11 @@ class GImageView : AppCompatImageView, IView {
 //        return this
 //    }
 
+    fun border(color: Int, width: Int): GImageView {
+        helper.border(color, width)
+        return this
+    }
+
     fun adjustBounds(): GImageView {
         adjustViewBounds = true
         return this
@@ -105,8 +120,13 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
-    fun onClick(listener: View.OnClickListener): GImageView {
-        helper.click(listener)
+    fun onClick(listener: (GImageView) -> Unit): GImageView {
+        helper.click(OnClickListener { listener(this) })
         return this
     }
+
+//    fun onClick(listener: View.OnClickListener): GImageView {
+//        helper.click(listener)
+//        return this
+//    }
 }

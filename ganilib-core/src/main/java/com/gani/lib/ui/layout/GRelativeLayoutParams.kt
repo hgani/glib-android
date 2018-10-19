@@ -53,6 +53,10 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(LinearLayout.LayoutPara
         addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
     }
 
+    fun centerHorizontal() {
+        addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
+    }
+
     fun alignParentStart() {
         addRule(RelativeLayout.ALIGN_PARENT_START)
     }

@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.gani.lib.ui.view.GImageView
 import com.gani.lib.ui.view.ViewHelper
 
 open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
@@ -72,6 +73,16 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
 
     fun bg(drawable: Drawable): T {
         setBackground(drawable)
+        return self()
+    }
+
+    fun border(color: Int, width: Int): T {
+        helper.border(color, width)
+        return self()
+    }
+
+    fun weight(weight: Float): T {
+        helper.weight(weight)
         return self()
     }
 

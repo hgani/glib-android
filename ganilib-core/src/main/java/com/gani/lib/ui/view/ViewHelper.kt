@@ -1,6 +1,10 @@
 package com.gani.lib.ui.view
 
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -8,6 +12,10 @@ import com.gani.lib.logging.GLog
 import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
+
+
+
+
 
 class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams: ViewGroup.LayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)) {
 
@@ -147,11 +155,75 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
             //
             //      view.setPadding(left, top, right, bottom);
 
+            GLog.w(javaClass, "Putting margin for: " + view)
+
             params.setMargins(left, top, right, bottom)
         } else {
             GLog.w(javaClass, "Unable to put margin for: " + view)
         }
     }
+
+    fun border(color: Int, width: Int) {
+        val sd = ShapeDrawable()
+        sd.shape = RectShape()
+        sd.paint.color = color
+        sd.paint.strokeWidth = Length.dpToPx(width).toFloat()
+        sd.paint.style = Paint.Style.STROKE
+
+        val drawables = mutableListOf<Drawable>()
+        view.background?.let {
+            drawables.add(it)
+        }
+        drawables.add(sd)
+
+        view.background = LayerDrawable(drawables.toTypedArray())
+
+//        // From: https://android--examples.blogspot.com/2016/10/android-textview-bottom-border.html
+//        // Initialize new color drawables
+//        val borderColorDrawable = ColorDrawable(borderColor)
+//        val backgroundColorDrawable = ColorDrawable(Color.TRANSPARENT)
+//
+//        // Initialize a new array of drawable objects
+//        val drawables = arrayOf<Drawable>(borderColorDrawable, backgroundColorDrawable)
+//
+//        // Initialize a new layer drawable instance from drawables array
+//        val layerDrawable = LayerDrawable(drawables)
+//
+//        // Set padding for background color layer
+//        layerDrawable.setLayerInset(
+//                1, // Index of the drawable to adjust [background color layer]
+//                left, // Number of pixels to add to the left bound [left border]
+//                top, // Number of pixels to add to the top bound [top border]
+//                right, // Number of pixels to add to the right bound [right border]
+//                bottom // Number of pixels to add to the bottom bound [bottom border]
+//        )
+//
+//        view.background = layerDrawable
+    }
+
+    //    fun createRoundedBorders(bgColor: Int, borderColor: Int): LayerDrawable {
+//
+//        val radius = 15.0f
+//
+//        val m_arrfTopHalfOuterRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+//        val m_arrfBottomHalfOuterRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+//
+//        val top_round_rect = RoundRectShape(m_arrfTopHalfOuterRadii, null, null)
+//        val top_shape_drawable = ShapeDrawable(top_round_rect)
+//        top_shape_drawable.paint.color = borderColor
+//
+//        val bottom_round_rect = RoundRectShape(m_arrfBottomHalfOuterRadii, null, null)
+//        val bottom_shape_drawable = ShapeDrawable(bottom_round_rect)
+//        bottom_shape_drawable.paint.color = bgColor
+//
+//        val drawarray = arrayOf<Drawable>(top_shape_drawable, bottom_shape_drawable)
+//        val layerdrawable = LayerDrawable(drawarray)
+//
+//        layerdrawable.setLayerInset(0, 0, 0, 0, 0) //top half
+//        layerdrawable.setLayerInset(1, 4, 4, 4, 4) //bottom half
+//
+//        return layerdrawable
+//    }
 
     fun click(listener: View.OnClickListener) {
         view.setOnClickListener(listener)
