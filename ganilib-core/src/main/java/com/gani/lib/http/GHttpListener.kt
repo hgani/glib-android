@@ -28,7 +28,7 @@ abstract class GHttpListener {
         // To be overridden
     }
 
-    fun processParams(params: GImmutableParams, method: HttpMethod): GImmutableParams {
+    open fun processParams(params: GImmutableParams, method: HttpMethod): GImmutableParams {
         // To be overridden
         return params
     }

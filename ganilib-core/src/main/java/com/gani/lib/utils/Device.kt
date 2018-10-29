@@ -9,6 +9,7 @@ object Device {
     //    // Avoid using permanent device ID. See https://developer.android.com/training/articles/user-data-ids
     val id: String = extractDeviceId()
     val localeCountry: String = Res.resources.configuration.locale.country
+
     val os = "android"
 
     // See https://developer.android.com/training/articles/user-data-ids

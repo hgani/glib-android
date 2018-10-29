@@ -155,8 +155,6 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
             //
             //      view.setPadding(left, top, right, bottom);
 
-            GLog.w(javaClass, "Putting margin for: " + view)
-
             params.setMargins(left, top, right, bottom)
         } else {
             GLog.w(javaClass, "Unable to put margin for: " + view)
