@@ -26,6 +26,18 @@ class GScrollPanel: GScrollView<GScrollPanel> {
         return this
     }
 
+    override fun width(width: Int?): GScrollPanel {
+        super.width(width)
+        contentView.width(width)
+        return self()
+    }
+
+    override fun height(height: Int?): GScrollPanel {
+        super.height(height)
+        contentView.height(height)
+        return self()
+    }
+
     override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GScrollPanel {
         contentView.padding(l, t, r, b)
         return self()

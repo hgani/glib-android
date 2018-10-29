@@ -64,17 +64,26 @@ open class GTabHost : FragmentTabHost {
 
     fun addTab(label: String, fragmentClass: Class<*>, args: GJson, tag: String? = null) {
         super.addTab(newTabSpec(tag ?: label).setIndicator(label), fragmentClass, GBundle().set(args).native)
-        enableMoveViewportToFocusOnSelectedTab()
     }
 
     fun addTab(label: String, fragmentClass: Class<*>, args: GBundle = GBundle(), tag: String? = null) {
         super.addTab(newTabSpec(tag ?: label).setIndicator(label), fragmentClass, args.native)
-        enableMoveViewportToFocusOnSelectedTab()
     }
 
-    fun enableMoveViewportToFocusOnSelectedTab() {
+    private fun enableMoveViewportToFocusOnSelectedTab() {
         // https://stackoverflow.com/questions/6131218/android-programmatic-scrolling-of-tabwidget
         (0..tabWidget.childCount - 1).forEach { tabWidget.getChildAt(it).isFocusableInTouchMode = true }
+    }
+
+    private fun disableMoveViewportToFocusOnSelectedTab() {
+        (0..tabWidget.childCount - 1).forEach { tabWidget.getChildAt(it).isFocusableInTouchMode = false }
+    }
+
+    fun selectTab(tag: String) {
+        // Need to re-disable because sometimes the user needs to click the tab twice in order to activate it.
+        enableMoveViewportToFocusOnSelectedTab()
+        setCurrentTabByTag(tag)
+        disableMoveViewportToFocusOnSelectedTab()
     }
 
     fun width(width: Int?): GTabHost {
