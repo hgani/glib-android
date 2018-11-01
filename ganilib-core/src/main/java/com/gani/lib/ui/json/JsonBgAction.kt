@@ -25,9 +25,7 @@ abstract class JsonBgAction(val spec: GJson) {
         }
 
         fun executeAll(spec: GJson) {
-            spec.arrayValue.forEach {
-                create(it)?.execute()
-            }
+            JsonBgAction.create(spec)?.execute()
         }
     }
 }

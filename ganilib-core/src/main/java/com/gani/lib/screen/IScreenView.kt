@@ -9,5 +9,6 @@ abstract class IScreenView(activity: GActivity) : FrameLayout(activity) {
 
     internal abstract fun initNavigation(topNavigation: Boolean, actionBar: ActionBar)
     abstract fun setBody(resId: Int)
-    abstract fun openDrawer()
+    abstract fun openLeftDrawer()
+    abstract fun openRightDrawer()
 }

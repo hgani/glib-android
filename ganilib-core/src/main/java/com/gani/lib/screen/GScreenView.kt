@@ -18,7 +18,8 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
     private val body: ViewGroup
     protected val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
-    private lateinit var navMenu: NavigationMenu
+//    private lateinit var leftNavMenu: NavigationMenu
+//    private lateinit var rightNavMenu: NavigationMenu
     private val badge: NavigationHomeBadge
 //    override val toolbar: Toolbar
 //        get() = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
@@ -32,13 +33,13 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
         this.toolbar = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
     }
 
-    override fun openDrawer() {
+    override fun openLeftDrawer() {
         drawer.openDrawer(GravityCompat.START)
     }
 
-//    override fun getToolbar(): Toolbar {
-//        return layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
-//    }
+    override fun openRightDrawer() {
+        drawer.openDrawer(GravityCompat.END)
+    }
 
     override fun setBody(resId: Int) {
         LayoutInflater.from(context).inflate(resId, body)
@@ -46,13 +47,19 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
 
     ///// Navigation /////
 
-    override public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
+    override final public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
         val drawer = drawer
-        val navView = drawer.findViewById<View>(R.id.view_navigation) as NavigationView
 
-        this.navMenu = NavigationMenu(navView.menu, actionBar)
+        initToolbar(toolbar)
 
         if (topNavigation) {
+            val leftNavView = drawer.findViewById<View>(R.id.view_navigation_left) as NavigationView
+            val leftNavMenu = NavigationMenu(leftNavView.menu, actionBar)
+            val rightNavView = drawer.findViewById<View>(R.id.view_navigation_right) as NavigationView
+            val rightNavMenu = NavigationMenu(rightNavView.menu, actionBar)
+
+            initMenu(leftNavMenu, rightNavMenu)
+
             val icon = menuIcon()
             if (icon != null) {
                 actionBar.setHomeAsUpIndicator(badge.drawable)
@@ -63,6 +70,14 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
+    protected open fun initToolbar(toolbar: Toolbar) {
+        // To be overridden
+    }
+
+    protected open fun initMenu(leftNavMenu: NavigationMenu, rightNavMenu: NavigationMenu) {
+        // To be overridden
+    }
+
     fun updateBadge(count: Int) {
         badge.setCount(count)
     }
@@ -71,18 +86,17 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
         return null
     }
 
-    protected fun addMenu(icon: GIcon, label: String, intent: Intent): MenuItem {
-        return navMenu.addItem(GROUP_PRIMARY, icon, label, intent)
-    }
-
-    protected fun addMenu(icon: GIcon, label: String, onClick: (MenuItem) -> Unit): MenuItem {
-        return navMenu.addItem(GROUP_PRIMARY, icon, label, onClick)
-    }
+//    protected fun addMenu(icon: GIcon, label: String, intent: Intent): MenuItem {
+//        return leftNavMenu.addItem(icon, label, intent)
+//    }
+//
+//    protected fun addMenu(icon: GIcon, label: String, onClick: (MenuItem) -> Unit): MenuItem {
+//        return leftNavMenu.addItem(icon, label, onClick)
+//    }
     /////
 
 
-    private inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
-
+    protected inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
         private fun intentEquals(menuIntent: Intent): Boolean {
             val activityIntent = activity.intent
             if (activityIntent.component != menuIntent.component) {
@@ -102,8 +116,8 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
             return true
         }
 
-        internal fun addItem(groupId: Int, icon: GIcon?, string: String, intent: Intent): MenuItem {
-            val item = menu.add(groupId, Menu.NONE, Menu.NONE, string)
+        fun add(icon: GIcon?, string: String, intent: Intent): MenuItem {
+            val item = menu.add(Menu.NONE, Menu.NONE, Menu.NONE, string)
             item.intent = intent
             item.isCheckable = true  // Needed for setChecked() to work
             if (icon != null) {
@@ -118,8 +132,8 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
             return item
         }
 
-        internal fun addItem(groupId: Int, icon: GIcon?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
-            val item = menu.add(groupId, Menu.NONE, Menu.NONE, string)
+        fun add(icon: GIcon?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
+            val item = menu.add(Menu.NONE, Menu.NONE, Menu.NONE, string)
 
             item.setOnMenuItemClickListener {
                 onClick(it)
@@ -131,17 +145,10 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
 
             return item
         }
-
-
-//        fun onClick(listener: (GButton) -> Unit): GButton {
-//            onClick(OnClickListener { listener(this) })
-//            return self()
-//        }
-
     }
 
-    companion object {
-        private val GROUP_PRIMARY = 1
-        private val GROUP_SECONDARY = 2
-    }
+//    companion object {
+//        private val GROUP_PRIMARY = 1
+//        private val GROUP_SECONDARY = 2
+//    }
 }

@@ -31,9 +31,6 @@ open class GActivity : AppCompatActivity(), GContainer {
     val navBar: ActionBar
         get() = supportActionBar!!  // It should exist because setSupportActionBar() should have been called
 
-//    protected val trackingSpec: TrackingSpec
-//        get() = TrackingSpec.DO_NOTHING
-
     val context: Context
         get() = this
 
@@ -81,7 +78,11 @@ open class GActivity : AppCompatActivity(), GContainer {
                 LayoutInflater.from(context).inflate(resId, this)
             }
 
-            override fun openDrawer() {
+            override fun openLeftDrawer() {
+                // Not applicable to dialog
+            }
+
+            override fun openRightDrawer() {
                 // Not applicable to dialog
             }
         }
@@ -113,7 +114,7 @@ open class GActivity : AppCompatActivity(), GContainer {
 //                LayoutInflater.from(context).inflate(resId, this)
 //            }
 //
-//            override fun openDrawer() {
+//            override fun openLeftDrawer() {
 //                // Not applicable to dialog
 //            }
 //        }
@@ -217,6 +218,10 @@ open class GActivity : AppCompatActivity(), GContainer {
         supportActionBar!!.subtitle = subtitle
     }
 
+    protected fun openRightDrawer() {
+        container.openRightDrawer()
+    }
+
 
     //  protected final Bundle rawArguments() {
     //    return arguments;
@@ -302,7 +307,7 @@ open class GActivity : AppCompatActivity(), GContainer {
         when (item.itemId) {
             android.R.id.home -> {
                 if (topNavigation) {
-                    container.openDrawer()
+                    container.openLeftDrawer()
                 } else {
                     onBackPressed()  // Going up is more similar to onBackPressed() than finish(), esp becoz the former can have pre-finish check
                 }

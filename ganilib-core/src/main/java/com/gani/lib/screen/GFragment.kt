@@ -3,11 +3,12 @@ package com.gani.lib.screen
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.gani.lib.R
 import com.gani.lib.model.GBundle
 import com.gani.lib.ui.ProgressIndicator
-import com.gani.lib.ui.menu.GMenu
 
 open class GFragment : Fragment(), GContainer {
     private var firstVisit: Boolean = false
@@ -27,8 +28,8 @@ open class GFragment : Fragment(), GContainer {
         private set
 
     protected// Override to show a refresh menu item
-    val refreshStringId: Int
-        get() = RESOURCE_INVALID
+//    val refreshStringId: Int
+//        get() = RESOURCE_INVALID
 
     var args = GBundle()
         private set
@@ -101,19 +102,19 @@ open class GFragment : Fragment(), GContainer {
         indicator.hideProgress()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
-        val strId = refreshStringId
-        if (strId != RESOURCE_INVALID) {
-            GMenu(menu).addSecondary(strId, GMenu.ORDER_SPECIFIC, object : GMenu.OnClickListener() {
-                override fun onClick(menuItem: MenuItem) {
-                    onRefresh()
-                }
-            })
-        }
-    }
-
-    companion object {
-
-        private val RESOURCE_INVALID = 0
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+//        val strId = refreshStringId
+//        if (strId != RESOURCE_INVALID) {
+//            GMenu(menu).addSecondary(strId, GMenu.ORDER_SPECIFIC, object : GMenu.OnClickListener() {
+//                override fun onClick(menuItem: MenuItem) {
+//                    onRefresh()
+//                }
+//            })
+//        }
+//    }
+//
+//    companion object {
+//
+//        private val RESOURCE_INVALID = 0
+//    }
 }
