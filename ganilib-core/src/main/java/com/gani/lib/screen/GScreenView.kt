@@ -14,8 +14,9 @@ import com.gani.lib.utils.Res.context
 
 
 open class GScreenView(protected val activity: GActivity) : INavHelper() {
+    private var topNavigation = false
 
-    override val layout: ViewGroup
+    override final val layout: ViewGroup
     private val body: ViewGroup
     private val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
@@ -50,6 +51,7 @@ open class GScreenView(protected val activity: GActivity) : INavHelper() {
 
     override final public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
         this.actionBar = actionBar
+        this.topNavigation = topNavigation
 
         initToolbar(toolbar)
 
@@ -71,8 +73,16 @@ open class GScreenView(protected val activity: GActivity) : INavHelper() {
 //        actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun showIcon() {
+    override fun showHomeIcon() {
         actionBar.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun handleHomeClick(): Boolean {
+        if (topNavigation) {
+            openLeftDrawer()
+            return true
+        }
+        return false
     }
 
     protected open fun initToolbar(toolbar: Toolbar) {

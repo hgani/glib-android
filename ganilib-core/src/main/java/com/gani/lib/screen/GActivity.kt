@@ -24,7 +24,7 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     private lateinit var container: INavHelper
 
-    private var topNavigation = false
+//    private var topNavigation = false
     override val gActivity: GActivity
         get() = this
 
@@ -71,24 +71,8 @@ open class GActivity : AppCompatActivity(), GContainer {
             override val toolbar: Toolbar?
                 get() = null  // Not applicable to dialog
 
-            override fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
-                // Not applicable to dialog
-            }
-
             override fun setBody(resId: Int) {
                 LayoutInflater.from(context).inflate(resId, layout)
-            }
-
-            override fun openLeftDrawer() {
-                // Not applicable to dialog
-            }
-
-            override fun openRightDrawer() {
-                // Not applicable to dialog
-            }
-
-            override fun showIcon() {
-                // Not applicable to dialog
             }
         }
     }
@@ -140,14 +124,14 @@ open class GActivity : AppCompatActivity(), GContainer {
         return findViewById<View>(resId) as Button
     }
 
-    private fun setContent(resId: Int) {
+    private fun setContent(resId: Int, topNavigation: Boolean) {
         container.initNavigation(topNavigation, navBar)
         container.setBody(resId)
     }
 
     fun setContentWithToolbar(resId: Int, topNavigation: Boolean) {
-        this.topNavigation = topNavigation
-        setContent(resId)
+//        this.topNavigation = topNavigation
+        setContent(resId, topNavigation)
 
         val toolbar = container.toolbar
         if (toolbar != null) {
@@ -156,8 +140,8 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     fun setContentWithoutToolbar(resId: Int) {
-        this.topNavigation = false
-        setContent(resId)
+//        this.topNavigation = false
+        setContent(resId, false)
     }
 
     override fun setContentView(view: View?) {
@@ -183,8 +167,8 @@ open class GActivity : AppCompatActivity(), GContainer {
     //   <item name="windowNoTitle">true</item>
     // </style>
     fun setContentForDialog(resId: Int) {
-        this.topNavigation = false
-        setContent(resId)
+//        this.topNavigation = false
+        setContent(resId, false)
     }
 
     protected fun setSubtitle(subtitle: String) {
@@ -198,14 +182,14 @@ open class GActivity : AppCompatActivity(), GContainer {
     ///// Fragment management /////
 
     fun setFragmentWithoutToolbar(fragment: GFragment?, savedInstanceState: Bundle?) {
-        this.topNavigation = false
+//        this.topNavigation = false
         if (fragment != null) {
             setFragment(fragment, savedInstanceState)
         }
     }
 
     fun setFragmentWithToolbar(fragment: GFragment?, topNavigation: Boolean, savedInstanceState: Bundle?) {
-        this.topNavigation = topNavigation
+//        this.topNavigation = topNavigation
         if (fragment != null) {
             setFragment(fragment, savedInstanceState)
         }
@@ -273,10 +257,10 @@ open class GActivity : AppCompatActivity(), GContainer {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (topNavigation) {
-                    container.openLeftDrawer()
-                } else {
-                    onBackPressed()  // Going up is more similar to onBackPressed() than finish(), esp becoz the former can have pre-finish check
+                if (!container.handleHomeClick()) {
+//                    container.openLeftDrawer()
+//                } else {
+                    onBackPressed()  // Going up is more similar to onBackPressed() than finish(), especially because the former can have pre-finish check
                 }
                 return true
             }

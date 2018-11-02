@@ -6,6 +6,6 @@ interface GIcon {
     fun drawable(): IconicsDrawable
 
     companion object {
-        val ACTION_BAR_SIZE = 24
+        val ACTION_BAR_SIZE = 20
     }
 }
