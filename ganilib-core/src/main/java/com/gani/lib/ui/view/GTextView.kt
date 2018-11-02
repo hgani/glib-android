@@ -52,8 +52,8 @@ open class GTextView : AppCompatTextView, IView {
         return self()
     }
 
-    override fun bgColor(res: Int): GTextView {
-        helper.bgColor(res)
+    override fun bgColor(color: Int): GTextView {
+        helper.bgColor(color)
         return self()
     }
 
