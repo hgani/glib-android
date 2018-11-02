@@ -13,15 +13,13 @@ import com.gani.lib.ui.icon.GIcon
 import com.gani.lib.utils.Res.context
 
 
-open class GScreenView(protected val activity: GActivity) : INavHelper() {
+open class NavHelper(protected val activity: GActivity) : INavHelper() {
     private var topNavigation = false
 
     override final val layout: ViewGroup
     private val body: ViewGroup
     private val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
-//    private lateinit var leftNavMenu: NavigationMenu
-//    private lateinit var rightNavMenu: NavigationMenu
     private val badge: NavigationHomeBadge
     override final val toolbar: Toolbar
     lateinit var actionBar: ActionBar
@@ -70,7 +68,6 @@ open class GScreenView(protected val activity: GActivity) : INavHelper() {
         } else {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
-//        actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun showHomeIcon() {
@@ -101,13 +98,6 @@ open class GScreenView(protected val activity: GActivity) : INavHelper() {
         return null
     }
 
-//    protected fun addMenu(icon: GIcon, label: String, intent: Intent): MenuItem {
-//        return leftNavMenu.addItem(icon, label, intent)
-//    }
-//
-//    protected fun addMenu(icon: GIcon, label: String, onClick: (MenuItem) -> Unit): MenuItem {
-//        return leftNavMenu.addItem(icon, label, onClick)
-//    }
     /////
 
 
@@ -161,9 +151,4 @@ open class GScreenView(protected val activity: GActivity) : INavHelper() {
             return item
         }
     }
-
-//    companion object {
-//        private val GROUP_PRIMARY = 1
-//        private val GROUP_SECONDARY = 2
-//    }
 }

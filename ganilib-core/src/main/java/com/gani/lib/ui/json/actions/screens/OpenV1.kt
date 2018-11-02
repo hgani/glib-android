@@ -9,7 +9,7 @@ import com.gani.lib.json.GJson
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
 import com.gani.lib.screen.GScreenContainer
-import com.gani.lib.screen.GScreenView
+import com.gani.lib.screen.NavHelper
 import com.gani.lib.ui.json.JsonAction
 import com.gani.lib.ui.json.JsonUi
 
@@ -44,7 +44,7 @@ class JsonUiScreen : GActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val view = GScreenView(this)
+        val view = NavHelper(this)
         super.onCreateForScreen(savedInstanceState, view)
         setFragmentWithToolbar(createNewIntentFragment(), false, savedInstanceState)
     }

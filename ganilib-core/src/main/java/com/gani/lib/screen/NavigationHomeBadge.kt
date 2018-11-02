@@ -8,7 +8,7 @@ import com.gani.lib.R
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
-internal class NavigationHomeBadge(private val screenView: GScreenView) {
+internal class NavigationHomeBadge(private val screenView: NavHelper) {
     private val context: Context
     internal val drawable: LayerDrawable
 

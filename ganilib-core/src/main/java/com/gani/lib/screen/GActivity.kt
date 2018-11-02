@@ -22,7 +22,8 @@ import kotlin.reflect.KClass
 open class GActivity : AppCompatActivity(), GContainer {
     val launch = LaunchHelper(context)
 
-    private lateinit var container: INavHelper
+    lateinit var nav: INavHelper
+        private set
 
 //    private var topNavigation = false
     override val gActivity: GActivity
@@ -39,9 +40,6 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     var args = GBundle()
         private set
-
-    val nav: INavHelper
-        get() = container
 
     private var shouldRecreateFragmentOnNewIntent = false
 
@@ -66,7 +64,7 @@ open class GActivity : AppCompatActivity(), GContainer {
             this.args = GBundle(it)
         }
 
-        container = object : INavHelper() {
+        nav = object : INavHelper() {
             override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
             override val toolbar: Toolbar?
                 get() = null  // Not applicable to dialog
@@ -77,10 +75,10 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
     }
 
-    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: GScreenView) {
+    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: NavHelper) {
 //        super.onCreate(savedInstanceState)
         initOnCreate()
-        this.container = container
+        this.nav = container
 
         super.setContentView(container.layout)
         setSupportActionBar(container.toolbar)
@@ -88,7 +86,7 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
         initOnCreate()
-        super.setContentView(container.layout)
+        super.setContentView(nav.layout)
     }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
@@ -111,8 +109,8 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     fun updateBadge(count: Int) {
-        if (container is GScreenView) {
-            (container as GScreenView).updateBadge(count)
+        if (nav is NavHelper) {
+            (nav as NavHelper).updateBadge(count)
         }
     }
 
@@ -125,15 +123,15 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     private fun setContent(resId: Int, topNavigation: Boolean) {
-        container.initNavigation(topNavigation, navBar)
-        container.setBody(resId)
+        nav.initNavigation(topNavigation, navBar)
+        nav.setBody(resId)
     }
 
     fun setContentWithToolbar(resId: Int, topNavigation: Boolean) {
 //        this.topNavigation = topNavigation
         setContent(resId, topNavigation)
 
-        val toolbar = container.toolbar
+        val toolbar = nav.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
         }
@@ -176,7 +174,7 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     protected fun openRightDrawer() {
-        container.openRightDrawer()
+        nav.openRightDrawer()
     }
 
     ///// Fragment management /////
@@ -194,8 +192,8 @@ open class GActivity : AppCompatActivity(), GContainer {
             setFragment(fragment, savedInstanceState)
         }
 
-        container.initNavigation(topNavigation, navBar)
-        val toolbar = container.toolbar
+        nav.initNavigation(topNavigation, navBar)
+        val toolbar = nav.toolbar
         if (toolbar != null) {
             toolbar.visibility = View.VISIBLE
         }
@@ -257,9 +255,7 @@ open class GActivity : AppCompatActivity(), GContainer {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (!container.handleHomeClick()) {
-//                    container.openLeftDrawer()
-//                } else {
+                if (!nav.handleHomeClick()) {
                     onBackPressed()  // Going up is more similar to onBackPressed() than finish(), especially because the former can have pre-finish check
                 }
                 return true
