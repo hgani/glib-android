@@ -116,6 +116,11 @@ object Res {
         return context.getString(resId, *formatArgs)
     }
 
+    fun str(key: String, vararg formatArgs: Any): String {
+        val resId = resources.getIdentifier(key, "string", context.packageName)
+        return context.getString(resId, *formatArgs)
+    }
+
     fun quantityStr(resId: Int, quantity: Int, vararg formatArgs: Any): String {
         return resources.getQuantityString(resId, quantity, *formatArgs)
     }
