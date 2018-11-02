@@ -15,7 +15,7 @@ internal class NavigationHomeBadge(private val screenView: GScreenView) {
 //    internal val drawable: LayerDrawable
 
     init {
-        this.context = screenView.context
+        this.context = screenView.layout.context
         this.drawable = Res.drawable(R.drawable.action_bar_home_drawable) as LayerDrawable
 
 //        // Gets the drawable layerlist that has the navigation view and the badger

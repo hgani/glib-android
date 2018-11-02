@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-  <!-- Height is hardcoded as a hack solution for progress dialog. Otherwise the layout will take out max height, probably due to the containing common_fragment.xml pushing its height -->
-  <FrameLayout
-      android:id="@+id/screen_body"
-      android:layout_width="match_parent"
-      android:layout_height="100dp" />
-</merge>
+<!-- Height is hardcoded as a hack solution for progress dialog. Otherwise the layout will take out max height, probably due to the containing common_fragment.xml pushing its height -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/screen_body"
+    android:layout_width="match_parent"
+    android:layout_height="100dp" />

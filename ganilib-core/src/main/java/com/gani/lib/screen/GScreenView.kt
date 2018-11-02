@@ -10,25 +10,26 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import com.gani.lib.R
 import com.gani.lib.ui.icon.GIcon
+import com.gani.lib.utils.Res.context
 
 
-open class GScreenView(protected val activity: GActivity) : IScreenView(activity) {
+open class GScreenView(protected val activity: GActivity) : INavHelper() {
 
-    private val layout: ViewGroup
+    override val layout: ViewGroup
     private val body: ViewGroup
-    protected val drawer: DrawerLayout
+    private val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
 //    private lateinit var leftNavMenu: NavigationMenu
 //    private lateinit var rightNavMenu: NavigationMenu
     private val badge: NavigationHomeBadge
-//    override val toolbar: Toolbar
-//        get() = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
     override final val toolbar: Toolbar
+    lateinit var actionBar: ActionBar
+
 
     init {
-        this.layout = LayoutInflater.from(context).inflate(R.layout.view_screen, this) as ViewGroup
+        this.layout = LayoutInflater.from(activity).inflate(R.layout.view_screen, null) as ViewGroup
         this.body = layout.findViewById<View>(R.id.screen_body) as ViewGroup
-        this.drawer = findViewById<View>(R.id.screen_drawer) as DrawerLayout
+        this.drawer = layout.findViewById<View>(R.id.screen_drawer) as DrawerLayout
         this.badge = NavigationHomeBadge(this)
         this.toolbar = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
     }
@@ -48,7 +49,7 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
     ///// Navigation /////
 
     override final public fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
-        val drawer = drawer
+        this.actionBar = actionBar
 
         initToolbar(toolbar)
 
@@ -67,6 +68,10 @@ open class GScreenView(protected val activity: GActivity) : IScreenView(activity
         } else {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
+//        actionBar.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun showIcon() {
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
 

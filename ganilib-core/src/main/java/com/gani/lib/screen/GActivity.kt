@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
 open class GActivity : AppCompatActivity(), GContainer {
     val launch = LaunchHelper(context)
 
-    private lateinit var container: IScreenView
+    private lateinit var container: INavHelper
 
     private var topNavigation = false
     override val gActivity: GActivity
@@ -39,6 +39,9 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     var args = GBundle()
         private set
+
+    val nav: INavHelper
+        get() = container
 
     private var shouldRecreateFragmentOnNewIntent = false
 
@@ -63,10 +66,8 @@ open class GActivity : AppCompatActivity(), GContainer {
             this.args = GBundle(it)
         }
 
-        container = object : IScreenView(this) {
-            init {
-                LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, this)
-            }
+        container = object : INavHelper() {
+            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
             override val toolbar: Toolbar?
                 get() = null  // Not applicable to dialog
 
@@ -75,7 +76,7 @@ open class GActivity : AppCompatActivity(), GContainer {
             }
 
             override fun setBody(resId: Int) {
-                LayoutInflater.from(context).inflate(resId, this)
+                LayoutInflater.from(context).inflate(resId, layout)
             }
 
             override fun openLeftDrawer() {
@@ -83,6 +84,10 @@ open class GActivity : AppCompatActivity(), GContainer {
             }
 
             override fun openRightDrawer() {
+                // Not applicable to dialog
+            }
+
+            override fun showIcon() {
                 // Not applicable to dialog
             }
         }
@@ -93,42 +98,14 @@ open class GActivity : AppCompatActivity(), GContainer {
         initOnCreate()
         this.container = container
 
-        super.setContentView(container)
+        super.setContentView(container.layout)
         setSupportActionBar(container.toolbar)
     }
 
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
         initOnCreate()
-//        this.container = object : IScreenView(this) {
-//            init {
-//                LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, this)
-//            }
-//            override val toolbar: Toolbar?
-//                get() = null  // Not applicable to dialog
-//
-//            override fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
-//                // Not applicable to dialog
-//            }
-//
-//            override fun setBody(resId: Int) {
-//                LayoutInflater.from(context).inflate(resId, this)
-//            }
-//
-//            override fun openLeftDrawer() {
-//                // Not applicable to dialog
-//            }
-//        }
-        super.setContentView(container)
+        super.setContentView(container.layout)
     }
-
-//    fun args(): GBundle {
-//        return GBundle(arguments)
-//    }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        throw UnsupportedOperationException("Should be overridden in child class")
-//    }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
         GLog.t(javaClass, "setOkResult: " + Activity.RESULT_OK)
@@ -148,10 +125,6 @@ open class GActivity : AppCompatActivity(), GContainer {
         setOkResult(resultKey, resultValue)
         finish()
     }
-
-//    override fun getGActivity(): GActivity {
-//        return this
-//    }
 
     fun updateBadge(count: Int) {
         if (container is GScreenView) {
@@ -221,12 +194,6 @@ open class GActivity : AppCompatActivity(), GContainer {
     protected fun openRightDrawer() {
         container.openRightDrawer()
     }
-
-
-    //  protected final Bundle rawArguments() {
-    //    return arguments;
-    //  }
-
 
     ///// Fragment management /////
 
@@ -365,10 +332,6 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     companion object {
-
-        /////
-
-
         ///// Permission /////
 
         val PERMISSION_LOCATION = 40000
@@ -380,9 +343,6 @@ open class GActivity : AppCompatActivity(), GContainer {
         //  public final static Intent intent() {
         //    return new Intent(App.context(), ScreenVoteInfo.class);
         //  }
-        //
-        //
-        //
 
         fun intentBuilder(cls: KClass<out GActivity>): IntentBuilder {
             return IntentBuilder(cls)
