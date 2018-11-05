@@ -3,6 +3,7 @@ package com.gani.lib.ui.view
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.AttributeSet
+import android.view.View
 import android.widget.RadioButton
 
 class GRadioButton : RadioButton, IView {
@@ -49,6 +50,16 @@ class GRadioButton : RadioButton, IView {
 
     fun text(text: String): GRadioButton {
         this.text = text
+        return self()
+    }
+
+    fun tag(tag: Any): GRadioButton {
+        this.tag = tag
+        return self()
+    }
+
+    fun generatedId(): GRadioButton {
+        this.id = View.generateViewId()
         return self()
     }
 

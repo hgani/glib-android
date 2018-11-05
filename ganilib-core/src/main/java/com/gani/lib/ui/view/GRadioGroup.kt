@@ -1,15 +1,12 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RadioGroup
 
 class GRadioGroup : RadioGroup, IView {
     private var helper: ViewHelper = ViewHelper(this)
-
-    private var customClickSound: MediaPlayer? = null
 
     constructor(context: Context) : super(context) {
         init()
