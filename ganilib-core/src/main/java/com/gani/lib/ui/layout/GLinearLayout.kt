@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.gani.lib.ui.view.GButton
 import com.gani.lib.ui.view.GImageView
 import com.gani.lib.ui.view.ViewHelper
 
@@ -99,6 +100,11 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
 
     fun rtl(): T {
         ViewCompat.setLayoutDirection(this, ViewCompat.LAYOUT_DIRECTION_RTL)
+        return self()
+    }
+
+    fun onClick(listener: (T) -> Unit): T {
+        onClick(OnClickListener { listener(self()) })
         return self()
     }
 
