@@ -1,4 +1,4 @@
-package com.gani.lib.qr
+package com.gani.qr
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -17,7 +17,7 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 
 
-open abstract class QrScanFragment : GFragment() {
+abstract class QrScanFragment : GFragment() {
     companion object {
         val PERMISSION_CAMERA = 1;
     }
