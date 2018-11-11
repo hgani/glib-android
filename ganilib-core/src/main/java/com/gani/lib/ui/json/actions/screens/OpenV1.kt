@@ -68,7 +68,7 @@ class JsonUiScreen : GActivity() {
             }
 
             (args[ARG_SPEC] as? GJson)?.let {
-                JsonAction.executeAll(it, activity, null)
+                JsonAction.execute(it, activity, null)
                 activity.finish()
             }
         }

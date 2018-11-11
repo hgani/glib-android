@@ -36,14 +36,16 @@ abstract class JsonAction(val spec: GJson, val screen: GActivity) {
             return null
         }
 
-        fun executeAll(spec: GJson, screen: GActivity, creator: View?) {
+        fun execute(spec: GJson, screen: GActivity, creator: View?): Boolean {
             create(spec, screen)?.let {
                 it.targetView = creator
                 it.execute()
+                return true
             }
+            return false
         }
 
-        fun executeAll(spec: GJson, screen: GActivity, creator: JsonAction) {
+        fun execute(spec: GJson, screen: GActivity, creator: JsonAction) {
             create(spec, screen)?.let {
                 it.targetView = creator.targetView
                 it.execute()

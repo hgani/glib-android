@@ -24,7 +24,7 @@ class LabelV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spe
         }
 
         label.onClick {
-            JsonAction.executeAll(spec["onClick"], screen, it)
+            JsonAction.execute(spec["onClick"], screen, it)
         }
 
         return label

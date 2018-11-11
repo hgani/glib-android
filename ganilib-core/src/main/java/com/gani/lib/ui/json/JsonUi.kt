@@ -16,10 +16,12 @@ class JsonUi {
                 return
             }
 
-            initVerticalPanel(container.header, spec["header"], screen, fragment)
-            initVerticalPanel(container.content, spec["content"], screen, fragment)
-            initVerticalPanel(container.footer, spec["footer"], screen, fragment)
-            JsonAction.executeAll(spec["onLoad"], screen, null)
+            if (!JsonAction.execute(spec["onResponse"], screen, null)) {
+                initVerticalPanel(container.header, spec["header"], screen, fragment)
+                initVerticalPanel(container.content, spec["content"], screen, fragment)
+                initVerticalPanel(container.footer, spec["footer"], screen, fragment)
+                JsonAction.execute(spec["onLoad"], screen, null)
+            }
         }
 
         fun parseScreen(spec: GJson) {
@@ -31,7 +33,7 @@ class JsonUi {
             if (screen == null) {
                 return
             }
-            JsonAction.executeAll(spec["onResponse"], screen, null)
+            JsonAction.execute(spec["onResponse"], screen, null)
         }
 
         private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {

@@ -21,7 +21,7 @@ class ThumbnailV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
             override fun update(item: JsonTemplate) {
                 val spec = item.spec
                 container.onClick(View.OnClickListener {
-                    JsonAction.executeAll(spec["onClick"], item.screen, null)
+                    JsonAction.execute(spec["onClick"], item.screen, null)
                 })
                 image.source(url = spec["imageUrl"].stringValue)
                 title.text(spec["title"].stringValue)

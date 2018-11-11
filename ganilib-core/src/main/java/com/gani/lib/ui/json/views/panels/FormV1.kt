@@ -70,7 +70,7 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
                     val result = response.result
 //                    // Support generic uncustomizable framework (e.g. Devise)
 //                    result["error"].string?.let { screen.launch.alert(it) }
-                    JsonAction.executeAll(result["onResponse"], screen, this@FormPanel)
+                    JsonAction.execute(result["onResponse"], screen, this@FormPanel)
                 }
             }
             Rest.from(spec["method"].stringValue).asyncUrl(spec["url"].stringValue, params, callback).execute()
