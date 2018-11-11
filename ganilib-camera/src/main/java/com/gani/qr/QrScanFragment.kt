@@ -1,15 +1,11 @@
 package com.gani.qr
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
-import android.view.LayoutInflater
 import android.view.SurfaceHolder
-import android.view.SurfaceView
-import com.gani.lib.R
-import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
-import com.gani.lib.screen.GScreenContainer
 import com.gani.lib.utils.Res
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -24,7 +20,7 @@ abstract class QrScanFragment : GFragment() {
 
     //    private lateinit var detector: BarcodeDetector
     private lateinit var cameraSource: CameraSource
-    private lateinit var qrView: SurfaceView
+    private lateinit var qrView: GSurfaceView
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -34,11 +30,15 @@ abstract class QrScanFragment : GFragment() {
         }
     }
 
-    override fun initContent(activity: GActivity, container: GScreenContainer) {
-//        disableRefreshPull()
+    protected fun initSurface(context: Context): GSurfaceView {
 
-        LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container.content, true)
-        qrView = container.content.findViewById(R.id.qr_view)
+//    }
+//
+//    override fun initContent(activity: GActivity, container: GScreenContainer) {
+//        LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container.content, true)
+//        qrView = container.content.findViewById(R.id.qr_view)
+
+        qrView = GSurfaceView(context)
 
         val detector = BarcodeDetector.Builder(activity)
                 .setBarcodeFormats(Barcode.DATA_MATRIX or Barcode.QR_CODE)
@@ -64,8 +64,6 @@ abstract class QrScanFragment : GFragment() {
                 }
             }
         })
-
-
 
         qrView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
@@ -115,7 +113,7 @@ abstract class QrScanFragment : GFragment() {
             }
         })
 
-
+        return qrView
     }
 
     private fun checkPermission(): Boolean {
