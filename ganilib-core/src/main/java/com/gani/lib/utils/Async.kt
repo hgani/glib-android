@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 object Async {
-    fun run(command: () -> Unit) {
+    fun exec(command: () -> Unit) {
         //    uiHandler.post(command);
         DefaultAsyncTask(command).executeOnExecutor(THREAD_POOL_EXECUTOR)
     }

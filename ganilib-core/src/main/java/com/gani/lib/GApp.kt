@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Handler
 import com.gani.lib.collection.SelfTruncatingSet
-import com.gani.lib.ui.Ui
 import com.gani.lib.utils.Res
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -31,7 +30,7 @@ class GApp {
     // NOTE: Make sure the handler is created in UI thread.
     fun initialize(context: Context, handler: Handler) {
         Res.init(context);
-        Ui.init(handler);
+//        Ui.init(handler);
 
         this.version = extractAppVersionName(context)
     }

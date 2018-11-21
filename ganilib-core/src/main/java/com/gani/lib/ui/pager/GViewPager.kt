@@ -82,7 +82,7 @@ class GViewPager : ViewPager {
         override fun run() {
             // As the TimerTask run on a seprate thread from UI thread we have
             // to call runOnUiThread to do work on UI thread.
-            Ui.run(Runnable {
+            Ui.exec {
                 page++
 
                 if (page >= adapter!!.count) {
@@ -94,7 +94,7 @@ class GViewPager : ViewPager {
                 }
 
                 this@GViewPager.currentItem = page
-            })
+            }
         }
     }
 }

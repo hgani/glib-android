@@ -6,6 +6,10 @@ import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 import com.google.android.gms.maps.MapView
 
+// NOTE: To use this, set API key in manifest:
+// <meta-data
+//  android:name="com.google.android.geo.API_KEY"
+//  android:value="" />
 class GMapView : MapView, IView {
     private val helper: ViewHelper = ViewHelper(this)
 
