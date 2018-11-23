@@ -3,6 +3,7 @@ package com.gani.qr
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.SurfaceHolder
 import com.gani.lib.screen.GFragment
@@ -20,25 +21,24 @@ abstract class QrScanFragment : GFragment() {
 
     //    private lateinit var detector: BarcodeDetector
     private lateinit var cameraSource: CameraSource
-    private lateinit var qrView: GSurfaceView
+    protected lateinit var scannerView: GSurfaceView
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (checkPermission()) {
-            cameraSource.start(qrView.holder)
+            cameraSource.start(scannerView.holder)
         }
     }
 
-    protected fun initSurface(context: Context): GSurfaceView {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-//    }
-//
-//    override fun initContent(activity: GActivity, container: GScreenContainer) {
-//        LayoutInflater.from(activity).inflate(R.layout.qr_code_layout, container.content, true)
-//        qrView = container.content.findViewById(R.id.qr_view)
+        initSurface(context!!)
+    }
 
-        qrView = GSurfaceView(context)
+    private fun initSurface(context: Context): GSurfaceView {
+        scannerView = GSurfaceView(context)
 
         val detector = BarcodeDetector.Builder(activity)
                 .setBarcodeFormats(Barcode.DATA_MATRIX or Barcode.QR_CODE)
@@ -57,7 +57,7 @@ abstract class QrScanFragment : GFragment() {
                 if (barcodes.size() > 0) {
                     val value = barcodes.valueAt(0).displayValue
 
-                    qrView.post {
+                    scannerView.post {
                         cameraSource.stop()
                         onScan(value)
                     }
@@ -65,13 +65,13 @@ abstract class QrScanFragment : GFragment() {
             }
         })
 
-        qrView.holder.addCallback(object : SurfaceHolder.Callback {
+        scannerView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
 
-//                qrView.setOnClickListener { cameraFocus(cameraSource, Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO) }
+//                scannerView.setOnClickListener { cameraFocus(cameraSource, Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO) }
 
                 if (checkPermission()) {
-                    cameraSource.start(qrView.holder)
+                    cameraSource.start(scannerView.holder)
                 } else {
                     requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA)
                 }
@@ -113,12 +113,12 @@ abstract class QrScanFragment : GFragment() {
             }
         })
 
-        return qrView
+        return scannerView
     }
 
     private fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(Res.context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 
-    open abstract fun onScan(value: String);
+    abstract fun onScan(value: String);
 }
