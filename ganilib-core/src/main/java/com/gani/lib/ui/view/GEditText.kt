@@ -2,7 +2,7 @@ package com.gani.lib.ui.view
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.AppCompatEditText
+import android.support.design.widget.TextInputEditText
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
@@ -13,7 +13,7 @@ import com.gani.lib.logging.GLog
 import com.gani.lib.utils.Res
 
 
-class GEditText : AppCompatEditText, IView {
+class GEditText : TextInputEditText, IView {
     private var helper = ViewHelper(this)
 
     private var onTextChanged: ((GEditText) -> Unit)? = null
