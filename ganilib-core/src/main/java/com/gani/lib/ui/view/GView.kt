@@ -6,7 +6,7 @@ import android.view.View
 import com.gani.lib.utils.Res
 
 class GView : View, IView {
-    private var helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
 

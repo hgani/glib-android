@@ -7,11 +7,10 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.gani.lib.http.GImmutableParams
-import com.gani.lib.logging.GLog
 import com.gani.lib.ui.ProgressIndicator
 
-class GWebView : WebView {
-    private var helper: ViewHelper? = null
+class GWebView : WebView, IView {
+    private val helper = ViewHelper(this)
     private var indicator: ProgressIndicator? = null
 
     constructor(context: Context, progress: ProgressIndicator) : super(context) {
@@ -24,8 +23,6 @@ class GWebView : WebView {
     }
 
     private fun init() {
-        this.helper = ViewHelper(this)
-
         webViewClient = ProgressAwareWebViewClient()
 
         // Mimic turbolinks-android's WebView as much as possible.
@@ -43,8 +40,28 @@ class GWebView : WebView {
         webChromeClient = WebChromeClient()
     }
 
-    fun bgColor(color: Int): GWebView {
-        setBackgroundColor(color)
+    override fun width(width: Int?): GWebView {
+        helper.width(width)
+        return this
+    }
+
+    override fun height(height: Int?): GWebView {
+        helper.height(height)
+        return this
+    }
+
+    override fun padding(l: Int?, t: Int?, r: Int?, b: Int?): GWebView {
+        helper.padding(l, t, r, b)
+        return this
+    }
+
+    override fun margin(l: Int?, t: Int?, r: Int?, b: Int?): GWebView {
+        helper.margin(l, t, r, b)
+        return this
+    }
+
+    override fun bgColor(color: Int): GWebView {
+        helper.bgColor(color)
         return this
     }
 
@@ -60,27 +77,17 @@ class GWebView : WebView {
         return this
     }
 
-    protected fun onPageFinished() {
-        // To be overridden
-    }
-
-    //  public void onClick()
 
 
     private inner class ProgressAwareWebViewClient : WebViewClient() {
-        override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
-            GLog.i(javaClass, "onPageStarted: $url")
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-
             indicator?.showProgress()
         }
 
-        override fun onPageFinished(view: WebView, url: String) {
-            GLog.i(javaClass, "onPageFinished: $url")
+        override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-
             indicator?.hideProgress()
-            this@GWebView.onPageFinished()
         }
 
         //    // This wasn't working on Android 5.1.1 last time it was tested, but it doesn't matter now that we use Turbolinks on newer OSes.

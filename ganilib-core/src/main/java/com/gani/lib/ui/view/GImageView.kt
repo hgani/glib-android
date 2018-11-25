@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.gani.lib.utils.Res
 
 class GImageView : AppCompatImageView, IView {
-    private var helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
 

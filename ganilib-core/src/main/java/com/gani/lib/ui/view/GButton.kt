@@ -16,11 +16,12 @@ import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
 class GButton : AppCompatButton, IView {
-    private val helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     private var customClickSound: MediaPlayer? = null
 
     constructor(context: Context) : super(context)
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     override fun width(width: Int?): GButton {

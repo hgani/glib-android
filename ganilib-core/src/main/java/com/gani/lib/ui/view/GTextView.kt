@@ -10,15 +10,15 @@ import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
-import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
 
 open class GTextView : AppCompatTextView, IView {
-    private val helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private fun self(): GTextView {

@@ -8,9 +8,10 @@ import com.gani.lib.utils.Res
 
 
 class GTextInputLayout : TextInputLayout, IView {
-    private var helper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private fun self(): GTextInputLayout {

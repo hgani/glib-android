@@ -8,7 +8,6 @@ import java.io.IOException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
-import java.lang.NullPointerException
 import java.text.ParseException
 import java.text.ParsePosition
 import java.util.*
@@ -207,18 +206,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 //        }
         return createObject(string(name))
     }
-
-//    // TODO: Deprecate
-//    fun json(name: String): JO {
-//        if (rawJson == null) {
-//            try {
-//                rawJson = JSONObject(rawString)
-//            } catch (e: JSONException) {
-//                rawJson = JSONObject()
-//            }
-//        }
-//        return createObject(string(name))
-//    }
 
     private fun string(name: String): String? {
         try {

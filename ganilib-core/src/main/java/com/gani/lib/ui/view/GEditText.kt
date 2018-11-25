@@ -14,7 +14,7 @@ import com.gani.lib.utils.Res
 
 
 class GEditText : TextInputEditText, IView {
-    private var helper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     private var onTextChanged: ((GEditText) -> Unit)? = null
     private var textWatcher = object : TextWatcher {

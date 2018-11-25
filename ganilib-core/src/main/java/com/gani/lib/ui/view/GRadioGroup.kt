@@ -6,19 +6,11 @@ import android.view.View
 import android.widget.RadioGroup
 
 class GRadioGroup : RadioGroup, IView {
-    private var helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
-
-    private fun init() {
-        this.helper = ViewHelper(this)
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     override fun width(width: Int?): GRadioGroup {
         helper.width(width)

@@ -5,7 +5,7 @@ import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.util.AttributeSet
 
 class GAutoCompleteTextView : AppCompatAutoCompleteTextView, IView {
-    private var helper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
 

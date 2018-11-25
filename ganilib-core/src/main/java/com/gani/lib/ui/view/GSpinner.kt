@@ -9,7 +9,7 @@ import android.widget.AdapterView
 import android.widget.SpinnerAdapter
 
 class GSpinner : AppCompatSpinner, IView {
-    private var helper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
 
@@ -35,8 +35,8 @@ class GSpinner : AppCompatSpinner, IView {
         return this
     }
 
-    override fun bgColor(res: Int): GSpinner {
-        helper.bgColor(res)
+    override fun bgColor(color: Int): GSpinner {
+        helper.bgColor(color)
         return this
     }
 

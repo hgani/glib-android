@@ -1,27 +1,16 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RadioButton
 
 class GRadioButton : RadioButton, IView {
-    private var helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
 
-    private var customClickSound: MediaPlayer? = null
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
-
-    private fun init() {
-        this.helper = ViewHelper(this)
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     override fun width(width: Int?): GRadioButton {
         helper.width(width)
