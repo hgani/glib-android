@@ -2,7 +2,7 @@ package com.gani.lib.http
 
 import android.os.AsyncTask
 
-class AsyncHttpTask internal constructor(private val callback: GHttpCallback<GHttpResponse.Default, *>, private val delegate: HttpDelegate) : AsyncTask<Void, Void, GHttpResponse.Default>() {
+class AsyncHttpTask internal constructor(private val callback: GHttpCallback<GHttpResponse.Default>, private val delegate: HttpDelegate) : AsyncTask<Void, Void, GHttpResponse.Default>() {
     val url: String
         get() = delegate.url
 
@@ -21,7 +21,7 @@ class AsyncHttpTask internal constructor(private val callback: GHttpCallback<GHt
 
     @Synchronized
     fun firstPhaseExecute() {
-        (callback as? GRestCallback<*, *, *>)?.onBeforeHttp()
+        (callback as? GRestCallback<*, *>)?.onBeforeHttp()
     }
 
     @Synchronized

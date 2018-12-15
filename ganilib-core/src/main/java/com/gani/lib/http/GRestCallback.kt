@@ -5,55 +5,13 @@ import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.ProgressIndicator
 
 
-abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GHttpError<*>>(  // To be used by child.
-        private val indicator: ProgressIndicator) : GHttpCallback<HR, HE> {
-//    private var async: Boolean = false
+abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse>(  // To be used by child.
+        private val indicator: ProgressIndicator, private val callback: (RR) -> Unit) : GHttpCallback<HR> {
 
-//    constructor(fragment: GFragment) : this(fragment.context, fragment.indicator) {}
-    constructor(fragment: GFragment) : this(fragment.indicator) {}
-
-//    constructor(dialog: GDialogProgress) : this(dialog, dialog) {}
-
-//    fun async(value: Boolean): GRestCallback<*, *, *> {
-//        this.async = value
-//        return this
-//    }
+    constructor(fragment: GFragment, callback: (RR) -> Unit) : this(fragment.indicator, callback)
 
     final override fun onHttpResponse(response: HR) {
         val r = response.rest
-
-//        if (this.async) {
-//            object : AsyncTask<Void, Void, Exception>() {
-//                override fun doInBackground(vararg params: Void): Exception? {
-//                    try {
-//                        onRestResponse(r)
-//                    } catch (e: JSONException) {
-//                        return e
-//                    }
-//
-//                    return null
-//                }
-//
-//                override fun onPostExecute(e: Exception) {
-//                    if (e is JSONException) {
-//                        //          GHttp.instance().alertHelper().alertJsonError(context, r, (JSONException) e);
-//                        onJsonError(r, e)
-//                    }
-//
-//                    doFinally()
-//                }
-//                //      }.execute();
-//
-//            }.executeOnExecutor(AsyncHttpTask.THREAD_POOL_EXECUTOR)
-//        } else {
-//            try {
-//                onRestResponse(r)
-//            } catch (e: JSONException) {
-//                onJsonError(r, e)
-//            } finally {
-//                doFinally()
-//            }
-//        }
 
         try {
             onRestResponse(r)
@@ -61,10 +19,6 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
             doFinally()
         }
     }
-//
-//    protected fun onJsonError(response: RR, e: JSONException) {
-//        GLog.e(javaClass, "Failed parsing JSON result", e)
-//    }
 
     fun onBeforeHttp() {
         indicator.showProgress()
@@ -72,6 +26,7 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
 
     open protected fun onRestResponse(response: RR) {
         displayMessage(response)
+        callback(response)
     }
 
     protected fun doFinally() {
@@ -90,8 +45,8 @@ abstract class GRestCallback<HR : GHttpResponse<RR>, RR : GRestResponse, HE : GH
         }
     }
 
-    open class Default : GRestCallback<GHttpResponse.Default, GRestResponse, GHttpError.Default> {
-        constructor(indicator: ProgressIndicator) : super(indicator) {}
-        constructor(fragment: GFragment) : super(fragment) {}
+    open class Default : GRestCallback<GHttpResponse.Default, GRestResponse> {
+        constructor(indicator: ProgressIndicator, callback: (GRestResponse) -> Unit) : super(indicator, callback)
+        constructor(fragment: GFragment, callback: (GRestResponse) -> Unit) : super(fragment, callback)
     }
 }

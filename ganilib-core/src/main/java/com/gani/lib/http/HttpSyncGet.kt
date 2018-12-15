@@ -20,7 +20,7 @@ class HttpSyncGet(nakedUrl: String, params: GImmutableParams, hook: HttpHook<*>)
         return response
     }
 
-    fun execute(callback: GHttpCallback<GHttpResponse.Default, GHttpError.Default>) {
+    fun execute(callback: GHttpCallback<GHttpResponse.Default>) {
         try {
             callback.onHttpResponse(execute())
             //      callback.onHttpSuccess(execute());

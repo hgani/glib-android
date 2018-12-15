@@ -3,7 +3,6 @@ package com.gani.lib.ui.json.actions.screens
 import android.content.Intent
 import android.os.Bundle
 import com.gani.lib.http.GRestCallback
-import com.gani.lib.http.GRestResponse
 import com.gani.lib.http.Rest
 import com.gani.lib.json.GJson
 import com.gani.lib.screen.GActivity
@@ -57,14 +56,17 @@ class JsonUiScreen : GActivity() {
 
     class ContentFragment : GFragment() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            (args[ARG_URL] as? String)?.let {
-                val callback = object : GRestCallback.Default(this@ContentFragment) {
-                    override fun onRestResponse(response: GRestResponse) {
-                        super.onRestResponse(response)
-                        JsonUi.parseScreen(response.result, this@ContentFragment)
-                    }
+            (args[ARG_URL] as? String)?.let { url ->
+                val callback = GRestCallback.Default(this@ContentFragment) { response ->
+                    JsonUi.parseScreen(response.result, this@ContentFragment)
                 }
-                Rest.GET.asyncUrl(it, null, callback = callback).execute();
+//                {
+//                    override fun onRestResponse(response: GRestResponse) {
+//                        super.onRestResponse(response)
+//                        JsonUi.parseScreen(response.result, this@ContentFragment)
+//                    }
+//                }
+                Rest.GET.asyncUrl(url, null).execute(callback)
             }
 
             (args[ARG_SPEC] as? GJson)?.let {

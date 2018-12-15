@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.gani.lib.http.GParams
 import com.gani.lib.http.GRestCallback
-import com.gani.lib.http.GRestResponse
 import com.gani.lib.http.Rest
 import com.gani.lib.json.GJson
 import com.gani.lib.logging.GLog
@@ -63,17 +62,23 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
 
             GLog.t(javaClass, "S ${params}")
 
-            val callback = object : GRestCallback.Default(fragment) {
-                override fun onRestResponse(response: GRestResponse) {
-                    super.onRestResponse(response)
-
-                    val result = response.result
+            val callback = GRestCallback.Default(fragment) {
+                val result = it.result
 //                    // Support generic uncustomizable framework (e.g. Devise)
 //                    result["error"].string?.let { screen.launch.alert(it) }
-                    JsonAction.execute(result["onResponse"], screen, this@FormPanel)
-                }
+                JsonAction.execute(result["onResponse"], screen, this@FormPanel)
             }
-            Rest.from(spec["method"].stringValue).asyncUrl(spec["url"].stringValue, params, callback).execute()
+//            {
+//                override fun onRestResponse(response: GRestResponse) {
+//                    super.onRestResponse(response)
+//
+//                    val result = response.result
+////                    // Support generic uncustomizable framework (e.g. Devise)
+////                    result["error"].string?.let { screen.launch.alert(it) }
+//                    JsonAction.execute(result["onResponse"], screen, this@FormPanel)
+//                }
+//            }
+            Rest.from(spec["method"].stringValue).asyncUrl(spec["url"].stringValue, params).execute(callback)
         }
 
 //        fun extractSubmittableFields(parent: ViewGroup, fields: MutableList<SubmittableField>) {

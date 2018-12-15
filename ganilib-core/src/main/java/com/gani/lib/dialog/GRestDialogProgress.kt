@@ -51,15 +51,20 @@ class GRestDialogProgress : GDialogProgress() {
             val url = args[ARG_URL] as String
             val params = args[ARG_PARAMS] as? GParams.Default
             val callback = args[ARG_CALLBACK] as Callback
+//
+//            httpRequest = method.asyncUrl(url, params, object : GRestCallback.Default(this@ContentFragment) {
+//                override fun onRestResponse(response: GRestResponse) {
+//                    super.onRestResponse(response)
+//
+//                    callback.onRestResponse(this@ContentFragment, response)
+//                    gActivity?.finish()
+//                }
+//            }).execute()
 
-            httpRequest = method.asyncUrl(url, params, object : GRestCallback.Default(this@ContentFragment) {
-                override fun onRestResponse(response: GRestResponse) {
-                    super.onRestResponse(response)
-
-                    callback.onRestResponse(this@ContentFragment, response)
-                    gActivity?.finish()
-                }
-            }).execute()
+            httpRequest = method.asyncUrl(url, params).execute(GRestCallback.Default(this@ContentFragment) {
+                callback.onRestResponse(this@ContentFragment, it)
+                gActivity?.finish()
+            })
         }
 
         override fun onDestroy() {
