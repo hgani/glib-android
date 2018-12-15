@@ -8,6 +8,7 @@ import java.io.IOException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
+import java.math.BigDecimal
 import java.text.ParseException
 import java.text.ParsePosition
 import java.util.*
@@ -108,6 +109,20 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
     val doubleValue: Double
         get() {
             return double ?: 0.0
+        }
+
+    val decimal: BigDecimal?
+        get() {
+            try {
+                return BigDecimal(string)
+            } catch (e: NumberFormatException) {
+                return null
+            }
+        }
+
+    val decimalValue: BigDecimal
+        get() {
+            return decimal ?: BigDecimal.ZERO
         }
 
     val bool: Boolean?
@@ -296,79 +311,11 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 //        return backend.getInt(name)
 //    }
 //
-//    @Throws(JSONException::class)
-//    fun getBoolean(name: String): Boolean {
-//        return backend.getBoolean(name)
-//    }
-//
-//    fun getBoolean(name: String, defaultValue: Boolean): Boolean {
-//        try {
-//            return if (backend.isNull(name)) {
-//                defaultValue
-//            } else {
-//                getBoolean(name)
-//            }
-//        } catch (e: JSONException) {
-//            return defaultValue
-//        }
-//
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun getDouble(name: String): Double {
-//        return backend.getDouble(name)
-//    }
-//
-//    fun getNullableInt(name: String): Int? {
-//        try {
-//            return if (backend.isNull(name)) null else getInt(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-//
-//    fun getInt(name: String, defaultValue: Int): Int {
-//        try {
-//            return if (backend.isNull(name)) defaultValue else getInt(name)
-//        } catch (e: JSONException) {
-//            return defaultValue
-//        }
-//
-//    }
-//
 //    fun getNullableLong(name: String): Long? {
 //        try {
 //            return if (backend.isNull(name)) null else getLong(name)
 //        } catch (e: JSONException) {
 //            return null
-//        }
-//
-//    }
-//
-//    fun getNullableDouble(name: String): Double? {
-//        try {
-//            return if (backend.isNull(name)) null else getDouble(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-//
-//    fun getNullableBoolean(name: String): Boolean? {
-//        try {
-//            return if (backend.isNull(name)) null else getBoolean(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-//
-//    fun getDouble(name: String, defaultValue: Double): Double {
-//        try {
-//            return if (backend.isNull(name)) defaultValue else getDouble(name)
-//        } catch (e: JSONException) {
-//            return defaultValue
 //        }
 //
 //    }
