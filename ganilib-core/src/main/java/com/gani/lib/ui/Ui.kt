@@ -7,12 +7,6 @@ import android.os.Looper
 object Ui {
     val uiHandler = Handler(Looper.getMainLooper())
 
-//    private lateinit var uiHandler: Handler
-//
-//    fun init(handler: Handler) {
-//        uiHandler = handler
-//    }
-
     // Use this to:
     // Ensure that async task is created and executed on UI thread and
     // Ensure that listeners are executed on UI thread

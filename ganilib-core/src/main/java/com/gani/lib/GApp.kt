@@ -28,9 +28,8 @@ class GApp {
         private set
 
     // NOTE: Make sure the handler is created in UI thread.
-    fun initialize(context: Context, handler: Handler) {
+    fun initialize(context: Context) {
         Res.init(context);
-//        Ui.init(handler);
 
         this.version = extractAppVersionName(context)
     }
