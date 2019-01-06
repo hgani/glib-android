@@ -71,8 +71,14 @@ open class GFragment : Fragment(), GContainer {
         // To be overridden
     }
 
+    open protected fun resetContent(activity: GActivity, container: GScreenContainer) {
+        // To be overridden
+    }
+
     override fun onStart() {
         super.onStart()
+
+        resetContent( gActivity!!, container!!)
     }
 
     override fun onStop() {
