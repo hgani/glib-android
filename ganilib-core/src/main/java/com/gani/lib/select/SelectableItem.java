@@ -24,11 +24,11 @@ public interface SelectableItem extends Serializable {
     }
 
     public static String toLineSeparatedNames(List<? extends SelectableItem> items) {
-      return StringUtils.join(collectNames(items), "\n");
+      return StringUtils.INSTANCE.join(collectNames(items), "\n");
     }
 
     public static String toSpaceSeparatedNames(List<? extends SelectableItem> items) {
-      return StringUtils.join(collectNames(items), " ");
+      return StringUtils.INSTANCE.join(collectNames(items), " ");
     }
 
     // Set to empty when there is no error. This is important for determining form validity (e.g. when enabling submit button).
