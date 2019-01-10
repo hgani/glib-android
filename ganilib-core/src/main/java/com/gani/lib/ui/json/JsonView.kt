@@ -26,6 +26,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
         (backend as? IView)?.let {
             initBackgroundColor(it)
             initWidth(it)
+            initHeight(it)
             initPadding(it)
         }
     }
@@ -45,6 +46,14 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             "matchParent" -> view.width(ViewGroup.LayoutParams.MATCH_PARENT)
             "wrapContent" -> view.width(ViewGroup.LayoutParams.WRAP_CONTENT)
             else -> view.width(spec["width"].int)
+        }
+    }
+
+    private fun initHeight(view: IView) {
+        when (spec["height"].stringValue) {
+            "matchParent" -> view.width(ViewGroup.LayoutParams.MATCH_PARENT)
+            "wrapContent" -> view.width(ViewGroup.LayoutParams.WRAP_CONTENT)
+            else -> view.height(spec["height"].int)
         }
     }
 
