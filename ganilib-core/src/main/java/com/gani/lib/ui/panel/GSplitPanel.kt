@@ -3,7 +3,9 @@ package com.gani.lib.ui.panel
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import com.gani.lib.ui.layout.GRelativeLayout
+import com.gani.lib.ui.view.IView
 import com.gani.lib.ui.view.ViewHelper
 
 open class GSplitPanel: GRelativeLayout<GSplitPanel> {
@@ -24,19 +26,24 @@ open class GSplitPanel: GRelativeLayout<GSplitPanel> {
     }
 
     fun withViews(left: View, center: View, right: View): GSplitPanel {
-        // For some reason the views' width cannot be set to an explicit length if they are not wrapped.
+        // Wrap all the elements so they use linear layout params (instead of relative) so that we can set
+        // the view's width/height in a consistent manner.
         val l = GVerticalPanel(context).append(left)
         val r = GVerticalPanel(context).append(right)
+        val c = GVerticalPanel(context).append(center)
+
+        // Center view should always stretch.
+        (center as? IView)?.width(ViewGroup.LayoutParams.MATCH_PARENT)
 
         addView(l)
-        addView(center)
+        addView(c)
         addView(r)
 
         ViewHelper(l).relative {
             it.alignLeft()
         }
 
-        ViewHelper(center).relative {
+        ViewHelper(c).relative {
             it.rightOf(l)
             it.leftOf(r)
         }

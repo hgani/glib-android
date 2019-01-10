@@ -19,7 +19,7 @@ class SplitV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spe
 
     private fun createSubview(subviewSpec: GJson) : View {
         if (subviewSpec.isNull()) {
-            return GView(context)
+            return GView(context).width(0)
         }
         return JsonView.create(subviewSpec, screen, fragment)?.createView() ?: GView(context)
     }
