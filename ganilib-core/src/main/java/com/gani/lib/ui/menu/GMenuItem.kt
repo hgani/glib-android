@@ -2,6 +2,7 @@ package com.gani.lib.ui.menu
 
 import android.graphics.drawable.Drawable
 import android.view.MenuItem
+import android.view.View
 
 import com.gani.lib.ui.icon.GIcon
 
@@ -25,6 +26,11 @@ class GMenuItem(private val backend: MenuItem) {
             listener(this)
             true
         }
+        return this
+    }
+
+    fun actionView(view: View): GMenuItem {
+        backend.setActionView(view)
         return this
     }
 }
