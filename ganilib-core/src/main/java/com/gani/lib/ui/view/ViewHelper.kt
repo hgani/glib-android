@@ -33,7 +33,7 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
 //    }
 
     fun relative(addRules: (GRelativeLayoutParams) -> (Unit)) {
-        val params = GRelativeLayoutParams()
+        val params = (this.view.layoutParams as? GRelativeLayoutParams) ?: GRelativeLayoutParams()
         this.view.layoutParams = params
         addRules(params)
     }

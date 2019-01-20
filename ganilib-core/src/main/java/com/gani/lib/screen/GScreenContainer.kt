@@ -1,7 +1,6 @@
 package com.gani.lib.screen
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import com.gani.lib.ui.panel.GHamburgerPanel
 import com.gani.lib.ui.panel.GVerticalPanel
@@ -24,7 +23,15 @@ class GScreenContainer: GHamburgerPanel {
         withViews(header, content, footer)
 
         // MATCH_PARENT in relative layout
+        header.relative {
+            it.alignParentStart()
+            it.alignParentEnd()
+        }
         content.relative {
+            it.alignParentStart()
+            it.alignParentEnd()
+        }
+        footer.relative {
             it.alignParentStart()
             it.alignParentEnd()
         }
