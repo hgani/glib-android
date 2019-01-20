@@ -52,6 +52,13 @@ class GCheckBox : CheckBox, IView {
         return self()
     }
 
+    fun onChange(listener: (GCheckBox, Boolean) -> Unit): GCheckBox {
+        setOnCheckedChangeListener { button, boolean ->
+            listener(this, boolean)
+        }
+        return self()
+    }
+
     private fun self(): GCheckBox {
         return this
     }

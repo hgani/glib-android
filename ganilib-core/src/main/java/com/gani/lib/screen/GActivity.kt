@@ -265,19 +265,6 @@ open class GActivity : AppCompatActivity(), GContainer {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        //    if (Build.INSTANCE.shouldShowTestFeatures()) {
-        //      new GMenu(menu, this).addSecondary(R.string.menu_nav_log, GMenu.ORDER_COMMON, new GMenu.OnClickListener() {
-        //        @Override
-        //        protected void onClick(MenuItem menuItem) {
-        //          startActivity(ScreenReadOnly.intent("Log", GLog.Reader.getLog()));
-        //        }
-        //      });
-        //    }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
     class IntentBuilder internal constructor(cls: KClass<out GActivity>) {
         val intent: Intent
 
