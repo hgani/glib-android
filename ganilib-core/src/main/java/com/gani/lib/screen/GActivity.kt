@@ -8,7 +8,10 @@ import android.support.annotation.LayoutRes
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.gani.lib.R
@@ -235,19 +238,19 @@ open class GActivity : AppCompatActivity(), GContainer {
         shouldRecreateFragmentOnNewIntent = true
     }
 
-    // NOTE: This method also gets called when the user says no.
-    override fun onRequestPermissionsResult(reqCode: Int, permissions: Array<String>, results: IntArray) {
-        // This is important. See https://stackoverflow.com/questions/35989288/onrequestpermissionsresult-not-being-called-in-fragment-if-defined-in-both-fragm
-        super.onRequestPermissionsResult(reqCode, permissions, results)
-
-        when (reqCode) {
-            PERMISSION_LOCATION -> {
-                // TODO: Disabled as it is not required right now
-//                LocationManager.instance().updateLocationSilently(this)
-                return
-            }
-        }// Nothing to do
-    }
+//    // NOTE: This method also gets called when the user says no.
+//    override fun onRequestPermissionsResult(reqCode: Int, permissions: Array<String>, results: IntArray) {
+//        // This is important. See https://stackoverflow.com/questions/35989288/onrequestpermissionsresult-not-being-called-in-fragment-if-defined-in-both-fragm
+//        super.onRequestPermissionsResult(reqCode, permissions, results)
+//
+//        when (reqCode) {
+//            PERMISSION_LOCATION -> {
+//                // TODO: Disabled as it is not required right now
+////                LocationManager.instance().updateLocationSilently(this)
+//                return
+//            }
+//        }// Nothing to do
+//    }
 
 
     ///// Menu /////
@@ -299,13 +302,6 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     companion object {
-        ///// Permission /////
-
-        val PERMISSION_LOCATION = 40000
-
-        /////
-
-
         // TODO: Could in theory use MethodHandles.lookup().lookupClass() in Java 1.7 but MethodHandles doesn't exist in Android
         //  public final static Intent intent() {
         //    return new Intent(App.context(), ScreenVoteInfo.class);

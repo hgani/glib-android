@@ -1,5 +1,6 @@
 package com.gani.lib.screen
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -107,6 +108,31 @@ open class GFragment : Fragment(), GContainer {
     protected open fun onRefresh() {
         indicator.hideProgress()
     }
+
+
+
+    ///// Permission /////
+
+    // NOTE: This method also gets called when the user says no.
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, results: IntArray) {
+        // This is important. See https://stackoverflow.com/questions/35989288/onrequestpermissionsresult-not-being-called-in-fragment-if-defined-in-both-fragm
+        super.onRequestPermissionsResult(requestCode, permissions, results)
+
+        gActivity?.let { activity ->
+            results.forEachIndexed  { index, result ->
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    onRequestPermissionGranted(activity, requestCode, permissions[index])
+                }
+            }
+        }
+    }
+
+    protected open fun onRequestPermissionGranted(activity: GActivity, requestCode: Int, permission: String) {
+        // To be overridden
+    }
+
+    /////
+
 
 //    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
 //        val strId = refreshStringId
