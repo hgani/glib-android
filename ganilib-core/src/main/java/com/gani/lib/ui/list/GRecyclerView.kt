@@ -17,7 +17,13 @@ open class GRecyclerView : RecyclerView, IView {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
 
-    init {
+//    init {
+//        setLayoutManager(layoutManager)
+//    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
         setLayoutManager(layoutManager)
     }
 
@@ -58,6 +64,11 @@ open class GRecyclerView : RecyclerView, IView {
         else {
             removeItemDecoration(divider)
         }
+        return this
+    }
+
+    fun itemAnimator(animator: ItemAnimator): GRecyclerView {
+        itemAnimator = animator
         return this
     }
 
