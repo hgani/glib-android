@@ -37,8 +37,8 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
-    override fun bgColor(res: Int): GImageView {
-        helper.bgColor(res)
+    override fun bgColor(color: Int): GImageView {
+        helper.bgColor(color)
         return this
     }
 
@@ -63,14 +63,10 @@ class GImageView : AppCompatImageView, IView {
     }
 
     fun source(url: String?): GImageView {
-        if (url != null) {
-//            Glide.with(context.applicationContext)  // Using application context prevents app crash when closing activity during image load
-//                    .load(url)
-//                    .into(this)
-            Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load
-                    .load(url)
-                    .into(this)
-        }
+        // If url is null, the image view will be blank, which is suitable behaviour for item holder reuse.
+        Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load
+                .load(url)
+                .into(this)
         return this
     }
 
@@ -124,9 +120,4 @@ class GImageView : AppCompatImageView, IView {
         helper.click(OnClickListener { listener(this) })
         return this
     }
-
-//    fun onClick(listener: View.OnClickListener): GImageView {
-//        helper.click(listener)
-//        return this
-//    }
 }
