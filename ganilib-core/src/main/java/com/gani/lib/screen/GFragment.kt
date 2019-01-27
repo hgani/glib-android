@@ -1,5 +1,7 @@
 package com.gani.lib.screen
 
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -101,6 +103,10 @@ open class GFragment : Fragment(), GContainer {
         // To be overridden.
     }
 
+
+
+    ///// Refresh /////
+
     protected fun enableRefreshPull() {
         refreshView.isEnabled = true
     }
@@ -108,6 +114,29 @@ open class GFragment : Fragment(), GContainer {
     protected open fun onRefresh() {
         indicator.hideProgress()
     }
+
+    /////
+
+
+
+    ///// onActivityResult /////
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            gActivity?.let { activity ->
+                onActivityResultOk(activity, requestCode, GBundle(data?.extras ?: Bundle.EMPTY))
+            }
+        }
+
+    }
+
+    protected open fun onActivityResultOk(activity: GActivity, requestCode: Int, results: GBundle) {
+        // To be overridden
+    }
+
+    /////
 
 
 

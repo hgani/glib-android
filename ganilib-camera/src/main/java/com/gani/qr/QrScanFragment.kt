@@ -23,8 +23,8 @@ abstract class QrScanFragment : GFragment() {
     private lateinit var cameraSource: CameraSource
     protected lateinit var scannerView: GSurfaceView
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, results: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, results)
 
         if (checkPermission()) {
             cameraSource.start(scannerView.holder)
