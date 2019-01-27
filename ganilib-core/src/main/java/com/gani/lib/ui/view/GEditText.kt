@@ -7,6 +7,9 @@ import android.text.Editable
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.widget.TextView
 import com.gani.lib.R
 import com.gani.lib.logging.GLog
@@ -52,6 +55,32 @@ class GEditText : TextInputEditText, IView {
         }
 
         addTextChangedListener(textWatcher)
+    }
+
+    // From https://stackoverflow.com/questions/6355096/how-to-create-edittext-with-crossx-button-at-end-of-it
+    fun resetable(): GEditText {
+        val originalText = this.text.toString()
+
+        addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                val clearIcon = if (editable?.toString() != originalText) R.drawable.abc_ic_clear_material else 0
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+        })
+
+        setOnTouchListener(View.OnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (this.right - this.compoundPaddingRight)) {
+                    this.setText(originalText)
+                    return@OnTouchListener true
+                }
+            }
+            return@OnTouchListener false
+        })
+        return this
     }
 
     private fun self(): GEditText {
@@ -133,4 +162,21 @@ class GEditText : TextInputEditText, IView {
         setText(text);
         return this
     }
+
+    fun enabled(enabled: Boolean): GEditText {
+        isEnabled = enabled
+        return this
+    }
+
+    fun onFocus(listener: (GEditText, Boolean) -> Unit) : GEditText {
+        onFocus(OnFocusChangeListener { _, hasFocus -> listener(this, hasFocus) })
+        return this
+    }
+
+    fun onFocus(listener: View.OnFocusChangeListener): GEditText {
+        setOnFocusChangeListener(listener)
+        return this
+    }
+
+
 }
