@@ -60,12 +60,6 @@ class JsonUiScreen : GActivity() {
                 val callback = GRestCallback.Default(this@ContentFragment) { response ->
                     JsonUi.parseScreen(response.result, this@ContentFragment)
                 }
-//                {
-//                    override fun onRestResponse(response: GRestResponse) {
-//                        super.onRestResponse(response)
-//                        JsonUi.parseScreen(response.result, this@ContentFragment)
-//                    }
-//                }
                 Rest.GET.asyncUrl(url, null).execute(callback)
             }
 
