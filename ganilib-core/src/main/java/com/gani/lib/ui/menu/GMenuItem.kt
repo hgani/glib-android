@@ -7,8 +7,13 @@ import android.view.View
 import com.gani.lib.ui.icon.GIcon
 
 class GMenuItem(private val backend: MenuItem) {
-    fun alwaysShow(): GMenuItem {  // Not applicable for certain types of menu, e.g. popup menu.
+    fun showAlways(): GMenuItem {  // Not applicable for certain types of menu, e.g. popup menu.
         backend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        return this
+    }
+
+    fun showIfRoom(): GMenuItem {  // Not applicable for certain types of menu, e.g. popup menu.
+        backend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         return this
     }
 
