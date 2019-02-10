@@ -1,6 +1,6 @@
 package com.gani.lib.ui.json
 
-import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import com.gani.lib.json.GJson
 import com.gani.lib.logging.GLog
@@ -9,6 +9,7 @@ import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.icon.GIcon
 import com.gani.lib.ui.json.views.panels.VerticalV1
 import com.gani.lib.ui.panel.GVerticalPanel
+import com.gani.lib.utils.Res
 import com.mikepenz.iconics.IconicsDrawable
 
 class JsonUi {
@@ -58,9 +59,9 @@ class JsonUi {
             }
         }
 
-        fun iconDrawable(spec: GJson, context: Context): Drawable? {
+        fun iconDrawable(spec: GJson): Drawable? {
             spec["materialName"].string?.let { iconName ->
-                return IconicsDrawable(context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE)
+                return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE).color(Color.BLUE)
             }
             return null
         }

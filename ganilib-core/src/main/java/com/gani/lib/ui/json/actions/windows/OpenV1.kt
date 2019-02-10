@@ -8,6 +8,7 @@ import com.gani.lib.BuildConfig
 import com.gani.lib.http.GRestCallback
 import com.gani.lib.http.Rest
 import com.gani.lib.json.GJson
+import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
 import com.gani.lib.screen.GScreenContainer
@@ -50,10 +51,16 @@ class JsonUiScreen : GActivity() {
         val view = NavHelper(this)
         super.onCreateForScreen(savedInstanceState, view)
         setFragmentWithToolbar(createNewIntentFragment(), false, savedInstanceState)
+
+        initNavigation()
     }
 
     override fun createNewIntentFragment(): GFragment {
         return ContentFragment()
+    }
+
+    private fun initNavigation() {
+        nav.showHomeIcon()
     }
 
 
@@ -62,6 +69,7 @@ class JsonUiScreen : GActivity() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
             super.path = (args[ARG_URL] as? String)
             super.prependHost = false
+            super.parseMenu = true
             super.initContent(activity, container)
         }
 
@@ -71,8 +79,8 @@ class JsonUiScreen : GActivity() {
 abstract class JsonUiFragment : GFragment {
     protected var path: String? = null
     protected var prependHost: Boolean = false
+    protected var parseMenu = true
     private var page: GJson? = null
-    private val parseMenu = false
 
     constructor() {
         // Mandatory constructor
@@ -120,7 +128,7 @@ abstract class JsonUiFragment : GFragment {
                     item.showIfRoom().onClick {
                         JsonAction.execute(button["onClick"], activity, null)
                     }
-                    JsonUi.iconDrawable(button["icon"], activity)?.let { drawable ->
+                    JsonUi.iconDrawable(button["icon"])?.let { drawable ->
                         item.icon(drawable)
                     }
                 }
