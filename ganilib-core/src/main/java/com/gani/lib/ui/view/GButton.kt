@@ -15,7 +15,7 @@ import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
 
-class GButton : AppCompatButton, IView {
+class GButton : AppCompatButton, IView, GWeightable {
     private val helper = ViewHelper(this)
 
     private var customClickSound: MediaPlayer? = null
@@ -52,7 +52,7 @@ class GButton : AppCompatButton, IView {
         return bgColor(color, 0)
     }
 
-    fun weight(weight: Float): GButton {
+    override fun weight(weight: Float): GButton {
         helper.weight(weight)
         return self()
     }

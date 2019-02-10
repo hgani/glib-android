@@ -5,13 +5,13 @@ import android.graphics.drawable.Drawable
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.gani.lib.ui.view.GButton
-import com.gani.lib.ui.view.GImageView
+import com.gani.lib.ui.view.GWeightable
 import com.gani.lib.ui.view.ViewHelper
 
-open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
+open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout, GWeightable {
     private var helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
@@ -82,7 +82,7 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout {
         return self()
     }
 
-    fun weight(weight: Float): T {
+    override fun weight(weight: Float): T {
         helper.weight(weight)
         return self()
     }
