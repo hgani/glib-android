@@ -141,69 +141,14 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return bool ?: false
         }
 
+    val presence: JO?
+        get() {
+            return if (isNull()) null else (this as? JO)
+        }
+
     fun isNull() : Boolean {
         return rawString == null
     }
-
-//    val keys: Iterator<String>
-//        get() {
-//            return rawJson.keys()
-//        }
-//
-//    fun toMap(name: String): Map<String, Any> {
-//    }
-//    val isEmpty: Boolean
-//        get() = if (backend.names() == null) {
-//            true
-//        } else backend.names().length() <= 0
-//
-
-
-
-//    @Throws(JSONException::class)
-//    fun getStringArray(name: String): Array<String> {
-//        val arr = backend.getJSONArray(name)
-//        val elements = arrayOfNulls<String>(arr.length())
-//        for (i in elements.indices) {
-//            elements[i] = arr.getString(i)
-//        }
-//        return elements
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun getNullableStringArray(name: String): Array<String>? {
-//        try {
-//            //      JSONArray arr = backend.getJSONArray(name);
-//            //      String[] elements = new String[arr.length()];
-//            //      for (int i = 0; i < elements.length; ++i) {
-//            //        elements[i] = arr.getString(i);
-//            //      }
-//            //      return elements;
-//            return getStringArray(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-
-//    @Throws(JSONException::class)
-//    fun getIntArray(name: String): IntArray {
-//        val arr = backend.getJSONArray(name)
-//        val elements = IntArray(arr.length())
-//        for (i in elements.indices) {
-//            elements[i] = arr.getInt(i)
-//        }
-//        return elements
-//    }
-//
-//    fun getNullableIntArray(name: String): IntArray? {
-//        try {
-//            return getIntArray(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
 
     protected abstract fun createArray(array: JSONArray): JA
     protected abstract fun createObject(rawString: String?): JO

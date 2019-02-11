@@ -8,7 +8,6 @@ import com.gani.lib.BuildConfig
 import com.gani.lib.http.GRestCallback
 import com.gani.lib.http.Rest
 import com.gani.lib.json.GJson
-import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
 import com.gani.lib.screen.GScreenContainer
@@ -32,10 +31,12 @@ class JsonUiScreen : GActivity() {
     companion object {
         val ARG_URL = "url"
         val ARG_SPEC = "spec"
+        val ARG_ROOT = "isRoot"
 
-        fun intent(url: String): Intent {
+        fun intent(url: String, isRoot: Boolean = false): Intent {
             return intentBuilder(JsonUiScreen::class)
-                    .withArg(ARG_URL, url).intent
+                    .withArg(ARG_URL, url)
+                    .withArg(ARG_ROOT, isRoot).intent
         }
 
         fun intent(actionSpec: GJson): Intent {
@@ -60,14 +61,16 @@ class JsonUiScreen : GActivity() {
     }
 
     private fun initNavigation() {
-        nav.showHomeIcon()
+        if (!args[JsonUiScreen.ARG_ROOT].boolValue) {
+            nav.showHomeIcon()
+        }
     }
 
 
 
     class ContentFragment : JsonUiFragment() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            super.path = (args[ARG_URL] as? String)
+            super.path = args[ARG_URL].string
             super.prependHost = false
             super.parseMenu = true
             super.initContent(activity, container)
@@ -107,7 +110,7 @@ abstract class JsonUiFragment : GFragment {
     override fun initContent(activity: GActivity, container: GScreenContainer) {
         onRefresh()
 
-        (args[JsonUiScreen.ARG_SPEC] as? GJson)?.let {
+        args[JsonUiScreen.ARG_SPEC].json?.let {
             JsonAction.execute(it, activity, null)
             activity.finish()
         }

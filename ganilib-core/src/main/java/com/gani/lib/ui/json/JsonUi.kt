@@ -61,7 +61,7 @@ class JsonUi {
 
         fun iconDrawable(spec: GJson): Drawable? {
             spec["materialName"].string?.let { iconName ->
-                return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE).color(Color.BLUE)
+                return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE)
             }
             return null
         }
