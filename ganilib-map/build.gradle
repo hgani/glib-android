@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,8 +25,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // This automatically requests android.permission.INTERNET.
-    api 'com.google.android.gms:play-services-maps:15.0.1'
-//    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    api 'com.google.android.gms:play-services-maps:16.1.0'
 
     implementation project(':ganilib-core')
 }
