@@ -77,8 +77,13 @@ open class GRecyclerView : RecyclerView, IView {
         return this
     }
 
-    fun getLastCompletelyVisibleItemId(): Long {
+    fun getLastCompletelyVisibleItemId(): Long? {
         val pos = layoutManager.findLastCompletelyVisibleItemPosition()
-        return getAdapter().getItemId(pos - 1)  // Subtract header
+        return adapter?.getItemId(pos - 1)  // Subtract header
+//        return getAdapter().getItemId(pos - 1)  // Subtract header
+    }
+
+    fun getLastCompletelyVisibleItemPos(): Int {
+        return layoutManager.findLastCompletelyVisibleItemPosition()
     }
 }
