@@ -2,7 +2,6 @@ package com.gani.lib.ui.layout
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 
 class GRelativeLayoutParams: RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) {
@@ -20,6 +19,14 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(ViewGroup.LayoutParams.
 
     fun alignRight() {
         addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+    }
+
+    fun alignMiddle() {
+        addRule(RelativeLayout.CENTER_VERTICAL)
+    }
+
+    fun alignCenter() {
+        addRule(RelativeLayout.CENTER_HORIZONTAL)
     }
 
     fun above(view: View) {
