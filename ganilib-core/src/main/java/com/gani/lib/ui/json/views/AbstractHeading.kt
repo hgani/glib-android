@@ -15,7 +15,7 @@ open class AbstractHeading(spec: GJson, screen: GActivity, fragment: GFragment):
         spec["text"].string?.let { label.text(it) }
 
         label.onClick {
-            JsonAction.execute(spec["onClick"], screen, it)
+            JsonAction.execute(spec["onClick"], screen, it, this)
         }
 
         return label

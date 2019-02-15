@@ -9,6 +9,7 @@ import com.gani.lib.screen.GActivity
 
 abstract class JsonAction(val spec: GJson, val screen: GActivity) {
     var targetView: View? = null
+    var targetController: JsonView? = null
 
     val context: Context
         get() = screen.context
@@ -36,9 +37,10 @@ abstract class JsonAction(val spec: GJson, val screen: GActivity) {
             return null
         }
 
-        fun execute(spec: GJson, screen: GActivity, creator: View?): Boolean {
+        fun execute(spec: GJson, screen: GActivity, creator: View?, controller: JsonView?): Boolean {
             create(spec, screen)?.let {
                 it.targetView = creator
+                it.targetController = controller
                 it.execute()
                 return true
             }

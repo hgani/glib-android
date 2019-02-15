@@ -9,10 +9,11 @@ import com.gani.lib.json.GJsonObject
 import com.gani.lib.logging.GLog
 import com.gani.lib.screen.GActivity
 import com.gani.lib.screen.GFragment
+import com.gani.lib.ui.ProgressIndicator
 import com.gani.lib.ui.view.IView
 import com.gani.lib.utils.Res
 
-abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GFragment) {
+abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GFragment): ProgressIndicator {
     val context: Context
         get() = screen.context
 
@@ -63,6 +64,18 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
     }
 
     abstract fun initView(): View
+
+//    fun updateStatus(busy: Boolean) {
+//        // To be overridden
+//    }
+
+    override fun showProgress() {
+        // To be overridden
+    }
+
+    override fun hideProgress() {
+        // To be overridden
+    }
 
     companion object {
         fun create(spec: GJson, screen: GActivity, fragment: GFragment): JsonView? {

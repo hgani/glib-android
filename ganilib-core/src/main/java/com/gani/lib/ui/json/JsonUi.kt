@@ -1,6 +1,5 @@
 package com.gani.lib.ui.json
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import com.gani.lib.json.GJson
 import com.gani.lib.logging.GLog
@@ -21,11 +20,11 @@ class JsonUi {
                 return
             }
 
-            if (!JsonAction.execute(spec["onResponse"], screen, null)) {
+            if (!JsonAction.execute(spec["onResponse"], screen, null, null)) {
                 initVerticalPanel(container.header, spec["header"], screen, fragment)
                 initVerticalPanel(container.content, spec["content"], screen, fragment)
                 initVerticalPanel(container.footer, spec["footer"], screen, fragment)
-                JsonAction.execute(spec["onLoad"], screen, null)
+                JsonAction.execute(spec["onLoad"], screen, null, null)
             }
         }
 
@@ -38,7 +37,7 @@ class JsonUi {
             if (screen == null) {
                 return
             }
-            JsonAction.execute(spec["onResponse"], screen, null)
+            JsonAction.execute(spec["onResponse"], screen, null, null)
         }
 
         private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {

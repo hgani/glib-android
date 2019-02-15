@@ -111,7 +111,7 @@ abstract class JsonUiFragment : GFragment {
         onRefresh()
 
         args[JsonUiScreen.ARG_SPEC].json?.let {
-            JsonAction.execute(it, activity, null)
+            JsonAction.execute(it, activity, null, null)
             activity.finish()
         }
     }
@@ -129,7 +129,7 @@ abstract class JsonUiFragment : GFragment {
                 val name = button["icon"]["materialName"].stringValue
                 gMenu.add(name) { item ->
                     item.showIfRoom().onClick {
-                        JsonAction.execute(button["onClick"], activity, null)
+                        JsonAction.execute(button["onClick"], activity, null, null)
                     }
                     JsonUi.iconDrawable(button["icon"])?.let { drawable ->
                         item.icon(drawable)

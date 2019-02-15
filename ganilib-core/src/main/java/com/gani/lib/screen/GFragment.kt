@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
@@ -21,32 +22,24 @@ open class GFragment : Fragment(), GContainer {
 
     // Implement this in Fragment instead of Activity to ensure it works well on dual panel
     lateinit var refreshView: SwipeRefreshLayout
-//    var indicator: ProgressIndicator = ProgressIndicator.NULL
-//        private put
+        private set
     lateinit var launch: LaunchHelper
         private set
     lateinit var indicator: ProgressIndicator
         private set
     var container: GScreenContainer? = null
         private set
-
-    protected// Override to show a refresh menu item
-//    val refreshStringId: Int
-//        get() = RESOURCE_INVALID
-
     var args = GBundle()
         private set
+    lateinit var coordinator: CoordinatorLayout
+        private set
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
-        // Arguments may be null if the containing screen doesn't have any extras to pass on.
-        arguments?.let { this.args = GBundle(it) }
-    }
-
-//    protected fun jsonArgs(): GJson {
-//        return GJsonBundle(rawArgs).json
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setHasOptionsMenu(true)
+//
+//        // Arguments may be null if the containing screen doesn't have any extras to pass on.
+//        arguments?.let { this.args = GBundle(it) }
 //    }
 
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -61,6 +54,7 @@ open class GFragment : Fragment(), GContainer {
         this.launch = LaunchHelper(activity)
         this.indicator = ProgressIndicator.Swipe(refreshView)
         this.refreshView = refreshView
+        this.coordinator = fragmentLayout as CoordinatorLayout
 
         val screenContainer = fragmentLayout.findViewById(R.id.container) as GScreenContainer
         this.container = screenContainer
@@ -78,19 +72,28 @@ open class GFragment : Fragment(), GContainer {
         // To be overridden
     }
 
-    override fun onStart() {
-        super.onStart()
+//    override fun onStart() {
+//        super.onStart()
+//
+//        resetContent( gActivity!!, container!!)
+//    }
 
-        resetContent( gActivity!!, container!!)
-    }
+//    override fun onStop() {
+//        super.onStop()
+//    }
 
-    override fun onStop() {
-        super.onStop()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//
+//        // Mimic activity's onRestart(). See http://stackoverflow.com/questions/35039512/android-what-to-use-instead-of-onrestart-in-a-fragment
+//        if (firstVisit) {
+//            firstVisit = false
+//        } else {
+//            onRestart()
+//        }
+//    }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun checkRestart() {
         // Mimic activity's onRestart(). See http://stackoverflow.com/questions/35039512/android-what-to-use-instead-of-onrestart-in-a-fragment
         if (firstVisit) {
             firstVisit = false
@@ -163,6 +166,90 @@ open class GFragment : Fragment(), GContainer {
     /////
 
 
+
+    ///// View Integration /////
+
+    private val lifecycleListeners = linkedSetOf<LifecycleListener>()
+
+    fun addLifecycleListener(listener: LifecycleListener) {
+        lifecycleListeners.add(listener)
+    }
+
+    fun removeLifecycleListener(listener: LifecycleListener) {
+        lifecycleListeners.remove(listener)
+    }
+
+    // TODO: Make final
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+        // Arguments may be null if the containing screen doesn't have any extras to pass on.
+        arguments?.let { this.args = GBundle(it) }
+
+        lifecycleListeners.forEach { it.onFragmentCreate(savedInstanceState) }
+    }
+
+    final override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        lifecycleListeners.forEach { it.onFragmentSaveInstanceState(outState) }
+    }
+
+    final override fun onResume() {
+        super.onResume()
+
+        checkRestart()
+
+        lifecycleListeners.forEach { it.onFragmentResume() }
+    }
+
+    final override fun onStart() {
+        super.onStart()
+
+        resetContent(gActivity!!, container!!)
+
+        lifecycleListeners.forEach { it.onFragmentStart() }
+    }
+
+    final override fun onStop() {
+        super.onStop()
+
+        lifecycleListeners.forEach { it.onFragmentStop() }
+    }
+
+    final override fun onPause() {
+        super.onPause()
+
+        lifecycleListeners.forEach { it.onFragmentPause() }
+    }
+
+    // TODO: Make final
+    override fun onDestroy() {
+        super.onDestroy()
+
+        lifecycleListeners.forEach { it.onFragmentDestroy() }
+    }
+
+    final override fun onLowMemory() {
+        super.onLowMemory()
+
+        lifecycleListeners.forEach { it.onFragmentLowMemory() }
+    }
+
+    interface LifecycleListener {
+        fun onFragmentCreate(savedInstanceState: Bundle?)
+        fun onFragmentSaveInstanceState(outState: Bundle)
+        fun onFragmentResume()
+        fun onFragmentStart()
+        fun onFragmentStop()
+        fun onFragmentPause()
+        fun onFragmentDestroy()
+        fun onFragmentLowMemory()
+    }
+
+    /////
+
 //    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
 //        val strId = refreshStringId
 //        if (strId != RESOURCE_INVALID) {
@@ -172,10 +259,5 @@ open class GFragment : Fragment(), GContainer {
 //                }
 //            })
 //        }
-//    }
-//
-//    companion object {
-//
-//        private val RESOURCE_INVALID = 0
 //    }
 }

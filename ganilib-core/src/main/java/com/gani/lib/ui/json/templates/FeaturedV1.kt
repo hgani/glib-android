@@ -21,7 +21,7 @@ class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
             override fun update(item: JsonTemplate) {
                 val spec = item.spec
                 container.onClick(View.OnClickListener {
-                    JsonAction.execute(spec["onClick"], item.screen, null)
+                    JsonAction.execute(spec["onClick"], item.screen, null, null)
                 })
                 image.source(url = spec["imageUrl"].stringValue)
                 title.text(spec["title"].stringValue)

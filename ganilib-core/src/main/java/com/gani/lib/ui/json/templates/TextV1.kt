@@ -21,7 +21,7 @@ class TextV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
             override fun update(item: JsonTemplate) {
                 val spec = item.spec
                 container.onClick(View.OnClickListener {
-                    JsonAction.execute(spec["onClick"], item.screen, null)
+                    JsonAction.execute(spec["onClick"], item.screen, null, null)
                 })
                 title.text(spec["title"].stringValue)
                 subtitle.text(spec["subtitle"].stringValue)

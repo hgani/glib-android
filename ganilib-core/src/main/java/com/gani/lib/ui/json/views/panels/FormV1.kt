@@ -29,7 +29,6 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
 
                 // NOTE: Currently we assume all fields are direct children.
                 if (jsonView is SubmittableField) {
-                    GLog.t(javaClass, "extractSubmittableFields2")
                     fields.add(jsonView)
                 }
             }
@@ -52,7 +51,7 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
             vertical()
         }
 
-        fun submit() {
+        fun submit(trigger: JsonView?) {
             val params = GParams.Default()
             for (field in fields) {
                 field.name?.let {
@@ -62,22 +61,12 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
 
             GLog.t(javaClass, "S ${params}")
 
-            val callback = GRestCallback.Default(fragment) {
+            val callback = GRestCallback.Default(trigger ?: fragment.indicator) {
                 val result = it.result
 //                    // Support generic uncustomizable framework (e.g. Devise)
 //                    result["error"].string?.let { screen.launch.alert(it) }
-                JsonAction.execute(result["onResponse"], screen, this@FormPanel)
+                JsonAction.execute(result["onResponse"], screen, this@FormPanel, this@FormV1)
             }
-//            {
-//                override fun onRestResponse(response: GRestResponse) {
-//                    super.onRestResponse(response)
-//
-//                    val result = response.result
-////                    // Support generic uncustomizable framework (e.g. Devise)
-////                    result["error"].string?.let { screen.launch.alert(it) }
-//                    JsonAction.execute(result["onResponse"], screen, this@FormPanel)
-//                }
-//            }
             Rest.from(spec["method"].stringValue).asyncUrl(spec["url"].stringValue, params).execute(callback)
         }
 

@@ -11,7 +11,7 @@ class SubmitV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
         while (ancestor != null && !(ancestor is FormV1.FormPanel)) {
             ancestor = ancestor.parent
         }
-        (ancestor as? FormV1.FormPanel)?.submit()
+        (ancestor as? FormV1.FormPanel)?.submit(targetController)
         return true
     }
 }

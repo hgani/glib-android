@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.gani.lib.logging.GLog
+import com.gani.lib.ui.layout.GCoordinatorLayoutParams
 import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.style.Length
 import com.gani.lib.utils.Res
@@ -34,6 +35,12 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
 
     fun relative(addRules: (GRelativeLayoutParams) -> (Unit)) {
         val params = (this.view.layoutParams as? GRelativeLayoutParams) ?: GRelativeLayoutParams()
+        this.view.layoutParams = params
+        addRules(params)
+    }
+
+    fun coordinator(addRules: (GCoordinatorLayoutParams) -> (Unit)) {
+        val params = (this.view.layoutParams as? GCoordinatorLayoutParams) ?: GCoordinatorLayoutParams()
         this.view.layoutParams = params
         addRules(params)
     }
