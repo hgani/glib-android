@@ -52,8 +52,8 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
 
     private fun initHeight(view: IView) {
         when (spec["height"].stringValue) {
-            "matchParent" -> view.width(ViewGroup.LayoutParams.MATCH_PARENT)
-            "wrapContent" -> view.width(ViewGroup.LayoutParams.WRAP_CONTENT)
+            "matchParent" -> view.height(ViewGroup.LayoutParams.MATCH_PARENT)
+            "wrapContent" -> view.height(ViewGroup.LayoutParams.WRAP_CONTENT)
             else -> view.height(spec["height"].int)
         }
     }
