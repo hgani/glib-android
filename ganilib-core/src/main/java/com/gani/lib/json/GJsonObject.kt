@@ -19,6 +19,19 @@ typealias GJson = GJsonObject<*, *>
 abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Serializable {
     private val rawString: String?
 
+    companion object {
+        fun rawJsonFrom(rawString: String?): JSONObject {
+            try {
+                return JSONObject(rawString)
+            } catch (e: JSONException) {
+                // Use default
+            } catch (e: NullPointerException) {
+                // Use default
+            }
+            return JSONObject()
+        }
+    }
+
     @Transient
     private var rawJson: JSONObject
         private set
@@ -31,15 +44,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 
     protected constructor(rawString: String? = null) {
         this.rawString = rawString
-        var json = JSONObject()
-        try {
-            json = JSONObject(rawString)
-        } catch (e: JSONException) {
-            // Use default
-        } catch (e: NullPointerException) {
-            // Use default
-        }
-        this.rawJson = json
+        this.rawJson = rawJsonFrom(rawString)
     }
 
     val array: JA?
@@ -156,14 +161,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
     /////
 
     operator fun get(name: String): JO {
-//        if (rawJson == null) {
-//            try {
-//                // Default to empty string to avoid NullPointerException
-//                rawJson = JSONObject(rawString ?: "")
-//            } catch (e: JSONException) {
-//                rawJson = JSONObject()
-//            }
-//        }
         return createObject(string(name))
     }
 
@@ -182,89 +179,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
         return rawJson.getString(name)
     }
 
-//
-//    @Throws(JSONException::class)
-//    private fun getRawObject(name: String): JSONObject {
-//        return backend.getJSONObject(name)
-//    }
-//
-//    protected fun isNull(name: String): Boolean {
-//        return backend.isNull(name)
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun strictObj(name: String): JO {
-//        return createObject(getRawObject(name))
-//    }
-//
-//    fun obj(name: String): JO? {
-//        try {
-//            return if (isNull(name)) null else strictObj(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//    }
-//
-//    fun map(name: String): JO {
-//        return obj(name) ?: createObject(JSONObject())
-//    }
-//
-//    fun keys(): Iterable<String> {
-//        return object : Iterable<String> {
-//            override fun iterator(): Iterator<String> {
-//                return backend.keys()
-//            }
-//        }
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun getLongs(name: String): List<Long> {
-//        val array = backend.getJSONArray(name)
-//        val elements = ArrayList<Long>(array.length())
-//        for (i in 0 until array.length()) {
-//            elements.add(array.getLong(i))
-//        }
-//        return elements
-//    }
-//
-//    @Throws(JSONException::class)
-//    private fun strictString(name: String): String {
-//        return backend.getString(name)
-//    }
-//
-//    fun string(name: String): String? {
-//        try {
-//            // isNull() is needed to check if the property is explicitly specified as null.
-//            // If the property is not specified (i.e. undefined), we'll get JSONException.
-//            return if (backend.isNull(name)) null else strictString(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//    }
-//
-//    fun stringValue(name: String): String {
-//        return string(name) ?: ""
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun getLong(name: String): Long {
-//        return backend.getLong(name)
-//    }
-//
-//    @Throws(JSONException::class)
-//    fun getInt(name: String): Int {
-//        return backend.getInt(name)
-//    }
-//
-//    fun getNullableLong(name: String): Long? {
-//        try {
-//            return if (backend.isNull(name)) null else getLong(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//
-//    }
-//
 //    fun color(name: String): Int? {
 //        val code = string(name)
 //        if (code != null) {
@@ -277,22 +191,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 //        return null
 //    }
 //
-//    @Throws(JSONException::class)
-//    fun strictDate(name: String): Date {
-//        try {
-//            return ISO8601Utils.parse(strictString(name), ParsePosition(0))
-//        } catch (e: ParseException) {
-//            throw JSONException(e.localizedMessage)
-//        }
-//    }
-//
-//    fun date(name: String): Date? {
-//        try {
-//            return if (backend.isNull(name)) null else strictDate(name)
-//        } catch (e: JSONException) {
-//            return null
-//        }
-//    }
 
     /////
 
@@ -333,7 +231,7 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
     @Throws(ClassNotFoundException::class, IOException::class)
     private fun readObject(ois: ObjectInputStream) {
         ois.defaultReadObject()
-        this.rawJson = JSONObject(rawString)
+        this.rawJson = rawJsonFrom(rawString)
     }
 
 
