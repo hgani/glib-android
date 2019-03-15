@@ -1,7 +1,6 @@
 
 # Linking in Windows #
 
-- `mklink /J ganilib ..\androlib\ganilib`
-- `mklink /J ganiweb ..\androlib\ganiweb`
-- `mklink /J ganimap ..\androlib\ganimap`
-
+- `mklink /J ganilib-core ..\ganilib-android-kotlin\ganilib-core`
+- `mklink /J ganilib-map ..\ganilib-android-kotlin\ganilib-map`
+- `mklink /J ganilib-camera ..\ganilib-android-kotlin\ganilib-camera`
