@@ -1,11 +1,11 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
+import android.support.v7.widget.AppCompatRadioButton
 import android.util.AttributeSet
 import android.view.View
-import android.widget.RadioButton
 
-class GRadioButton : RadioButton, IView {
+class GRadioButton : AppCompatRadioButton, IView {
     private val helper = ViewHelper(this)
 
     constructor(context: Context) : super(context)
