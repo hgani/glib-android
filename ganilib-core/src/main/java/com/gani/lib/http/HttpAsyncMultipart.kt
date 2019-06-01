@@ -1,7 +1,7 @@
 package com.gani.lib.http
 
 
-class HttpAsyncMultipart(nakedUrl: String, params: GImmutableParams, uploads: Map<String, Uploadable>, hook: HttpHook<*>) : HttpAsync {
+class HttpAsyncMultipart(nakedUrl: String, params: GImmutableParams, uploads: Map<String, Uploadable>) : HttpAsync {
     override val url: String
         get() = delegate.url
 
@@ -9,13 +9,8 @@ class HttpAsyncMultipart(nakedUrl: String, params: GImmutableParams, uploads: Ma
     private lateinit var asyncTask: AsyncHttpTask
 
     init {
-        this.delegate = MultipartDelegate(nakedUrl, params, uploads, hook)
+        this.delegate = MultipartDelegate(nakedUrl, params, uploads)
     }
-
-//    override fun execute(): HttpAsyncMultipart {
-//        delegate.launch(asyncTask)
-//        return this
-//    }
 
     override fun execute(callback: GHttpCallback<GHttpResponse.Default>): HttpAsyncMultipart {
         this.asyncTask = AsyncHttpTask(callback, delegate)

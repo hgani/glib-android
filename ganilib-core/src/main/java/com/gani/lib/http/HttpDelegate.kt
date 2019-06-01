@@ -11,7 +11,7 @@ import java.net.MalformedURLException
 internal abstract class HttpDelegate(val url: String) : Serializable {
 
     @get:Synchronized private var isCanceled: Boolean = false
-    private val hook: HttpHook<*>
+//    private val hook: HttpHook<*>
     private var connection: HttpURLConnection? = null
 
     protected abstract val fullUrl: String
@@ -20,7 +20,7 @@ internal abstract class HttpDelegate(val url: String) : Serializable {
 
     init {
         // TODO: Remove hook completely (deprecated)
-        this.hook = nonNull(null)
+//        this.hook = nonNull(null)
 
         this.isCanceled = false
     }
@@ -107,14 +107,16 @@ internal abstract class HttpDelegate(val url: String) : Serializable {
     }
 
     fun launch(task: AsyncHttpTask) {
-        hook.launchAsyncTask(task)
+        task.executeIfNotCanceled()
+
+//        hook.launchAsyncTask(task)
     }
 
     companion object {
         private const val serialVersionUID = 1L
 
-        private fun nonNull(hook: HttpHook<*>?): HttpHook<*> {
-            return hook ?: HttpHook.DUMMY
-        }
+//        private fun nonNull(hook: HttpHook<*>?): HttpHook<*> {
+//            return hook ?: HttpHook.DUMMY
+//        }
     }
 }

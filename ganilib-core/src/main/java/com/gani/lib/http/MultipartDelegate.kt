@@ -6,13 +6,10 @@ import java.io.IOException
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
-internal class MultipartDelegate(nakedUrl: String, params: GImmutableParams, uploads: Map<String, HttpAsyncMultipart.Uploadable>, hook: HttpHook<*>) : HttpDelegate(nakedUrl) {
+internal class MultipartDelegate(nakedUrl: String, params: GImmutableParams, uploads: Map<String, HttpAsyncMultipart.Uploadable>) : HttpDelegate(nakedUrl) {
     private val params: GImmutableParams
     private val uploads: Map<String, HttpAsyncMultipart.Uploadable>
     override protected val method = HttpMethod.POST
-
-//    override val method: String
-//        get() = HttpMethod.POST.name
 
     override val fullUrl: String
         get() = url
