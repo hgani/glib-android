@@ -7,12 +7,15 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern
+
+
 
 open class GTextView : AppCompatTextView, IView {
     private val helper = ViewHelper(this)
@@ -84,6 +87,15 @@ open class GTextView : AppCompatTextView, IView {
         }
 
         setText(builder)
+
+        return this
+    }
+
+    fun underline(): GTextView {
+        val text = text.toString()
+        val content = SpannableString(text)
+        content.setSpan(UnderlineSpan(), 0, text.length, 0)
+        setText(content)
 
         return this
     }
