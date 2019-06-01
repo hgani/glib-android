@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 
-internal abstract class HttpDelegate(val url: String, hook: HttpHook<*>) : Serializable {
+internal abstract class HttpDelegate(val url: String) : Serializable {
 
     @get:Synchronized private var isCanceled: Boolean = false
     private val hook: HttpHook<*>
@@ -19,7 +19,9 @@ internal abstract class HttpDelegate(val url: String, hook: HttpHook<*>) : Seria
     protected abstract val method: HttpMethod
 
     init {
-        this.hook = nonNull(hook)
+        // TODO: Remove hook completely (deprecated)
+        this.hook = nonNull(null)
+
         this.isCanceled = false
     }
 

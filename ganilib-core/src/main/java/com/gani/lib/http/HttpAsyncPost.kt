@@ -1,6 +1,6 @@
 package com.gani.lib.http
 
-class HttpAsyncPost(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<*>, method: HttpMethod) : HttpAsync {
+class HttpAsyncPost(nakedUrl: String, params: GImmutableParams?, method: HttpMethod) : HttpAsync {
     override val url: String
         get() = delegate.url
 
@@ -8,13 +8,8 @@ class HttpAsyncPost(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<
     private lateinit var asyncTask: AsyncHttpTask
 
     init {
-        this.delegate = PostDelegate(nakedUrl, params, hook, method)
+        this.delegate = PostDelegate(nakedUrl, params, method)
     }
-
-//    override fun execute(): HttpAsyncPost {
-//        delegate.launch(asyncTask)
-//        return this
-//    }
 
     override fun execute(callback: GHttpCallback<GHttpResponse.Default>): HttpAsyncPost {
         this.asyncTask = AsyncHttpTask(callback, delegate)

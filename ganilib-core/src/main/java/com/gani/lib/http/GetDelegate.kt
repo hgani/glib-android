@@ -5,7 +5,7 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 
 
-internal class GetDelegate(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<*>) : HttpDelegate(nakedUrl, hook) {
+internal class GetDelegate(nakedUrl: String, params: GImmutableParams?) : HttpDelegate(nakedUrl) {
     private val params: GImmutableParams
     override protected val method = HttpMethod.GET
 

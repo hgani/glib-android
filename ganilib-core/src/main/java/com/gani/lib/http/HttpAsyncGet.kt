@@ -1,7 +1,7 @@
 package com.gani.lib.http
 
 
-class HttpAsyncGet(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<*>) : HttpAsync {
+class HttpAsyncGet(nakedUrl: String, params: GImmutableParams?) : HttpAsync {
     override val url: String
         get() = delegate.url
 
@@ -9,14 +9,8 @@ class HttpAsyncGet(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<*
     private lateinit var asyncTask: AsyncHttpTask
 
     init {
-        this.delegate = GetDelegate(nakedUrl, params, hook)
+        this.delegate = GetDelegate(nakedUrl, params)
     }
-
-//    // TODO: Remove. Deprecated
-//    override fun execute(): HttpAsyncGet {
-//        delegate.launch(asyncTask)
-//        return this
-//    }
 
     override fun execute(callback: GHttpCallback<GHttpResponse.Default>): HttpAsyncGet {
         this.asyncTask = AsyncHttpTask(callback, delegate)

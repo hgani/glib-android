@@ -6,7 +6,7 @@ import java.io.IOException
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
-internal class MultipartDelegate(nakedUrl: String, params: GImmutableParams, uploads: Map<String, HttpAsyncMultipart.Uploadable>, hook: HttpHook<*>) : HttpDelegate(nakedUrl, hook) {
+internal class MultipartDelegate(nakedUrl: String, params: GImmutableParams, uploads: Map<String, HttpAsyncMultipart.Uploadable>, hook: HttpHook<*>) : HttpDelegate(nakedUrl) {
     private val params: GImmutableParams
     private val uploads: Map<String, HttpAsyncMultipart.Uploadable>
     override protected val method = HttpMethod.POST

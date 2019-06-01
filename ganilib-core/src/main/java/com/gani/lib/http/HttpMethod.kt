@@ -7,34 +7,6 @@ enum class HttpMethod {
     GET,
     PUT;
 
-//    POST {
-//        override fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync {
-//            return HttpAsyncPost(url, params.toImmutable(), HttpHook.DUMMY, POST, callback)
-//        }
-//    },
-//    PATCH {
-//        override fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync {
-//            return HttpAsyncPost(url, params.toImmutable(), HttpHook.DUMMY, PATCH, callback)
-//        }
-//    },
-//    DELETE {
-//        override fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync {
-//            return HttpAsyncPost(url, params.toImmutable(), HttpHook.DUMMY, DELETE, callback)
-//        }
-//    },
-//    GET {
-//        override fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync {
-//            return HttpAsyncGet(url, params.toImmutable(), HttpHook.DUMMY, callback)
-//        }
-//    },
-//    PUT {
-//        override fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync {
-//            return HttpAsyncPost(url, params.toImmutable(), HttpHook.DUMMY, PUT, callback)
-//        }
-//    };
-//
-//    abstract fun async(url: String, params: GParams.Default, callback: GHttpCallback<*, *>): HttpAsync
-
     companion object {
 
         fun from(method: String): HttpMethod {
@@ -51,6 +23,5 @@ enum class HttpMethod {
             return from(method)
         }
     }
-
 
 }

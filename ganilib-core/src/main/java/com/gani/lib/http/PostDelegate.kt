@@ -4,7 +4,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.nio.charset.Charset
 
-internal class PostDelegate(nakedUrl: String, params: GImmutableParams?, hook: HttpHook<*>, override protected val method: HttpMethod) : HttpDelegate(nakedUrl, hook) {
+internal class PostDelegate(nakedUrl: String, params: GImmutableParams?, override protected val method: HttpMethod) : HttpDelegate(nakedUrl) {
     private val params: GImmutableParams
 
     override val fullUrl: String

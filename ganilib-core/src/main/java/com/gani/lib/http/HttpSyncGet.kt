@@ -1,14 +1,14 @@
 package com.gani.lib.http
 
 
-class HttpSyncGet(nakedUrl: String, params: GImmutableParams, hook: HttpHook<*>) : HttpSync<GHttpResponse.Default> {
+class HttpSyncGet(nakedUrl: String, params: GImmutableParams) : HttpSync<GHttpResponse.Default> {
     override val url: String
         get() = delegate.url
 
     private val delegate: GetDelegate
 
     init {
-        this.delegate = GetDelegate(nakedUrl, params, hook)
+        this.delegate = GetDelegate(nakedUrl, params)
     }
 
     @Throws(HttpSync.HttpSyncException::class, HttpSync.HttpCanceledException::class)
