@@ -1,14 +1,19 @@
 package com.gani.lib.ui.view
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View.OnClickListener
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.gani.lib.logging.GLog
 import com.gani.lib.utils.Res
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
+
 
 class GImageView : AppCompatImageView, IView {
     private val helper = ViewHelper(this)
@@ -62,18 +67,19 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
+    fun svgSource(url: String?): GImageView {
+        (context as? Activity)?.let {
+            GlideToVectorYou.justLoadImage(it, Uri.parse(url), this)
+        }
+        return this
+    }
+
     fun source(url: String?): GImageView {
-        // If url is null, the image view will be blank, which is suitable behaviour for item holder reuse.
         Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load
                 .load(url)
                 .into(this)
         return this
     }
-
-//    fun drawable(drawable: Drawable): GImageView {
-//        setImageDrawable(drawable)
-//        return this
-//    }
 
     fun source(drawable: Drawable): GImageView {
         setImageDrawable(drawable)
@@ -84,15 +90,6 @@ class GImageView : AppCompatImageView, IView {
         setImageBitmap(bitmap)
         return this
     }
-
-//    fun source(icon: GIcon): GImageView {
-//        return source(drawable = icon.drawable())
-//    }
-
-//    fun drawable(resId: Int): GImageView {
-//        setImageDrawable(Ui.drawable(resId))
-//        return this
-//    }
 
     fun border(color: Int, width: Int): GImageView {
         helper.border(color, width)
