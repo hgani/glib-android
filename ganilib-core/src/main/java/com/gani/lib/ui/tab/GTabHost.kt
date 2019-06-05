@@ -45,8 +45,14 @@ open class GTabHost : FragmentTabHost {
 
     private fun initView(scroll: Boolean, tabPanel: GHorizontalPanel) {
         val container = GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT)
-        container.addView(tabPanel.width(ViewGroup.LayoutParams.MATCH_PARENT).append(widgetView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll)))
-        container.addView(GFramePanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT).height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent))
+        container.addView(tabPanel
+                .width(ViewGroup.LayoutParams.MATCH_PARENT)
+                .append(widgetView(GTabWidget(context).width(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabs), scroll))
+        )
+        container.addView(GFramePanel(context)
+                .width(ViewGroup.LayoutParams.MATCH_PARENT)
+                .height(ViewGroup.LayoutParams.MATCH_PARENT).id(android.R.id.tabcontent)
+        )
         addView(container)
     }
 
@@ -80,7 +86,7 @@ open class GTabHost : FragmentTabHost {
     }
 
     fun selectTab(tag: String) {
-        // Need to re-disable because sometimes the user needs to click the tab twice in order to activate it.
+        // Need to re-disable otherwise for some reason the user sometimes needs to click the tab twice to activate it.
         enableMoveViewportToFocusOnSelectedTab()
         setCurrentTabByTag(tag)
         disableMoveViewportToFocusOnSelectedTab()

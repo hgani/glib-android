@@ -1,19 +1,14 @@
 package com.gani.lib.ui.view
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View.OnClickListener
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.gani.lib.logging.GLog
 import com.gani.lib.utils.Res
-import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
-
 
 class GImageView : AppCompatImageView, IView {
     private val helper = ViewHelper(this)
@@ -67,12 +62,40 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
-    fun svgSource(url: String?): GImageView {
-        (context as? Activity)?.let {
-            GlideToVectorYou.justLoadImage(it, Uri.parse(url), this)
-        }
-        return this
-    }
+//    fun svgSource(url: String?): GImageView {
+//        (context as? Activity)?.let {
+//            val requestBuilder = GlideToVectorYou
+//                    .init()
+//                    .with(it)
+//                    .requestBuilder
+//
+//            requestBuilder
+//                    .load(url)
+//                    .transition(DrawableTransitionOptions.withCrossFade())
+//                    .apply(RequestOptions().centerInside())
+//                    .into(this)
+////            GlideToVectorYou
+////                    .init()
+////                    .with(it)
+////                    .apply(RequestOptions().centerCrop())
+//////                    .withListener(new GlideToVectorYouListener() {
+//////                        @Override
+//////                        public void onLoadFailed() {
+//////                            Toast.makeText(context, "Load failed", Toast.LENGTH_SHORT).show()
+//////                        }
+//////
+//////                        @Override
+//////                        public void onResourceReady() {
+//////                            Toast.makeText(context, "Image ready", Toast.LENGTH_SHORT).show()
+//////                        }
+//////                    })
+//////                    .setPlaceHolder(placeholderLoading, placeholderError)
+////                    .load(Uri.parse(url), this);
+//
+////            GlideToVectorYou.justLoadImage(it, Uri.parse(url), this)
+//        }
+//        return this
+//    }
 
     fun source(url: String?): GImageView {
         Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load

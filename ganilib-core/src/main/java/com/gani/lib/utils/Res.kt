@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceManager
+import com.gani.lib.logging.GLog
 import com.gani.lib.prefs.Prefs
 import org.json.JSONException
 import org.json.JSONObject
@@ -133,6 +134,10 @@ object Res {
             }
             return result
         }
+        if (code.length == 8) {
+            return code.substring(6) + code.substring(0, 6)
+        }
+
         return code
     }
 
@@ -143,6 +148,7 @@ object Res {
         if (code != null) {
             if (code.startsWith("#")) {
                 code = "#" + expandColorIfNecessary(code.substring(1))
+                GLog.t(javaClass, "*** COLOR: " + code)
             }
             try {
                 return Color.parseColor(code)
@@ -155,4 +161,26 @@ object Res {
         }
         throw IllegalArgumentException()
     }
+
+//    fun color(code: String?): Int? {
+//        var newCode = code
+//
+//        if (code != null) {
+//            if (code.startsWith("#")) {
+//                newCode = "#" + expandColorIfNecessary(code.substring(1))
+//            }
+//            try {
+//                return Color.parseColor(newCode)
+//            } catch (e: IllegalArgumentException) {
+//                return null
+////                throw e
+//            } catch (e: StringIndexOutOfBoundsException) {
+//                return null
+////                throw IllegalArgumentException(e)
+//            }
+//
+//        }
+////        throw IllegalArgumentException()
+//        return null
+//    }
 }
