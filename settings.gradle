@@ -1,1 +1,3 @@
-include ':ganilib', ':ganiweb'
+include 'ganilib-core'
+include 'ganilib-map'
+include 'ganilib-camera'
