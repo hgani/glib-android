@@ -20,7 +20,7 @@
         See http://www.android4devs.com/2014/12/how-to-make-material-design-app.html
         -->
       <!-- NOTE: Elevation only works on 5.0 or above. See http://stackoverflow.com/questions/26575197/no-shadow-by-default-on-toolbar -->
-      <android.support.v7.widget.Toolbar android:id="@+id/screen_toolbar"
+      <androidx.appcompat.widget.Toolbar android:id="@+id/screen_toolbar"
                                          android:layout_width="match_parent"
                                          android:layout_height="?attr/actionBarSize"
                                          android:elevation="4dp"
@@ -50,13 +50,13 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.NavigationView
+    <com.google.android.material.navigation.NavigationView
         android:id="@+id/view_navigation_left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
-    <android.support.design.widget.NavigationView
+    <com.google.android.material.navigation.NavigationView
         android:id="@+id/view_navigation_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
