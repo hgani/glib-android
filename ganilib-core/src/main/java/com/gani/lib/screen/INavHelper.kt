@@ -1,8 +1,10 @@
 package com.gani.lib.screen
 
-import android.support.v7.app.ActionBar
-import android.support.v7.widget.Toolbar
+//import android.support.v7.app.ActionBar
+//import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.Toolbar
 
 abstract class INavHelper {
 //    abstract val toolbar: Toolbar?

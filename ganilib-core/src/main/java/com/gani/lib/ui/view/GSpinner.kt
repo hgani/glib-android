@@ -3,10 +3,10 @@ package com.gani.lib.ui.view
 import android.content.Context
 import android.content.res.ColorStateList
 import android.support.v4.view.ViewCompat
-import android.support.v7.widget.AppCompatSpinner
 import android.util.AttributeSet
 import android.widget.AdapterView
 import android.widget.SpinnerAdapter
+import androidx.appcompat.widget.AppCompatSpinner
 
 class GSpinner : AppCompatSpinner, IView {
     private val helper = ViewHelper(this)

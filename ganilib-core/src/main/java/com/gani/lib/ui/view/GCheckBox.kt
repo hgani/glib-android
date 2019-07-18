@@ -1,10 +1,11 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
-import android.support.v7.widget.AppCompatCheckBox
+//import android.support.v7.widget.AppCompatCheckBox
 import android.util.AttributeSet
 import android.view.View
 import android.widget.CheckBox
+import androidx.appcompat.widget.AppCompatCheckBox
 
 class GCheckBox : AppCompatCheckBox, IView {
     private val helper = ViewHelper(this)

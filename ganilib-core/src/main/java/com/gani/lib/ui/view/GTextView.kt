@@ -2,7 +2,6 @@ package com.gani.lib.ui.view
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.AppCompatTextView
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
@@ -11,6 +10,7 @@ import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
+import androidx.appcompat.widget.AppCompatTextView
 import com.gani.lib.utils.Res
 import java.util.*
 import java.util.regex.Pattern

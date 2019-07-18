@@ -3,10 +3,10 @@ package com.gani.lib.ui.view
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View.OnClickListener
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.gani.lib.utils.Res
 
@@ -124,7 +124,7 @@ class GImageView : AppCompatImageView, IView {
         return this
     }
 
-    fun scaleType(type: ScaleType): GImageView {
+    fun scaleType(type: ImageView.ScaleType): GImageView {
         setScaleType(type);
         return this
     }

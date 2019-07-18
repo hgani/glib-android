@@ -1,8 +1,8 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
-import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 
 class GAutoCompleteTextView : AppCompatAutoCompleteTextView, IView {
     private val helper = ViewHelper(this)
