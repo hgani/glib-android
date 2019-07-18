@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gani.lib">
+          package="com.glib.core">
 
   <application
       android:allowBackup="true"
@@ -7,7 +7,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
-    <activity android:name=".ui.json.actions.windows.JsonUiScreen" />
+    <activity android:name="com.glib.core.ui.json.actions.windows.JsonUiScreen" />
 
     <!--
     <activity
@@ -16,7 +16,7 @@
 
         -->
     <activity
-        android:name=".dialog.GRestDialogProgress"
+        android:name="com.glib.core.dialog.GRestDialogProgress"
         android:theme="@style/FakeDialogNoTitleBar" />
   </application>
 
