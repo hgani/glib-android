@@ -2,7 +2,6 @@ package com.gani.lib.ui.view
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.design.widget.TextInputEditText
 import android.text.Editable
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
@@ -14,6 +13,7 @@ import android.widget.TextView
 import com.gani.lib.R
 import com.gani.lib.logging.GLog
 import com.gani.lib.utils.Res
+import com.google.android.material.textfield.TextInputEditText
 
 
 class GEditText : TextInputEditText, IView {

@@ -3,8 +3,8 @@ package com.gani.lib.ui.datetime
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.widget.TimePicker
+import androidx.fragment.app.DialogFragment
 import com.gani.lib.screen.GFragment
 import java.util.*
 

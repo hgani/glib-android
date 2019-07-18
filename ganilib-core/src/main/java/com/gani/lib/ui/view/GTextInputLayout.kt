@@ -1,10 +1,10 @@
 package com.gani.lib.ui.view
 
 import android.content.Context
-import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
 import android.view.View
 import com.gani.lib.utils.Res
+import com.google.android.material.textfield.TextInputLayout
 
 
 class GTextInputLayout : TextInputLayout, IView {

@@ -5,10 +5,11 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.widget.DatePicker
+import androidx.fragment.app.DialogFragment
 import com.gani.lib.model.GBundle
 import com.gani.lib.screen.GFragment
+import com.gani.lib.utils.Res.context
 import java.util.*
 
 class DateTimePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {

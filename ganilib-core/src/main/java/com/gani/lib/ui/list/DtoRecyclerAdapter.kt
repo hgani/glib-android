@@ -1,8 +1,8 @@
 package com.gani.lib.ui.list
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.gani.lib.R
 
 abstract class DtoRecyclerAdapter<DO, VH : DtoBindingHolder<DO>> protected constructor(private val objects: List<DO>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

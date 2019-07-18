@@ -1,11 +1,11 @@
 package com.gani.lib.ui.pager
 
 import android.content.Context
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import androidx.viewpager.widget.ViewPager
 import com.gani.lib.ui.layout.GRelativeLayoutParams
 import com.gani.lib.ui.view.ViewHelper
+import com.google.android.material.tabs.TabLayout
 
 
 class GTabLayout : TabLayout {

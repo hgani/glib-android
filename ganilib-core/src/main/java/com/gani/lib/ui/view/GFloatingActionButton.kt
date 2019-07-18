@@ -2,12 +2,12 @@ package com.gani.lib.ui.view
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.design.widget.FloatingActionButton
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import com.gani.lib.screen.GFragment
 import com.gani.lib.ui.layout.GCoordinatorLayoutParams
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class GFloatingActionButton : FloatingActionButton {
     private val helper = ViewHelper(this)

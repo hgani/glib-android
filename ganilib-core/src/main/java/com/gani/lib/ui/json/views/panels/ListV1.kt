@@ -1,8 +1,8 @@
 package com.gani.lib.ui.json.views.panels
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.gani.lib.http.GRestCallback
 import com.gani.lib.http.HttpAsync
 import com.gani.lib.http.Rest
