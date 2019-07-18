@@ -1,6 +1,6 @@
 package com.gani.lib.db
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.gani.lib.json.GJsonObject
 
 @Entity(indices = arrayOf(Index("name", unique = true)))

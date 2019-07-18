@@ -2,8 +2,8 @@ package com.gani.lib.screen
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar

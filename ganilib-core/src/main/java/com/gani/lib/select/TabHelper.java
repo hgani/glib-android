@@ -3,7 +3,7 @@ package com.gani.lib.select;
 import android.database.ContentObserver;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;

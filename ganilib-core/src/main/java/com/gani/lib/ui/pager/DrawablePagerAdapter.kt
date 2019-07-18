@@ -2,7 +2,7 @@ package com.gani.lib.ui.pager
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.support.v4.view.PagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import com.gani.lib.ui.view.GImageView

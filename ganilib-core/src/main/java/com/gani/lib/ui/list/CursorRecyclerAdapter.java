@@ -4,10 +4,10 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Filter;
 import android.widget.FilterQueryProvider;
 import android.widget.Filterable;
+import androidx.recyclerview.widget.RecyclerView;
 
 // See https://gist.github.com/Shywim/127f207e7248fe48400b
 

@@ -3,8 +3,8 @@ package com.gani.lib.notification
 import android.app.NotificationChannel
 import android.content.Context
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import com.gani.lib.utils.Res
 import com.gani.lib.utils.Res.context
 

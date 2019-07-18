@@ -1,8 +1,8 @@
 package com.gani.lib.ui.tab
 
 import android.content.Context
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTabHost
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTabHost
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup

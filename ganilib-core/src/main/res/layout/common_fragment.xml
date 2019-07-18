@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Put a CoordinatorLayout for Snackbar support -->
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-  <android.support.v4.widget.SwipeRefreshLayout
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                                                 android:id="@+id/layout_refresh"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content">
@@ -16,6 +16,6 @@
         android:layout_height="match_parent">
     </com.gani.lib.screen.GScreenContainer>
 
-  </android.support.v4.widget.SwipeRefreshLayout>
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

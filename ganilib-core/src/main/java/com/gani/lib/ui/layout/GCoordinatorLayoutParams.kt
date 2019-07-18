@@ -1,6 +1,6 @@
 package com.gani.lib.ui.layout
 
-import android.support.design.widget.CoordinatorLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.view.ViewGroup
 
 class GCoordinatorLayoutParams: CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) {

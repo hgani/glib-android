@@ -1,6 +1,6 @@
 package com.gani.lib.ui.json.views
 
-import android.support.v4.view.GravityCompat
+import androidx.core.view.GravityCompat
 import android.view.Gravity
 import android.view.View
 import com.gani.lib.json.GJson
