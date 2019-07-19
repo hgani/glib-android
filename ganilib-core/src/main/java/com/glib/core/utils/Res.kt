@@ -23,7 +23,7 @@ object Res {
     }
 
     // This won't interfere with prefs from other projects. See https://stackoverflow.com/questions/36777401/does-sharedpreferences-name-need-to-be-unique
-    private val PREF_NAME = "__ganilib_prefs"
+    private val PREF_NAME = "__glib_prefs"
 
     val context: Context
         get() = appContext as Context
