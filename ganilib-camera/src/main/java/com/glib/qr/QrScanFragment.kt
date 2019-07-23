@@ -1,4 +1,4 @@
-package com.gani.qr
+package com.glib.qr
 
 import android.Manifest
 import android.content.Context
@@ -6,8 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.SurfaceHolder
-import com.gani.lib.screen.GFragment
-import com.gani.lib.utils.Res
+import com.glib.core.screen.GFragment
+import com.glib.core.utils.Res
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode

@@ -1,10 +1,10 @@
-package com.gani.qr
+package com.glib.qr
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceView
-import com.gani.lib.ui.view.IView
-import com.gani.lib.ui.view.ViewHelper
+import com.glib.core.ui.view.IView
+import com.glib.core.ui.view.ViewHelper
 
 
 open class GSurfaceView: SurfaceView, IView {

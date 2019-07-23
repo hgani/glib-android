@@ -1,11 +1,11 @@
-package com.gani.map
+package com.glib.map
 
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import com.gani.lib.screen.GFragment
-import com.gani.lib.ui.view.IView
-import com.gani.lib.ui.view.ViewHelper
+import com.glib.core.screen.GFragment
+import com.glib.core.ui.view.IView
+import com.glib.core.ui.view.ViewHelper
 import com.google.android.gms.maps.MapView
 
 // NOTE: To use this, set API key in manifest:
