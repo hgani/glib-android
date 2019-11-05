@@ -20,13 +20,7 @@ class VerticalV1: JsonView {
     }
 
     override fun initView(): View {
-//        spec["subviews"].arrayValue.forEach { subviewSpec ->
-//            JsonView.create(subviewSpec, screen, fragment)?.let {jsonView ->
-//                panel.addView(jsonView.createView())
-//            }
-//        }
-
-        val subviews = spec["subviews"].arrayValue.mapNotNull { subviewSpec ->
+        val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
             JsonView.create(subviewSpec, screen, fragment)?.createView()
         }
 

@@ -22,9 +22,16 @@ class JsonUi {
 
             if (!JsonAction.execute(spec["onResponse"], screen, null, null)) {
                 initVerticalPanel(container.header, spec["header"], screen, fragment)
-                initVerticalPanel(container.content, spec["content"], screen, fragment)
+                initVerticalPanel(container.content, spec["body"], screen, fragment)
                 initVerticalPanel(container.footer, spec["footer"], screen, fragment)
                 JsonAction.execute(spec["onLoad"], screen, null, null)
+
+                // Legacy
+                initVerticalPanel(container.content, spec["content"], screen, fragment)
+
+//                spec["content"].presence?.let {
+//                    initVerticalPanel(container.content, it, screen, fragment)
+//                }
             }
         }
 

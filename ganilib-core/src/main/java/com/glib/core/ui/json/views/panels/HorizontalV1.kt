@@ -15,7 +15,7 @@ class HorizontalV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonVie
     private val panel = GHorizontalPanel(context)
 
     override fun initView(): View {
-        val subviews = spec["subviews"].arrayValue.mapNotNull { subviewSpec ->
+        val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
             JsonView.create(subviewSpec, screen, fragment)?.createView()
         }
 
