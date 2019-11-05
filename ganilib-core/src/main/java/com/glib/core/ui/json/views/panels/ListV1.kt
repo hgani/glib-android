@@ -13,16 +13,15 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.ProgressIndicator
 import com.glib.core.ui.json.JsonTemplate
 import com.glib.core.ui.json.JsonView
-import com.glib.core.ui.json.templates.ThumbnailV1
+import com.glib.core.ui.json.templates.Thumbnail
 import com.glib.core.ui.list.DtoBindingHolder
 import com.glib.core.ui.list.DtoRecyclerAdapter
 import com.glib.core.ui.list.GRecyclerView
 
 
-
 typealias TemplateHolder = DtoBindingHolder<JsonTemplate>
 
-class ListV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class ListV1(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec, screen, fragment) {
     private val recyclerView = GRecyclerView(context).separator(true)
     private val templateRegistry = mutableMapOf<Int, JsonTemplate>()
 
@@ -72,7 +71,7 @@ class ListV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
     private fun appendLoadMoreIndicator() {
         if (autoLoad) {
             val indicator = GJsonObject.Default(hashMapOf("title" to "Loading..."))
-            val template = ThumbnailV1(indicator, screen)
+            val template = Thumbnail(indicator, screen)
             templates.add(template)
             templateRegistry.put(template.viewType, template)
             loadMoreTemplate = template
@@ -115,7 +114,6 @@ class ListV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
         }
         recyclerView.addOnScrollListener(mScrollListener)
     }
-
 
 
     inner class ListAdapter(objects: List<JsonTemplate>) : DtoRecyclerAdapter<JsonTemplate, DtoBindingHolder<JsonTemplate>>(objects) {

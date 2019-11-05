@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonTemplate
 import com.glib.core.ui.json.views.panels.TemplateHolder
 import com.glib.core.ui.list.templates.ThumbnailHolder
 
-class ThumbnailV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
+class Thumbnail(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
     companion object {
         private val VIEW_TYPE = View.generateViewId()
     }

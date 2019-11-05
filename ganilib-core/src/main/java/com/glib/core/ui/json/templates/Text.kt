@@ -6,9 +6,9 @@ import com.glib.core.screen.GActivity
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonTemplate
 import com.glib.core.ui.json.views.panels.TemplateHolder
-import com.glib.core.ui.list.templates.FeaturedHolder
+import com.glib.core.ui.list.templates.TextHolder
 
-class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
+class Text(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
     companion object {
         private val VIEW_TYPE = View.generateViewId()
     }
@@ -17,13 +17,12 @@ class FeaturedV1(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
         get() = VIEW_TYPE
 
     override fun createHolder(): TemplateHolder {
-        return object : FeaturedHolder<JsonTemplate>(context, true) {
+        return object : TextHolder<JsonTemplate>(context, true) {
             override fun update(item: JsonTemplate) {
                 val spec = item.spec
                 container.onClick(View.OnClickListener {
                     JsonAction.execute(spec["onClick"], item.screen, null, null)
                 })
-                image.source(url = spec["imageUrl"].stringValue)
                 title.text(spec["title"].stringValue)
                 subtitle.text(spec["subtitle"].stringValue)
             }

@@ -1,9 +1,11 @@
 package com.glib.core.ui.json.actions.windows
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import androidx.appcompat.widget.Toolbar
 import com.glib.core.BuildConfig
 import com.glib.core.http.GRestCallback
 import com.glib.core.http.Rest
@@ -12,9 +14,12 @@ import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
 import com.glib.core.screen.NavHelper
+import com.glib.core.ui.icon.GIcon
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.menu.GMenu
+import com.glib.core.utils.Res
+import com.mikepenz.google_material_typeface_library.GoogleMaterial
 
 class OpenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
@@ -147,3 +152,31 @@ abstract class JsonUiFragment : GFragment {
         }
     }
 }
+
+
+// TODO
+//internal class MyNavHelper(activity: GActivity) : NavHelper(activity) {
+//    override fun initToolbar(toolbar: Toolbar) {
+////        toolbar.setBackgroundColor(MyColor.NAVBAR_BG)
+////        toolbar.setTitleTextColor(MyColor.NAVBAR_TEXT)
+//    }
+//
+//    override fun initMenu(leftNavMenu: NavigationMenu, rightNavMenu: NavigationMenu) {
+//        leftNavMenu.add(MyIcon.icon_home, Res.str(R.string.nav_home), HomeMenuScreen.intent())
+//        leftNavMenu.add(MyIcon.icon_cart, Res.str(R.string.nav_merchants), MerchantListScreen.intent(MerchantListScreen.TAB_ALL))
+//        leftNavMenu.add(MyIcon.icon_calendar, Res.str(R.string.nav_events), EventListScreen.intent())
+//        leftNavMenu.add(MyIcon.icon_attraction, Res.str(R.string.nav_attractions), AttractionListScreen.intent())
+//
+//        if (BuildConfig.DEBUG) {
+//            leftNavMenu.add(MyIcon.icon_question, "Diagnostics", JsonUiScreen.intent(MyBuild.INSTANCE.host + "/app_diagnostics.json"))
+//        }
+//
+////            addMenu(MyIcon.icon_home, "Offers (testing only)", OfferListScreen.intent())
+////            addMenu(MyIcon.icon_qr, "Checkins", CheckinScreen.intent())
+//    }
+//
+//    override fun menuIcon(): Drawable? {
+////        return MyIcon.icon_menu.drawable().color(MyColor.NAVBAR_TEXT).sizeDp(GIcon.ACTION_BAR_SIZE)
+//        return GoogleMaterial.Icon.gmd_menu.draw
+//    }
+//}
