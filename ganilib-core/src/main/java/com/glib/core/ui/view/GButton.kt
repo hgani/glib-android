@@ -122,6 +122,11 @@ class GButton : AppCompatButton, IView, GWeightable {
         return self()
     }
 
+    fun background(drawable: Drawable): GButton {
+        background = drawable
+        return self()
+    }
+
     fun textSize(textSize: Float): GButton {
         setTextSize(textSize)
         return self()

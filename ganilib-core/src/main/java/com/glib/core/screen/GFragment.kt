@@ -74,27 +74,6 @@ open class GFragment : Fragment(), GContainer {
         // To be overridden
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//
-//        resetContent( gActivity!!, container!!)
-//    }
-
-//    override fun onStop() {
-//        super.onStop()
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//
-//        // Mimic activity's onRestart(). See http://stackoverflow.com/questions/35039512/android-what-to-use-instead-of-onrestart-in-a-fragment
-//        if (firstVisit) {
-//            firstVisit = false
-//        } else {
-//            onRestart()
-//        }
-//    }
-
     private fun checkRestart() {
         // Mimic activity's onRestart(). See http://stackoverflow.com/questions/35039512/android-what-to-use-instead-of-onrestart-in-a-fragment
         if (firstVisit) {

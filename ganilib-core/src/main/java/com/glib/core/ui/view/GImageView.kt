@@ -8,10 +8,16 @@ import android.view.View.OnClickListener
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.RequestOptions
 import com.glib.core.utils.Res
 
 class GImageView : AppCompatImageView, IView {
     private val helper = ViewHelper(this)
+    private var circle: Boolean = false
+
+    // Using application context prevents app crash when closing activity during image load
+    private val glide = Glide.with(Res.context)
 
     constructor(context: Context) : super(context)
 
@@ -97,21 +103,34 @@ class GImageView : AppCompatImageView, IView {
 //        return this
 //    }
 
-    fun source(url: String?): GImageView {
-        Glide.with(Res.context)  // Using application context prevents app crash when closing activity during image load
-                .load(url)
-                .into(this)
+    fun circle(): GImageView {
+        circle = true
         return this
+    }
+
+    private fun glideIn(requestBuilder: RequestBuilder<Drawable>): GImageView {
+        var chain = requestBuilder
+        if (circle) {
+            chain = requestBuilder.apply(RequestOptions().circleCrop())
+        }
+        chain.into(this)
+        return this
+    }
+
+    fun source(url: String?): GImageView {
+        return glideIn(glide.load(url))
     }
 
     fun source(drawable: Drawable): GImageView {
-        setImageDrawable(drawable)
-        return this
+//        setImageDrawable(drawable)
+
+        return glideIn(glide.load(drawable))
     }
 
     fun source(bitmap: Bitmap): GImageView {
-        setImageBitmap(bitmap)
-        return this
+//        setImageBitmap(bitmap)
+
+        return glideIn(glide.load(bitmap))
     }
 
     fun border(color: Int, width: Int): GImageView {

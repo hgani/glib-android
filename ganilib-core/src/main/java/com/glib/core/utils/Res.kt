@@ -148,7 +148,6 @@ object Res {
         if (code != null) {
             if (code.startsWith("#")) {
                 code = "#" + expandColorIfNecessary(code.substring(1))
-                GLog.t(javaClass, "*** COLOR: " + code)
             }
             try {
                 return Color.parseColor(code)

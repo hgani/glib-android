@@ -82,6 +82,11 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout, GWeighta
         return self()
     }
 
+    fun roundedBorder(bgColor: Int, borderColor: Int, radius: Float = 15f): T {
+        helper.roundedBorder(bgColor, borderColor, radius)
+        return self()
+    }
+
     override fun weight(weight: Float): T {
         helper.weight(weight)
         return self()

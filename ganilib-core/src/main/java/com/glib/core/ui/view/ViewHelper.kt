@@ -13,6 +13,9 @@ import com.glib.core.ui.layout.GCoordinatorLayoutParams
 import com.glib.core.ui.layout.GRelativeLayoutParams
 import com.glib.core.ui.style.Length
 import com.glib.core.utils.Res
+import android.graphics.drawable.shapes.RoundRectShape
+
+
 
 
 
@@ -124,14 +127,6 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
         var bottom = bottom
         val params = view.layoutParams
         if (params is ViewGroup.MarginLayoutParams) {
-
-            //      ((ViewGroup.MarginLayoutParams) params).setMargins(
-            //          Length.dpToPx(left),
-            //          Length.dpToPx(top),
-            //          Length.dpToPx(right),
-            //          Length.dpToPx(bottom));
-
-
             if (left == null) {
                 //        left = view.getPaddingLeft();
                 left = params.leftMargin
@@ -159,8 +154,6 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
             } else {
                 bottom = Length.dpToPx(bottom)
             }
-            //
-            //      view.setPadding(left, top, right, bottom);
 
             params.setMargins(left, top, right, bottom)
         } else {
@@ -205,6 +198,33 @@ class ViewHelper @JvmOverloads constructor(private val view: View, layoutParams:
 //
 //        view.background = layerDrawable
     }
+
+
+    fun roundedBorder(bgcolor: Int, borderColor: Int, radius: Float) {
+        view.background = createRoundedBorders(bgcolor, borderColor, radius)
+    }
+
+    private fun createRoundedBorders(bgColor: Int, borderColor: Int, radius: Float): LayerDrawable {
+        val m_arrfTopHalfOuterRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+        val m_arrfBottomHalfOuterRadii = floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+
+        val top_round_rect = RoundRectShape(m_arrfTopHalfOuterRadii, null, null)
+        val top_shape_drawable = ShapeDrawable(top_round_rect)
+        top_shape_drawable.paint.color = borderColor
+
+        val bottom_round_rect = RoundRectShape(m_arrfBottomHalfOuterRadii, null, null)
+        val bottom_shape_drawable = ShapeDrawable(bottom_round_rect)
+        bottom_shape_drawable.paint.color = bgColor
+
+        val drawarray = arrayOf<Drawable>(top_shape_drawable, bottom_shape_drawable)
+        val layerdrawable = LayerDrawable(drawarray)
+
+        layerdrawable.setLayerInset(0, 0, 0, 0, 0) //top half
+        layerdrawable.setLayerInset(1, 4, 4, 4, 4) //bottom half
+
+        return layerdrawable
+    }
+
 
     //    fun createRoundedBorders(bgColor: Int, borderColor: Int): LayerDrawable {
 //
