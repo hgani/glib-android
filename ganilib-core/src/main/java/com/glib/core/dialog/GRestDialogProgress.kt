@@ -47,10 +47,10 @@ class GRestDialogProgress : GDialogProgress() {
         private var httpRequest: HttpAsync? = null
 
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            val method = args[ARG_METHOD] as Rest
-            val url = args[ARG_URL] as String
-            val params = args[ARG_PARAMS] as? GParams.Default
-            val callback = args[ARG_CALLBACK] as Callback
+//            val method = args[ARG_METHOD] as Rest
+//            val url = args[ARG_URL] as String
+//            val params = args[ARG_PARAMS] as? GParams.Default
+//            val callback = args[ARG_CALLBACK] as Callback
 //
 //            httpRequest = method.asyncUrl(url, params, object : GRestCallback.Default(this@ContentFragment) {
 //                override fun onRestResponse(response: GRestResponse) {
@@ -61,9 +61,14 @@ class GRestDialogProgress : GDialogProgress() {
 //                }
 //            }).execute()
 
+            val method = args[ARG_METHOD].serializable as Rest
+            val url = args[ARG_URL].stringValue
+            val params = args[ARG_PARAMS].serializable as? GParams.Default
+            val callback = args[ARG_CALLBACK].serializable as Callback
+
             httpRequest = method.asyncUrl(url, params).execute(GRestCallback.Default(this@ContentFragment) {
                 callback.onRestResponse(this@ContentFragment, it)
-                gActivity?.finish()
+//                gActivity?.finish()
             })
         }
 

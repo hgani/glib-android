@@ -23,7 +23,7 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
     private val fields = mutableListOf<SubmittableField>()
 
     override fun initView(): View {
-        spec["subviews"].arrayValue.forEach { subviewSpec ->
+        (spec["subviews"].array ?: spec["childViews"].arrayValue).forEach { subviewSpec ->
             JsonView.create(subviewSpec, screen, fragment)?.let {jsonView ->
                 panel.addView(jsonView.createView())
 

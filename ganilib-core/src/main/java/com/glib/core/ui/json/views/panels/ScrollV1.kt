@@ -11,8 +11,8 @@ class ScrollV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(sp
     private val panel = GScrollPanel(context)
 
     override fun initView(): View {
-        spec["subviews"].arrayValue.forEach { subviewSpec ->
-            JsonView.create(subviewSpec, screen, fragment)?.let {jsonView ->
+        (spec["subviews"].array ?: spec["childViews"].arrayValue).forEach { subviewSpec ->
+            create(subviewSpec, screen, fragment)?.let {jsonView ->
                 panel.append(jsonView.createView())
             }
         }

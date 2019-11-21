@@ -59,4 +59,5 @@ class LaunchHelper(private val context: Context) {
 
         builder.setMessage(message).show()
     }
+
 }
