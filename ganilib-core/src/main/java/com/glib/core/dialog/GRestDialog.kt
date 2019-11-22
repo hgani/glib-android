@@ -7,7 +7,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
 import java.io.Serializable
 
-class GRestDialogProgress : GDialogProgress() {
+class GRestDialog : GDialogProgress() {
     override fun createNewIntentFragment(): GFragment {
         return ContentFragment()
     }
@@ -19,18 +19,20 @@ class GRestDialogProgress : GDialogProgress() {
         private val ARG_URL = "url"
         private val ARG_PARAMS = "params"
         private val ARG_CALLBACK = "callback"
+        private val ARG_CLOSE_ON_LOAD = "closeOnLoad"
 
-        fun intentForUrl(url: String, method: Rest, params: GParams.Default?, callback: Callback): Intent {
-            return intentBuilder(GRestDialogProgress::class)
+        fun intentForUrl(url: String, method: Rest, params: GParams.Default?, closeOnLoad: Boolean, callback: Callback): Intent {
+            return intentBuilder(GRestDialog::class)
                     .withArg(ARG_METHOD, method)
                     .withArg(ARG_URL, url)
                     .withArg(ARG_PARAMS, params)
+                    .withArg(ARG_CLOSE_ON_LOAD, closeOnLoad)
                     .withArg(ARG_CALLBACK, callback)
                     .intent
         }
 
-        fun intentForPath(path: String, method: Rest, params: GParams.Default?, callback: Callback): Intent {
-            return intentForUrl("${GHttp.instance.host}${path}", method, params, callback)
+        fun intentForPath(path: String, method: Rest, params: GParams.Default?, closeOnLoad: Boolean, callback: Callback): Intent {
+            return intentForUrl("${GHttp.instance.host}${path}", method, params, closeOnLoad, callback)
         }
     }
 
@@ -47,28 +49,17 @@ class GRestDialogProgress : GDialogProgress() {
         private var httpRequest: HttpAsync? = null
 
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-//            val method = args[ARG_METHOD] as Rest
-//            val url = args[ARG_URL] as String
-//            val params = args[ARG_PARAMS] as? GParams.Default
-//            val callback = args[ARG_CALLBACK] as Callback
-//
-//            httpRequest = method.asyncUrl(url, params, object : GRestCallback.Default(this@ContentFragment) {
-//                override fun onRestResponse(response: GRestResponse) {
-//                    super.onRestResponse(response)
-//
-//                    callback.onRestResponse(this@ContentFragment, response)
-//                    gActivity?.finish()
-//                }
-//            }).execute()
-
             val method = args[ARG_METHOD].serializable as Rest
             val url = args[ARG_URL].stringValue
             val params = args[ARG_PARAMS].serializable as? GParams.Default
             val callback = args[ARG_CALLBACK].serializable as Callback
+            val closeOnLoad = args[ARG_CLOSE_ON_LOAD].boolValue
 
             httpRequest = method.asyncUrl(url, params).execute(GRestCallback.Default(this@ContentFragment) {
                 callback.onRestResponse(this@ContentFragment, it)
-//                gActivity?.finish()
+                if (closeOnLoad) {
+                    gActivity?.finish()
+                }
             })
         }
 
