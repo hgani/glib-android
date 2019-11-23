@@ -24,13 +24,14 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation project(':ganilib-core')
-
     // Force to use a newer version to avoid conflicts.
     // See https://proandroiddev.com/android-gradle-and-the-curious-case-of-invisible-dependency-7f1bcc8bb79e
     implementation 'com.android.support:support-v4:28.0.0'
 
-    implementation 'com.google.android.gms:play-services-vision:17.0.2'
+    // This automatically requests android.permission.INTERNET.
+    api 'com.google.android.gms:play-services-maps:16.1.0'
+
+    implementation project(':glib-core')
 }
 repositories {
     mavenCentral()
