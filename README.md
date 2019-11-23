@@ -6,5 +6,5 @@
 - `mklink /J glib-camera ..\glib-android\glib-camera`
 
 ## Check jitpack status
-- https://jitpack.io/com/github/hgani/ganilib-android-kotlin/VERSION_TAG/build.log
+- https://jitpack.io/com/github/hgani/glib-android/VERSION_TAG/build.log
 
