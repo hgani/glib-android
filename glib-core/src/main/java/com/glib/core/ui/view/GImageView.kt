@@ -14,7 +14,8 @@ import com.glib.core.utils.Res
 
 class GImageView : AppCompatImageView, IView {
     private val helper = ViewHelper(this)
-    private var circle: Boolean = false
+//    private var circle: Boolean = false
+    private var options = RequestOptions().dontTransform()
 
     // Using application context prevents app crash when closing activity during image load
     private val glide = Glide.with(Res.context)
@@ -104,16 +105,21 @@ class GImageView : AppCompatImageView, IView {
 //    }
 
     fun circle(): GImageView {
-        circle = true
+//        circle = true
+        options = RequestOptions().circleCrop()
         return this
     }
 
     private fun glideIn(requestBuilder: RequestBuilder<Drawable>): GImageView {
-        var chain = requestBuilder
-        if (circle) {
-            chain = requestBuilder.apply(RequestOptions().circleCrop())
-        }
-        chain.into(this)
+//        var options = RequestOptions()
+//                .circleCrop().dontTransform()
+//        var chain = requestBuilder
+//        if (circle) {
+//            options = options.circleCrop()
+//            chain = requestBuilder
+////                    .apply(RequestOptions().circleCrop())
+//        }
+        requestBuilder.apply(options).into(this)
         return this
     }
 
@@ -123,6 +129,7 @@ class GImageView : AppCompatImageView, IView {
 
     fun source(drawable: Drawable): GImageView {
 //        setImageDrawable(drawable)
+//        return this
 
         return glideIn(glide.load(drawable))
     }
