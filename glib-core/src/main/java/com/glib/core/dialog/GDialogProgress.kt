@@ -5,8 +5,6 @@ import android.os.Bundle
 import com.glib.core.screen.GActivity
 import com.glib.core.ui.ProgressIndicator
 
-//import com.smartguam.guamevent.R;
-
 /**
  * This fake dialog knows how to re-draw itself correctly on reorientation and should be configured not to be destroyed and re-created
  * on reorientation.
