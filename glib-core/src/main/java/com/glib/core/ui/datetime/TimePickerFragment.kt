@@ -12,7 +12,11 @@ class TimePickerFragment : DialogFragment() {
     companion object {
         fun show(target: GFragment, requestCode: Int) {
             val picker = TimePickerFragment()
-            picker.show(target.fragmentManager, "timePicker")
+
+            target.fragmentManager?.let {
+                picker.show(it, "timePicker")
+            }
+//            picker.show(target.fragmentManager, "timePicker")
 //            datePicker.setTargetFragment(target, requestCode)
 //            datePicker.show(target.fragmentManager, "datePicker");
         }

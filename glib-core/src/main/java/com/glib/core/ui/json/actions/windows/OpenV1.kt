@@ -116,10 +116,10 @@ abstract class JsonUiFragment : GFragment {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val page = this.page
         val activity = this.gActivity
-        if (page == null || activity == null || menu == null) {
+        if (page == null || activity == null) {
             return
         }
 
@@ -146,4 +146,35 @@ abstract class JsonUiFragment : GFragment {
             }
         }
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+//        val page = this.page
+//        val activity = this.gActivity
+//        if (page == null || activity == null || menu == null) {
+//            return
+//        }
+//
+//        val gMenu = GMenu(menu)
+//        if (parseMenu) {
+//            page["rightNavButtons"].arrayValue.forEach { button ->
+//                val name = button["icon"]["materialName"].stringValue
+//                gMenu.add(name) { item ->
+//                    item.showIfRoom().onClick {
+//                        JsonAction.execute(button["onClick"], activity, null, null)
+//                    }
+//                    JsonUi.iconDrawable(button["icon"])?.let { drawable ->
+//                        item.icon(drawable)
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (BuildConfig.DEBUG) {
+//            gMenu.add("?") { item ->
+//                item.showIfRoom().onClick {
+//                    launch.alert(page.toString())
+//                }
+//            }
+//        }
+//    }
 }

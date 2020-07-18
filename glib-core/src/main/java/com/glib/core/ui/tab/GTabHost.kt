@@ -61,7 +61,7 @@ open class GTabHost : FragmentTabHost {
     }
 
     fun setup(fragmentManager: FragmentManager?, scroll: Boolean, tabPanel: GHorizontalPanel): GTabHost {
-        this.fragmentManager = fragmentManager
+        this.fragmentManager = fragmentManager!!
 
         initView(scroll, tabPanel)
         super.setup(context, fragmentManager, android.R.id.tabcontent)

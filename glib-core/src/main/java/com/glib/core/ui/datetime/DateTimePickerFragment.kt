@@ -16,8 +16,12 @@ class DateTimePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListe
         fun show(target: GFragment, requestCode: Int) {
             val datePicker = DateTimePickerFragment()
             datePicker.setTargetFragment(target, requestCode)
+
+            target.fragmentManager?.let {
+                datePicker.show(it, "datePicker");
+            }
 //            datePicker.setTargetFragment(target, ContentFragment.REQUEST_ONCE_DATE)
-            datePicker.show(target.fragmentManager, "datePicker");
+//            datePicker.show(target.fragmentManager, "datePicker");
         }
     }
 
