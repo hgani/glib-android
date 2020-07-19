@@ -187,6 +187,10 @@ open class GTextView : AppCompatTextView, IView {
             val cellSubtitle = GTextView.Spec() { view ->
                 view.textSize(16f)
             }
+
+            val cellSubsubtitle = GTextView.Spec() { view ->
+                view.textSize(12f)
+            }
         }
 
         fun decorate(view: GTextView) {

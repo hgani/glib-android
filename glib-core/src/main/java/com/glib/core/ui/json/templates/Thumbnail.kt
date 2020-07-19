@@ -26,6 +26,7 @@ class Thumbnail(spec: GJson, screen: GActivity): JsonTemplate(spec, screen) {
                 setImageUrl(spec["imageUrl"].string)
                 setTitle(spec["title"].string)
                 setSubtitle(spec["subtitle"].string)
+                setSubsubtitle(spec["subsubtitle"].string)
             }
         }
     }
