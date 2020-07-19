@@ -13,6 +13,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.ProgressIndicator
 import com.glib.core.ui.json.JsonTemplate
 import com.glib.core.ui.json.JsonView
+import com.glib.core.ui.json.templates.SectionHeaderFooterTemplate
 import com.glib.core.ui.json.templates.Thumbnail
 import com.glib.core.ui.list.DtoBindingHolder
 import com.glib.core.ui.list.DtoRecyclerAdapter
@@ -53,19 +54,27 @@ class ListV1(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spe
 
     private fun appendItems(spec: GJson) {
         spec["sections"].arrayValue.forEach { sectionSpec ->
+            sectionSpec["header"].presence?.let {
+                addTemplate(SectionHeaderFooterTemplate(it, screen, fragment))
+            }
+
             sectionSpec["rows"].arrayValue.forEach { rowSpec ->
                 JsonTemplate.create(rowSpec, screen)?.let {
-                    templates.add(it)
-                    templateRegistry.put(it.viewType, it)
-
-//                    if (!templateRegistry.containsKey(it.viewType)) {
-//                        templateRegistry.put(it.viewType, it)
-//                    }
+                    addTemplate(it)
                 }
+            }
+
+            sectionSpec["footer"].presence?.let {
+                addTemplate(SectionHeaderFooterTemplate(it, screen, fragment))
             }
         }
 
         adapter.notifyDataSetChanged()
+    }
+
+    private fun addTemplate(template: JsonTemplate) {
+        templates.add(template)
+        templateRegistry.put(template.viewType, template)
     }
 
     private fun appendLoadMoreIndicator() {
