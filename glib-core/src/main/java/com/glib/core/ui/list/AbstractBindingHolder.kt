@@ -8,14 +8,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.utils.Res
 
+// TODO: Remove selectable from constructor. They should be set dynamically.
 abstract class AbstractBindingHolder private constructor(val container: GVerticalPanel, selectable: Boolean) : RecyclerView.ViewHolder(container) {
     val context: Context
         get() = container.context
 
-    init {
-        if (selectable) {
-            unhighlightSelectable()
+    var selectable: Boolean = true
+        get() = field
+        set(value) {
+            field = value
+
+            if (field) {
+                unhighlightSelectable()
+            } else {
+                container.setBackgroundResource(0)
+            }
         }
+
+    init {
+        this.selectable = selectable
+//        if (selectable) {
+//            unhighlightSelectable()
+//        }
     }
 
     protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {

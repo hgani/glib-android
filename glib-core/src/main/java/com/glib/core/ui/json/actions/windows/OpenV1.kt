@@ -108,6 +108,7 @@ abstract class JsonUiFragment : GFragment {
     }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {
+        enableRefreshPull()
         onRefresh()
 
         args[JsonUiScreen.ARG_SPEC].json?.let {

@@ -26,12 +26,11 @@ class JsonUi {
                 initVerticalPanel(container.footer, spec["footer"], screen, fragment)
                 JsonAction.execute(spec["onLoad"], screen, null, null)
 
+                // Check for presence to prevent the panel getting cleared when not applicable
                 // Legacy
-                initVerticalPanel(container.content, spec["content"], screen, fragment)
-
-//                spec["content"].presence?.let {
-//                    initVerticalPanel(container.content, it, screen, fragment)
-//                }
+                spec["content"].presence?.let {
+                    initVerticalPanel(container.content, it, screen, fragment)
+                }
             }
         }
 
@@ -48,6 +47,7 @@ class JsonUi {
         }
 
         private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
+            panel.removeAllViews()
             VerticalV1(panel, spec, screen, fragment).createView()
         }
 
