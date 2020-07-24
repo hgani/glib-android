@@ -80,7 +80,7 @@ class JsonUiScreen : GActivity() {
 }
 
 abstract class JsonUiFragment : GFragment {
-    protected var path: String? = null
+    var path: String? = null
     protected var prependHost: Boolean = false
     protected var parseMenu = true
     private var page: GJson? = null
@@ -97,13 +97,17 @@ abstract class JsonUiFragment : GFragment {
     override fun onRefresh() {
         super.onRefresh()
 
+        reload(path, prependHost)
+    }
+
+    fun reload(path: String?, prependHost: Boolean) {
         val callback = GRestCallback.Default(this@JsonUiFragment) { response ->
             JsonUi.parseScreenContent(response.result, this@JsonUiFragment)
             page = response.result
             activity?.invalidateOptionsMenu()
         }
-        path?.let { path ->
-            Rest.GET.async(path, null, prependHost).execute(callback)
+        path?.let {
+            Rest.GET.async(it, null, prependHost).execute(callback)
         }
     }
 
