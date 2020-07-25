@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +18,9 @@ import com.glib.core.R
 import com.glib.core.logging.GLog
 import com.glib.core.model.GBundle
 import com.glib.core.ui.ProgressIndicator
+import com.glib.core.ui.json.JsonAction
+import com.glib.core.ui.json.actions.windows.CloseV1
+import com.glib.core.ui.json.actions.windows.JsonUiScreen
 import com.glib.core.utils.Res
 import java.io.Serializable
 import kotlin.reflect.KClass
@@ -93,22 +96,28 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
-        GLog.t(javaClass, "setOkResult: " + Activity.RESULT_OK)
+        GLog.t(javaClass, "setOkResult: ${Activity.RESULT_OK } - ${resultKey} - ${resultValue}")
 
         val extras = Intent()
         extras.putExtra(resultKey, resultValue)
         setResult(Activity.RESULT_OK, extras)
-
-
-        //    Intent data = new Intent();
-        //    data.putExtra(RESULT_DATA, result);
-        //    setResult(RESULT_OK,data);
-        //    finish();
     }
 
     fun finish(resultKey: String, resultValue: Serializable) {
         setOkResult(resultKey, resultValue)
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            // Implement this in GActivity instead of JsonUiScreen because the opener screen might not be a JsonUiScreen
+            val args = GBundle(data?.extras ?: Bundle.EMPTY)
+            args[CloseV1.RESULT_KEY_ON_AFTER_CLOSE].json?.let {
+                JsonAction.execute(it, this, null, null)
+            }
+        }
     }
 
     fun updateBadge(count: Int) {

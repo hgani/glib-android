@@ -8,7 +8,7 @@ import com.glib.core.utils.GAuth
 class SaveCsrfTokenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         GAuth.csrfToken = spec["token"].string
-        JsonAction.execute(spec["onSave"], screen, this)
+        execute(spec["onSave"], screen, this)
         return true
     }
 }

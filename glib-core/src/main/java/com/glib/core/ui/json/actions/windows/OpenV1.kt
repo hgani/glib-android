@@ -22,7 +22,7 @@ class OpenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
         if (url == null) {
             return false
         }
-        screen.startActivity(JsonUiScreen.intent(url))
+        screen.startActivityForResult(JsonUiScreen.intent(url), 0)
         return true
     }
 }

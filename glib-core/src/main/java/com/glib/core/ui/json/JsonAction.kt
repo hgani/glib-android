@@ -50,6 +50,7 @@ abstract class JsonAction(val spec: GJson, val screen: GActivity) {
         fun execute(spec: GJson, screen: GActivity, creator: JsonAction) {
             create(spec, screen)?.let {
                 it.targetView = creator.targetView
+                it.targetController = creator.targetController
                 it.execute()
             }
         }
