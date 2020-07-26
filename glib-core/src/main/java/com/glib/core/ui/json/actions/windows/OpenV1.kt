@@ -6,8 +6,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import com.glib.core.BuildConfig
 import com.glib.core.http.GRestCallback
+import com.glib.core.http.GRestResponse
 import com.glib.core.http.Rest
+import com.glib.core.http.UrlUtils
 import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
@@ -81,7 +84,7 @@ class JsonUiScreen : GActivity() {
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
-    protected var prependHost: Boolean = false
+//    protected var prependHost: Boolean = false
     protected var parseMenu = true
     private var page: GJson? = null
 
@@ -90,24 +93,26 @@ abstract class JsonUiFragment : GFragment {
     }
 
     protected constructor(path: String, prependHost: Boolean) {
-        this.path = path
-        this.prependHost = prependHost
+        this.path = if (prependHost) UrlUtils.pathToUrl(path) else path
+//        this.prependHost = prependHost
     }
 
     override fun onRefresh() {
         super.onRefresh()
-
-        reload(path, prependHost)
+        reload(path, {})
     }
 
-    fun reload(path: String?, prependHost: Boolean) {
+    fun reload(path: String?, onReload: () -> Unit) {
+        GLog.t(javaClass, "reload3: ${path}")
         val callback = GRestCallback.Default(this@JsonUiFragment) { response ->
             JsonUi.parseScreenContent(response.result, this@JsonUiFragment)
             page = response.result
             activity?.invalidateOptionsMenu()
+
+            onReload()
         }
         path?.let {
-            Rest.GET.async(it, null, prependHost).execute(callback)
+            Rest.GET.async(it, null, false).execute(callback)
         }
     }
 

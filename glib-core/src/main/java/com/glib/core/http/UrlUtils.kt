@@ -12,4 +12,7 @@ object UrlUtils {
         }
 
     }
+    fun pathToUrl(path: String): String {
+        return "${GHttp.instance.host}${path}"
+    }
 }

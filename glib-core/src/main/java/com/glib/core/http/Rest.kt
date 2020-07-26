@@ -27,12 +27,8 @@ enum class Rest {
         }
     };
 
-    protected fun urlFrom(path: String): String {
-        return "${GHttp.instance.host}${path}"
-    }
-
     fun async(path: String, params: GParams.Default? = null, prependHost: Boolean = true): HttpAsync {
-        val url = if (prependHost) urlFrom(path) else path
+        val url = if (prependHost) UrlUtils.pathToUrl(path) else path
         return asyncUrl(url, params)
     }
 
