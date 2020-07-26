@@ -20,6 +20,11 @@ class JsonUi {
                 return
             }
 
+            spec["title"].string?.let {
+                // In this case, screen.title doesn't work
+                screen.navBar.title = it
+            }
+
             if (!JsonAction.execute(spec["onResponse"], screen, null, null)) {
                 initVerticalPanel(container.header, spec["header"], screen, fragment)
                 initVerticalPanel(container.content, spec["body"], screen, fragment)
