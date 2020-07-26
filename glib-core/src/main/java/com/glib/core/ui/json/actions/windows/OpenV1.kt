@@ -73,8 +73,9 @@ class JsonUiScreen : GActivity() {
 
     class ContentFragment : JsonUiFragment() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            super.path = args[ARG_URL].string
-            super.prependHost = false
+            setPath(args[ARG_URL].string, false)
+//            super.path = args[ARG_URL].string
+//            super.prependHost = false
             super.parseMenu = true
             super.initContent(activity, container)
         }
@@ -84,6 +85,7 @@ class JsonUiScreen : GActivity() {
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
+        private set
 //    protected var prependHost: Boolean = false
     protected var parseMenu = true
     private var page: GJson? = null
@@ -93,8 +95,14 @@ abstract class JsonUiFragment : GFragment {
     }
 
     protected constructor(path: String, prependHost: Boolean) {
-        this.path = if (prependHost) UrlUtils.pathToUrl(path) else path
 //        this.prependHost = prependHost
+        setPath(path, prependHost)
+    }
+
+    protected fun setPath(path: String?, prependHost: Boolean) {
+        path?.let {
+            this.path = if (prependHost) UrlUtils.pathToUrl(path) else path
+        }
     }
 
     override fun onRefresh() {
