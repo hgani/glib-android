@@ -154,7 +154,7 @@ abstract class JsonUiFragment : GFragment {
         if (BuildConfig.DEBUG) {
             gMenu.add("?") { item ->
                 item.showIfRoom().onClick {
-                    launch.alert(page.toString())
+                    launch.alert(page.toString(), "Debug Info")
                 }
             }
         }
