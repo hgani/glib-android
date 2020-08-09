@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GImageView
 
 
-class ImageV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Image(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val view = GImageView(context)
 
     override fun initView(): View {

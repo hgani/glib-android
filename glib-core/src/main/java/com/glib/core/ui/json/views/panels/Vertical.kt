@@ -10,7 +10,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.ui.view.GWeightable
 
-class VerticalV1: JsonView {
+class Vertical: JsonView {
     private val panel: GVerticalPanel
 
     constructor(spec: GJson, screen: GActivity, fragment: GFragment): this(GVerticalPanel(screen), spec, screen, fragment)

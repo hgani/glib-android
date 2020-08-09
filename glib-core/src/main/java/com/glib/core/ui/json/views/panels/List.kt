@@ -22,7 +22,7 @@ import com.glib.core.ui.list.GRecyclerView
 
 typealias TemplateHolder = DtoBindingHolder<JsonTemplate>
 
-class ListV1(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec, screen, fragment) {
+class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec, screen, fragment) {
     private val recyclerView = GRecyclerView(context).separator(true)
     private val templateRegistry = mutableMapOf<Int, JsonTemplate>()
 

@@ -7,7 +7,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GEditText
 
-abstract class AbstractTextV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment), SubmittableField {
+abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment), SubmittableField {
     protected val view = GEditText(context)
 
     final override var name: String? = null

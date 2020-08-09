@@ -12,7 +12,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GFloatingActionButton
 import com.glib.core.ui.view.GView
 
-class FabV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Fab(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val button = GView(context)
     private val fab = GFloatingActionButton(context).attachTo(fragment)
 

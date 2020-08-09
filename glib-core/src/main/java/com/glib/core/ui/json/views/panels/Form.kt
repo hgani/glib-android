@@ -18,7 +18,7 @@ import com.glib.core.ui.view.IView
 
 
 
-class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Form(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val panel = FormPanel(context)
     private val fields = mutableListOf<SubmittableField>()
 
@@ -65,7 +65,7 @@ class FormV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
                 val result = it.result
 //                    // Support generic uncustomizable framework (e.g. Devise)
 //                    result["error"].string?.let { screen.launch.alert(it) }
-                JsonAction.execute(result["onResponse"], screen, this@FormPanel, this@FormV1)
+                JsonAction.execute(result["onResponse"], screen, this@FormPanel, this@Form)
             }
             Rest.from(spec["method"].stringValue).asyncUrl(spec["url"].stringValue, params).execute(callback)
         }

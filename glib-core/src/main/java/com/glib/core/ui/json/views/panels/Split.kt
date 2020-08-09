@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.panel.GSplitPanel
 import com.glib.core.ui.view.GView
 
-class SplitV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Split(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val panel = GSplitPanel(context)
 
     override fun initView(): View {

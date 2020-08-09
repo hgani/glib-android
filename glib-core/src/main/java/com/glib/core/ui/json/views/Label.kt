@@ -9,7 +9,7 @@ import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GTextView
 
-class LabelV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Label(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val label = GTextView(context)
 
     override fun initView(): View {

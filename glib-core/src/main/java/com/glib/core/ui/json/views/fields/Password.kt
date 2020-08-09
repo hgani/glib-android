@@ -7,7 +7,7 @@ import com.glib.core.json.GJson
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 
-class PasswordV1(spec: GJson, screen: GActivity, fragment: GFragment): AbstractTextV1(spec, screen, fragment) {
+class Password(spec: GJson, screen: GActivity, fragment: GFragment): AbstractText(spec, screen, fragment) {
     override fun initView(): View {
         super.initView()
 

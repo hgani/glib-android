@@ -7,7 +7,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.panel.GScrollPanel
 
-class ScrollV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Scroll(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val panel = GScrollPanel(context)
 
     override fun initView(): View {

@@ -11,7 +11,7 @@ import com.glib.core.ui.panel.GHorizontalPanel
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.ui.view.GWeightable
 
-class HorizontalV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Horizontal(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val panel = GHorizontalPanel(context)
 
     override fun initView(): View {
