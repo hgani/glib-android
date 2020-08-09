@@ -4,7 +4,7 @@ import com.glib.core.json.GJson
 import com.glib.core.screen.GActivity
 import com.glib.core.ui.json.JsonAction
 
-class AlertV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
+class Alert(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         val message = spec["message"].string
         if (message == null) {

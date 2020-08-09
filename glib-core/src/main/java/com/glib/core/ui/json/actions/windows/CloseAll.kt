@@ -3,14 +3,11 @@ package com.glib.core.ui.json.actions.windows
 import com.glib.core.json.GJson
 import com.glib.core.screen.GActivity
 import com.glib.core.ui.json.JsonAction
+import com.glib.core.ui.json.actions.windows.JsonUiScreen
 
-class CloseV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
-    companion object {
-        val RESULT_KEY_ON_AFTER_CLOSE = "onAfterClose"
-    }
-
+class CloseAll(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
-        screen.finish(RESULT_KEY_ON_AFTER_CLOSE, spec["onClose"])
+        screen.startActivity(JsonUiScreen.intent(spec["onClose"]))
         return true
     }
 }

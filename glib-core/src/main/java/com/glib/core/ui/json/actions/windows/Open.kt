@@ -17,7 +17,7 @@ import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.menu.GMenu
 
-class OpenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
+class Open(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         val url = spec["url"].string
         if (url == null) {

@@ -9,7 +9,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 
-class OpenV1(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
+class Open(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         val url = spec["url"].string
         if (url == null) {

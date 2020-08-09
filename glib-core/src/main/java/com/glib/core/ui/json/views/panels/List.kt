@@ -18,6 +18,7 @@ import com.glib.core.ui.json.templates.Thumbnail
 import com.glib.core.ui.list.DtoBindingHolder
 import com.glib.core.ui.list.DtoRecyclerAdapter
 import com.glib.core.ui.list.GRecyclerView
+import kotlin.collections.List
 
 
 typealias TemplateHolder = DtoBindingHolder<JsonTemplate>
@@ -114,7 +115,7 @@ class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec,
                     return
                 }
 
-                val lastVisiblePosition = this@ListV1.recyclerView.getLastCompletelyVisibleItemPos()
+                val lastVisiblePosition = this@List.recyclerView.getLastCompletelyVisibleItemPos()
                 val itemCount = adapter.getItemCount()
                 if (lastVisiblePosition >= itemCount - 2 && lastVisiblePosition > 3) {
                     loadMore(url)
