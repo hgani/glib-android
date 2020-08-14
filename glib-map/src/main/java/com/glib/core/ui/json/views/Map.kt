@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.map.GMapView
 
 
-class MapV1(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
+class Map(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val map = GMapView(context).attachTo(fragment)
 
     override fun initView(): View {
