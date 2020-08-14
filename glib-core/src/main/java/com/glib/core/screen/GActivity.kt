@@ -19,8 +19,7 @@ import com.glib.core.logging.GLog
 import com.glib.core.model.GBundle
 import com.glib.core.ui.ProgressIndicator
 import com.glib.core.ui.json.JsonAction
-import com.glib.core.ui.json.actions.windows.CloseV1
-import com.glib.core.ui.json.actions.windows.JsonUiScreen
+import com.glib.core.ui.json.actions.windows.Close
 import com.glib.core.utils.Res
 import java.io.Serializable
 import kotlin.reflect.KClass
@@ -114,7 +113,7 @@ open class GActivity : AppCompatActivity(), GContainer {
         if (resultCode == Activity.RESULT_OK) {
             // Implement this in GActivity instead of JsonUiScreen because the opener screen might not be a JsonUiScreen
             val args = GBundle(data?.extras ?: Bundle.EMPTY)
-            args[CloseV1.RESULT_KEY_ON_AFTER_CLOSE].json?.let {
+            args[Close.RESULT_KEY_ON_AFTER_CLOSE].json?.let {
                 JsonAction.execute(it, this, null, null)
             }
         }

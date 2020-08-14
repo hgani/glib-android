@@ -6,13 +6,11 @@ import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonTemplate
 import com.glib.core.ui.json.views.panels.TemplateHolder
-import com.glib.core.ui.json.views.panels.VerticalV1
-import com.glib.core.ui.list.DtoRecyclerAdapter
-import com.glib.core.ui.view.GTextView
+import com.glib.core.ui.json.views.panels.Vertical
 
 class SectionHeaderFooterHolder(context: Context, val screen: GActivity, val fragment: GFragment, val spec: GJson) : TemplateHolder(context, false) {
     init {
-        VerticalV1(container, spec, screen, fragment).createView()
+        Vertical(container, spec, screen, fragment).createView()
     }
 
     override fun update(item: JsonTemplate) {

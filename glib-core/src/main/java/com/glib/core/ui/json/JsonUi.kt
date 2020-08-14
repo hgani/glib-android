@@ -6,7 +6,7 @@ import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.icon.GIcon
-import com.glib.core.ui.json.views.panels.VerticalV1
+import com.glib.core.ui.json.views.panels.Vertical
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.utils.Res
 import com.mikepenz.iconics.IconicsDrawable
@@ -53,11 +53,11 @@ class JsonUi {
 
         private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
             panel.removeAllViews()
-            VerticalV1(panel, spec, screen, fragment).createView()
+            Vertical(panel, spec, screen, fragment).createView()
         }
 
         fun <T> loadClass(name: String, type: Class<T>, namespace: String): Class<T>? {
-            val substrings = name.split("/")
+            val substrings = name.removeSuffix("-v1").split("/")
             val prefix = substrings.dropLast(1).joinToString(".")
             val className = substrings.lastOrNull()?.replace("-v", "V")?.capitalize()
             val prefixedName = if (prefix.length > 0) "$prefix.$className" else className
