@@ -49,7 +49,7 @@ class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec,
         autoLoad = false
         spec["nextPage"].presence?.let {
             nextUrl = it["url"].string
-            autoLoad = it["autoLoad"].boolValue
+            autoLoad = it["autoload"].stringValue == "asNeeded"
         }
     }
 
