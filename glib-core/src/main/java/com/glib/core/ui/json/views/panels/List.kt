@@ -8,6 +8,7 @@ import com.glib.core.http.HttpAsync
 import com.glib.core.http.Rest
 import com.glib.core.json.GJson
 import com.glib.core.json.GJsonObject
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.ProgressIndicator
@@ -18,7 +19,6 @@ import com.glib.core.ui.json.templates.Thumbnail
 import com.glib.core.ui.list.DtoBindingHolder
 import com.glib.core.ui.list.DtoRecyclerAdapter
 import com.glib.core.ui.list.GRecyclerView
-import kotlin.collections.List
 
 
 typealias TemplateHolder = DtoBindingHolder<JsonTemplate>
@@ -49,7 +49,14 @@ class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec,
         autoLoad = false
         spec["nextPage"].presence?.let {
             nextUrl = it["url"].string
-            autoLoad = it["autoload"].stringValue == "asNeeded"
+//            autoLoad = it["autoload"].stringValue == "asNeeded"
+
+            val autoloadMode = it["autoload"].stringValue
+            when (autoloadMode) {
+                "asNeeded" -> autoLoad = true
+                "all" -> nextUrl?.let { url -> loadMore(url) }
+                else -> GLog.e(javaClass, "Invalid autoload: ${autoloadMode}")
+            }
         }
     }
 
@@ -126,7 +133,8 @@ class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec,
     }
 
 
-    inner class ListAdapter(objects: List<JsonTemplate>) : DtoRecyclerAdapter<JsonTemplate, DtoBindingHolder<JsonTemplate>>(objects) {
+
+    inner class ListAdapter(objects: kotlin.collections.List<JsonTemplate>) : DtoRecyclerAdapter<JsonTemplate, DtoBindingHolder<JsonTemplate>>(objects) {
         override fun onCreateItemHolder(parent: ViewGroup, viewType: Int): DtoBindingHolder<JsonTemplate> {
             return templateRegistry[viewType]!!.createHolder()
         }
