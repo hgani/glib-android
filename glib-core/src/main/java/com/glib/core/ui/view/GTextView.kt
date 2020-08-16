@@ -20,9 +20,18 @@ import java.util.regex.Pattern
 open class GTextView : AppCompatTextView, IView {
     private val helper = ViewHelper(this)
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : super(context) {
+        init()
+    }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    private fun init() {
+        // See https://stackoverflow.com/questions/35680999/what-is-androidincludefontpadding-for
+        includeFontPadding = false
+    }
 
     private fun self(): GTextView {
         return this
