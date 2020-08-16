@@ -1,17 +1,16 @@
 package com.glib.core.screen
 
+//import android.support.v4.app.Fragment
+//import android.support.v4.widget.SwipeRefreshLayout
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-//import android.support.v4.app.Fragment
-//import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.glib.core.R
 import com.glib.core.model.GBundle
@@ -48,7 +47,7 @@ open class GFragment : Fragment(), GContainer {
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentLayout = inflater.inflate(R.layout.common_fragment, null)
         val refreshView = fragmentLayout.findViewById<View>(R.id.layout_refresh) as SwipeRefreshLayout
-        refreshView.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener { this@GFragment.onRefresh() })
+        refreshView.setOnRefreshListener { this@GFragment.onRefresh() }
         refreshView.isEnabled = false
 
         val activity = gActivity!!

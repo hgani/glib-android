@@ -15,13 +15,14 @@ abstract class ThumbnailHolder<DO>(context: Context, selectable: Boolean) : DtoB
     protected val title = GTextView(context).specs(GTextView.Spec.cellTitle)
     protected val subtitle = GTextView(context).specs(GTextView.Spec.cellSubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
     protected val subsubtitle = GTextView(context).specs(GTextView.Spec.cellSubsubtitle).maxLines(1).ellipsize(TextUtils.TruncateAt.END)
+    protected val contentPanel = GVerticalPanel(context).padding(10, 10, 10, 10)
 
     init {
         container
                 .padding(10, 10, 10, 10)
                 .append(GHorizontalPanel(context).append(image)
                             .append(
-                                    GVerticalPanel(context).padding(10, 10, 10, 10)
+                                    contentPanel
                                             .append(title)
                                             .append(subtitle)
                                             .append(GView(context).height(4))

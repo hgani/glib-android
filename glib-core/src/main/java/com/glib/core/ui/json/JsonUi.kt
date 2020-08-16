@@ -26,15 +26,15 @@ class JsonUi {
             }
 
             if (!JsonAction.execute(spec["onResponse"], screen, null, null)) {
-                initVerticalPanel(container.header, spec["header"], screen, fragment)
-                initVerticalPanel(container.content, spec["body"], screen, fragment)
-                initVerticalPanel(container.footer, spec["footer"], screen, fragment)
+                resetVerticalPanel(container.header, spec["header"], screen, fragment)
+                resetVerticalPanel(container.content, spec["body"], screen, fragment)
+                resetVerticalPanel(container.footer, spec["footer"], screen, fragment)
                 JsonAction.execute(spec["onLoad"], screen, null, null)
 
                 // Check for presence to prevent the panel getting cleared when not applicable
                 // Legacy
                 spec["content"].presence?.let {
-                    initVerticalPanel(container.content, it, screen, fragment)
+                    resetVerticalPanel(container.content, it, screen, fragment)
                 }
             }
         }
@@ -51,8 +51,12 @@ class JsonUi {
             JsonAction.execute(spec["onResponse"], screen, null, null)
         }
 
-        private fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
+        private fun resetVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
             panel.removeAllViews()
+            initVerticalPanel(panel, spec, screen, fragment)
+        }
+
+        fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
             Vertical(panel, spec, screen, fragment).createView()
         }
 
@@ -71,7 +75,11 @@ class JsonUi {
         }
 
         fun iconDrawable(spec: GJson): Drawable? {
-            spec["materialName"].string?.let { iconName ->
+//            spec["materialName"].string?.let { iconName ->
+//                return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE)
+//            }
+            spec["material"]["name"].string?.let { iconName ->
+                GLog.i(JsonUi::class.java, "Icon not found: ${iconName}")
                 return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE)
             }
             return null
