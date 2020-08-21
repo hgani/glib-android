@@ -23,20 +23,22 @@ class Open(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
         if (url == null) {
             return false
         }
-        screen.startActivityForResult(JsonUiScreen.intent(url), 0)
+        screen.startActivityForResult(JsonUiScreen.intent(url, false, false), 0)
         return true
     }
 }
 
 class JsonUiScreen : GActivity() {
     companion object {
-        val ARG_URL = "url"
+        val ARG_PATH = "path"
         val ARG_SPEC = "spec"
         val ARG_ROOT = "isRoot"
+        val ARG_PREPEND_HOST = "prependHost"
 
-        fun intent(url: String, isRoot: Boolean = false): Intent {
+        fun intent(path: String, isRoot: Boolean = false, prependHost: Boolean = true): Intent {
             return intentBuilder(JsonUiScreen::class)
-                    .withArg(ARG_URL, url)
+                    .withArg(ARG_PATH, path)
+                    .withArg(ARG_PREPEND_HOST, prependHost)
                     .withArg(ARG_ROOT, isRoot).intent
         }
 
@@ -62,7 +64,7 @@ class JsonUiScreen : GActivity() {
     }
 
     private fun initNavigation() {
-        if (!args[JsonUiScreen.ARG_ROOT].boolValue) {
+        if (!args[ARG_ROOT].boolValue) {
             nav.showHomeIcon()
         }
     }
@@ -71,7 +73,7 @@ class JsonUiScreen : GActivity() {
 
     class ContentFragment : JsonUiFragment() {
         override fun initContent(activity: GActivity, container: GScreenContainer) {
-            setPath(args[ARG_URL].string, false)
+            setPath(args[ARG_PATH].string, args[ARG_PREPEND_HOST].boolValue)
 //            super.path = args[ARG_URL].string
 //            super.prependHost = false
             super.parseMenu = true
