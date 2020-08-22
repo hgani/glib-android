@@ -71,15 +71,6 @@ open class GActivity : AppCompatActivity(), GContainer {
         super.setContentView(inav.layout)
     }
 
-    protected fun onCreateForDialog(savedInstanceState: Bundle?) {
-        initOnCreate(object : INavHelper() {
-            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
-            override fun setBody(resId: Int) {
-                LayoutInflater.from(context).inflate(resId, layout)
-            }
-        })
-    }
-
 //    private fun initOnCreate() {
 //        intent.extras?.let {
 //            this.args = GBundle(it)
@@ -147,10 +138,10 @@ open class GActivity : AppCompatActivity(), GContainer {
         return findViewById<View>(resId) as Button
     }
 
-    private fun setContent(resId: Int) {
-//        inav.initNavigation(navBar)
-        inav.setBody(resId)
-    }
+//    private fun setContent(resId: Int) {
+////        inav.initNavigation(navBar)
+//        inav.setBody(resId)
+//    }
 //
 //    fun setContentWithToolbar(resId: Int) {
 ////        this.topNavigation = topNavigation
@@ -167,7 +158,8 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     fun setContentWithoutToolbar(resId: Int) {
 //        this.topNavigation = false
-        setContent(resId)
+//        setContent(resId)
+        inav.setBody(resId)
     }
 
     override fun setContentView(view: View?) {
@@ -181,21 +173,20 @@ open class GActivity : AppCompatActivity(), GContainer {
     override fun setContentView(@LayoutRes layoutResID: Int) {
         setContentView(null)
     }
-
-
-    // Unfortunately when setting theme programatically, the background won't be transparent. See http://stackoverflow.com/questions/15455979/translucent-theme-does-not-work-when-set-programmatically-on-android-2-3-3-or-4
-    // So we'll stick to setting theme in manifest and calling the right dialog method here. Ideally both can be done in this method.
-    //
-    // In the future, if we want to look into this again, beware that theming is time consuming and causes weird errors (with useless stacktraces).
-    //
-    // Put this in themes.xml:
-    // <style name="FakeDialog" parent="Theme.AppCompat.Light.Dialog">
-    //   <item name="windowNoTitle">true</item>
-    // </style>
-    fun setContentForDialog(resId: Int) {
-//        this.topNavigation = false
-        setContent(resId)
-    }
+    
+//    // Unfortunately when setting theme programatically, the background won't be transparent. See http://stackoverflow.com/questions/15455979/translucent-theme-does-not-work-when-set-programmatically-on-android-2-3-3-or-4
+//    // So we'll stick to setting theme in manifest and calling the right dialog method here. Ideally both can be done in this method.
+//    //
+//    // In the future, if we want to look into this again, beware that theming is time consuming and causes weird errors (with useless stacktraces).
+//    //
+//    // Put this in themes.xml:
+//    // <style name="FakeDialog" parent="Theme.AppCompat.Light.Dialog">
+//    //   <item name="windowNoTitle">true</item>
+//    // </style>
+//    fun setContentForDialog(resId: Int) {
+////        this.topNavigation = false
+//        setContent(resId)
+//    }
 
     protected fun setSubtitle(subtitle: String) {
         supportActionBar!!.subtitle = subtitle

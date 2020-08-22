@@ -3,6 +3,7 @@ package com.glib.core.dialog
 import android.content.res.Configuration
 import android.os.Bundle
 import com.glib.core.screen.GActivity
+import com.glib.core.screen.GDialog
 import com.glib.core.ui.ProgressIndicator
 
 /**
@@ -12,12 +13,11 @@ import com.glib.core.ui.ProgressIndicator
  * <br></br>
  * <pre>android:configChanges="orientation|screenSize"</pre>
  */
-abstract class GDialogProgress : GActivity(), ProgressIndicator {
+abstract class GDialogProgress : GDialog(), ProgressIndicator {
     private var completed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         super.onCreateForDialog(savedInstanceState)
         setFragmentWithoutToolbar(createNewIntentFragment(), savedInstanceState)
 //        setupViews()
