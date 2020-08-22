@@ -27,7 +27,7 @@ import kotlin.reflect.KClass
 open class GActivity : AppCompatActivity(), GContainer {
     val launch = LaunchHelper(context)
 
-    lateinit var nav: INavHelper
+    lateinit var nav: NavHelper
         private set
 
 //    private var topNavigation = false
@@ -69,15 +69,17 @@ open class GActivity : AppCompatActivity(), GContainer {
             this.args = GBundle(it)
         }
 
-        nav = object : INavHelper() {
-            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
-            override val toolbar: Toolbar?
-                get() = null  // Not applicable to dialog
+        nav = NavHelper(this)
 
-            override fun setBody(resId: Int) {
-                LayoutInflater.from(context).inflate(resId, layout)
-            }
-        }
+//        nav = object : INavHelper() {
+//            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
+//            override val toolbar: Toolbar?
+//                get() = null  // Not applicable to dialog
+//
+//            override fun setBody(resId: Int) {
+//                LayoutInflater.from(context).inflate(resId, layout)
+//            }
+//        }
     }
 
 //    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: NavHelper) {
@@ -86,12 +88,11 @@ open class GActivity : AppCompatActivity(), GContainer {
         initOnCreate()
 
         // TODO: Consider initializing in constructor
-        val container = NavHelper(this)
+//        val container = NavHelper(this)
+//        this.nav = container
 
-        this.nav = container
-
-        super.setContentView(container.layout)
-        setSupportActionBar(container.toolbar)
+        super.setContentView(nav.layout)
+        setSupportActionBar(nav.toolbar)
     }
 
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
