@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
 import com.glib.core.ui.icon.GIcon
+import com.glib.core.ui.style.LibIcon
 import com.glib.core.utils.Res.context
 import com.glib.core.utils.Res.str
 import com.google.android.material.navigation.NavigationView
@@ -55,29 +56,7 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
         initToolbar(toolbar)
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
-//        if (topNavigation) {
-//            initDrawers()
-//        }
     }
-
-//    override fun initDrawers() {
-//        this.hasLeftDrawer = true
-//
-//        val leftNavView = drawer.findViewById<View>(R.id.view_navigation_left) as NavigationView
-//        val leftNavMenu = NavigationMenu(leftNavView.menu, actionBar)
-//
-//        // TODO
-//        val rightNavView = drawer.findViewById<View>(R.id.view_navigation_right) as NavigationView
-//        val rightNavMenu = NavigationMenu(rightNavView.menu, actionBar)
-//
-//        initMenu(leftNavMenu, rightNavMenu)
-//
-//        val icon = menuIcon()
-//        if (icon != null) {
-//            actionBar.setHomeAsUpIndicator(badge.drawable)
-//        }
-//    }
 
     override fun initLeftDrawer(populate: (NavigationMenu) -> Unit) {
         this.hasLeftDrawer = true
@@ -125,8 +104,9 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
         badge.setCount(count)
     }
 
+    // TODO: Allow customization
     open fun menuIcon(): Drawable? {
-        return null
+        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
     }
 
     /////

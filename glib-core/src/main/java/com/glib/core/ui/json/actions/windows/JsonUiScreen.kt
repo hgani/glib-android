@@ -35,11 +35,8 @@ class JsonUiScreen : GActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val view = JsonUiNavHelper(this)
-        super.onCreateForScreen(savedInstanceState, view)
+        super.onCreateForScreen(savedInstanceState)
         setFragmentWithToolbar(createNewIntentFragment(), true, savedInstanceState)
-
         initNavigation()
     }
 

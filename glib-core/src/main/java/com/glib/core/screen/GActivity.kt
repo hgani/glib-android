@@ -80,9 +80,14 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
     }
 
-    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: NavHelper) {
+//    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: NavHelper) {
 //        super.onCreate(savedInstanceState)
+    protected fun onCreateForScreen(savedInstanceState: Bundle?) {
         initOnCreate()
+
+        // TODO: Consider initializing in constructor
+        val container = NavHelper(this)
+
         this.nav = container
 
         super.setContentView(container.layout)
