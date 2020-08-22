@@ -32,7 +32,7 @@ class JsonUiScreen : GScreen() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.onCreateForScreen(savedInstanceState)
-        setFragmentWithToolbar(createNewIntentFragment(), true, savedInstanceState)
+        setFragmentWithToolbar(createNewIntentFragment(), savedInstanceState)
         initNavigation()
     }
 

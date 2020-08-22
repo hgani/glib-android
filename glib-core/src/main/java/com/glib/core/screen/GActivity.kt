@@ -28,12 +28,11 @@ open class GActivity : AppCompatActivity(), GContainer {
     lateinit var inav: INavHelper
         private set
 
-//    private var topNavigation = false
     override val gActivity: GActivity
         get() = this
-
-    val navBar: ActionBar
-        get() = supportActionBar!!  // It should exist because setSupportActionBar() should have been called
+//
+//    val navBar: ActionBar
+//        get() = supportActionBar!!  // It should exist because setSupportActionBar() should have been called
 
     val context: Context
         get() = this
@@ -62,36 +61,58 @@ open class GActivity : AppCompatActivity(), GContainer {
             }
         }
 
-    private fun initOnCreate() {
+    protected fun initOnCreate(nav: INavHelper) {
         intent.extras?.let {
             this.args = GBundle(it)
         }
 
-        inav = object : INavHelper() {
-            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
-//            override val toolbar: Toolbar?
-//                get() = null  // Not applicable to dialog
-
-            override fun setBody(resId: Int) {
-                LayoutInflater.from(context).inflate(resId, layout)
-            }
-        }
-    }
-
-    protected open fun onCreateForScreen(savedInstanceState: Bundle?) {
-        initOnCreate()
-
-        inav = NavHelper(this)
+        inav = nav
 
         super.setContentView(inav.layout)
     }
 
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
-        initOnCreate()
-        inav = NavHelper(this)
-
-        super.setContentView(inav.layout)
+        initOnCreate(object : INavHelper() {
+            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
+            override fun setBody(resId: Int) {
+                LayoutInflater.from(context).inflate(resId, layout)
+            }
+        })
     }
+
+//    private fun initOnCreate() {
+//        intent.extras?.let {
+//            this.args = GBundle(it)
+//        }
+//
+//        inav = object : INavHelper() {
+//            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
+////            override val toolbar: Toolbar?
+////                get() = null  // Not applicable to dialog
+//
+//            override fun setBody(resId: Int) {
+//                LayoutInflater.from(context).inflate(resId, layout)
+//            }
+//        }
+//
+//        super.setContentView(inav.layout)
+//    }
+//
+//    protected open fun onCreateForScreen(savedInstanceState: Bundle?) {
+//        initOnCreate()
+//
+//        inav = NavHelper(this)
+//
+////        super.setContentView(inav.layout)
+//    }
+//
+//    protected fun onCreateForDialog(savedInstanceState: Bundle?) {
+//        initOnCreate()
+//
+////        inav = NavHelper(this)
+//
+////        super.setContentView(inav.layout)
+//    }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
         GLog.t(javaClass, "setOkResult: ${Activity.RESULT_OK } - ${resultKey} - ${resultValue}")
@@ -118,13 +139,6 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
     }
 
-//    fun updateBadge(count: Int) {
-////        if (nav is NavHelper) {
-////            (nav as NavHelper).updateBadge(count)
-////        }
-//        nav.updateBadge(count)
-//    }
-
     fun getLabel(resId: Int): TextView {
         return findViewById<View>(resId) as TextView
     }
@@ -134,22 +148,22 @@ open class GActivity : AppCompatActivity(), GContainer {
     }
 
     private fun setContent(resId: Int) {
-        inav.initNavigation(navBar)
+//        inav.initNavigation(navBar)
         inav.setBody(resId)
     }
-
-    fun setContentWithToolbar(resId: Int) {
-//        this.topNavigation = topNavigation
-        setContent(resId)
-
-        // TODO
-//        nav.toolbar.visibility = View.VISIBLE
-
-//        val toolbar = nav.toolbar
-//        if (toolbar != null) {
-//            toolbar.visibility = View.VISIBLE
-//        }
-    }
+//
+//    fun setContentWithToolbar(resId: Int) {
+////        this.topNavigation = topNavigation
+//        setContent(resId)
+//
+//        // TODO
+////        nav.toolbar.visibility = View.VISIBLE
+//
+////        val toolbar = nav.toolbar
+////        if (toolbar != null) {
+////            toolbar.visibility = View.VISIBLE
+////        }
+//    }
 
     fun setContentWithoutToolbar(resId: Int) {
 //        this.topNavigation = false

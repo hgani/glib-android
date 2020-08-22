@@ -28,19 +28,35 @@ open class GScreen : GActivity() {
     val nav: NavHelper
         get() = inav as NavHelper
 
-    override final protected fun onCreateForScreen(savedInstanceState: Bundle?) {
-        super.onCreateForScreen(savedInstanceState)
+    val navBar: ActionBar
+        get() = supportActionBar!!  // It should exist because setSupportActionBar() should have been called
 
+    fun onCreateForScreen(savedInstanceState: Bundle?) {
+        super.initOnCreate(NavHelper(this))
         setSupportActionBar(nav.toolbar)
     }
 
-    fun setFragmentWithToolbar(fragment: GFragment?, topNavigation: Boolean, savedInstanceState: Bundle?) {
+    fun setFragmentWithToolbar(fragment: GFragment?, savedInstanceState: Bundle?) {
 //        this.topNavigation = topNavigation
 //        if (fragment != null) {
 //            setFragment(fragment, savedInstanceState)
 //        }
 
         setFragmentWithoutToolbar(fragment, savedInstanceState)
+        nav.initNavigation(navBar)
+        nav.toolbar.visibility = View.VISIBLE
+
+//        val toolbar = nav.toolbar
+//        if (toolbar != null) {
+//            toolbar.visibility = View.VISIBLE
+//        }
+    }
+
+    fun setContentWithToolbar(resId: Int) {
+//        this.topNavigation = topNavigation
+//        setContent(resId)
+
+        setContentWithoutToolbar(resId)
         nav.initNavigation(navBar)
         nav.toolbar.visibility = View.VISIBLE
 

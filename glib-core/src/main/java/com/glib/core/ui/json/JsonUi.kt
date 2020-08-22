@@ -21,8 +21,7 @@ class JsonUi {
             }
 
             spec["title"].string?.let {
-                // In this case, screen.title doesn't work
-                screen.navBar.title = it
+                screen.title = it
             }
 
             if (!JsonAction.execute(spec["onResponse"], screen, null, null)) {
