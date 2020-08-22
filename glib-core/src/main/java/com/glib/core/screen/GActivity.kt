@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -13,7 +12,6 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
 import com.glib.core.logging.GLog
 import com.glib.core.model.GBundle
@@ -27,7 +25,7 @@ import kotlin.reflect.KClass
 open class GActivity : AppCompatActivity(), GContainer {
     val launch = LaunchHelper(context)
 
-    lateinit var nav: NavHelper
+    lateinit var inav: INavHelper
         private set
 
 //    private var topNavigation = false
@@ -69,35 +67,30 @@ open class GActivity : AppCompatActivity(), GContainer {
             this.args = GBundle(it)
         }
 
-        nav = NavHelper(this)
-
-//        nav = object : INavHelper() {
-//            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
+        inav = object : INavHelper() {
+            override val layout = LayoutInflater.from(context).inflate(R.layout.barebone_view_screen, null) as ViewGroup
 //            override val toolbar: Toolbar?
 //                get() = null  // Not applicable to dialog
-//
-//            override fun setBody(resId: Int) {
-//                LayoutInflater.from(context).inflate(resId, layout)
-//            }
-//        }
+
+            override fun setBody(resId: Int) {
+                LayoutInflater.from(context).inflate(resId, layout)
+            }
+        }
     }
 
-//    protected fun onCreateForScreen(savedInstanceState: Bundle?, container: NavHelper) {
-//        super.onCreate(savedInstanceState)
-    protected fun onCreateForScreen(savedInstanceState: Bundle?) {
+    protected open fun onCreateForScreen(savedInstanceState: Bundle?) {
         initOnCreate()
 
-        // TODO: Consider initializing in constructor
-//        val container = NavHelper(this)
-//        this.nav = container
+        inav = NavHelper(this)
 
-        super.setContentView(nav.layout)
-        setSupportActionBar(nav.toolbar)
+        super.setContentView(inav.layout)
     }
 
     protected fun onCreateForDialog(savedInstanceState: Bundle?) {
         initOnCreate()
-        super.setContentView(nav.layout)
+        inav = NavHelper(this)
+
+        super.setContentView(inav.layout)
     }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
@@ -125,11 +118,12 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
     }
 
-    fun updateBadge(count: Int) {
-        if (nav is NavHelper) {
-            (nav as NavHelper).updateBadge(count)
-        }
-    }
+//    fun updateBadge(count: Int) {
+////        if (nav is NavHelper) {
+////            (nav as NavHelper).updateBadge(count)
+////        }
+//        nav.updateBadge(count)
+//    }
 
     fun getLabel(resId: Int): TextView {
         return findViewById<View>(resId) as TextView
@@ -139,24 +133,27 @@ open class GActivity : AppCompatActivity(), GContainer {
         return findViewById<View>(resId) as Button
     }
 
-    private fun setContent(resId: Int, topNavigation: Boolean) {
-        nav.initNavigation(topNavigation, navBar)
-        nav.setBody(resId)
+    private fun setContent(resId: Int) {
+        inav.initNavigation(navBar)
+        inav.setBody(resId)
     }
 
-    fun setContentWithToolbar(resId: Int, topNavigation: Boolean) {
+    fun setContentWithToolbar(resId: Int) {
 //        this.topNavigation = topNavigation
-        setContent(resId, topNavigation)
+        setContent(resId)
 
-        val toolbar = nav.toolbar
-        if (toolbar != null) {
-            toolbar.visibility = View.VISIBLE
-        }
+        // TODO
+//        nav.toolbar.visibility = View.VISIBLE
+
+//        val toolbar = nav.toolbar
+//        if (toolbar != null) {
+//            toolbar.visibility = View.VISIBLE
+//        }
     }
 
     fun setContentWithoutToolbar(resId: Int) {
 //        this.topNavigation = false
-        setContent(resId, false)
+        setContent(resId)
     }
 
     override fun setContentView(view: View?) {
@@ -183,15 +180,11 @@ open class GActivity : AppCompatActivity(), GContainer {
     // </style>
     fun setContentForDialog(resId: Int) {
 //        this.topNavigation = false
-        setContent(resId, false)
+        setContent(resId)
     }
 
     protected fun setSubtitle(subtitle: String) {
         supportActionBar!!.subtitle = subtitle
-    }
-
-    protected fun openRightDrawer() {
-        nav.openRightDrawer()
     }
 
     ///// Fragment management /////
@@ -202,19 +195,23 @@ open class GActivity : AppCompatActivity(), GContainer {
             setFragment(fragment, savedInstanceState)
         }
     }
-
-    fun setFragmentWithToolbar(fragment: GFragment?, topNavigation: Boolean, savedInstanceState: Bundle?) {
-//        this.topNavigation = topNavigation
-        if (fragment != null) {
-            setFragment(fragment, savedInstanceState)
-        }
-
-        nav.initNavigation(topNavigation, navBar)
-        val toolbar = nav.toolbar
-        if (toolbar != null) {
-            toolbar.visibility = View.VISIBLE
-        }
-    }
+//
+//    fun setFragmentWithToolbar(fragment: GFragment?, topNavigation: Boolean, savedInstanceState: Bundle?) {
+////        this.topNavigation = topNavigation
+//        if (fragment != null) {
+//            setFragment(fragment, savedInstanceState)
+//        }
+//
+//        inav.initNavigation(navBar)
+//
+//        // TODO
+////        nav.toolbar.visibility = View.VISIBLE
+//
+////        val toolbar = nav.toolbar
+////        if (toolbar != null) {
+////            toolbar.visibility = View.VISIBLE
+////        }
+//    }
 
     private fun setFragment(fragment: GFragment, savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {  // During initial setup, plug in the fragment
@@ -269,18 +266,19 @@ open class GActivity : AppCompatActivity(), GContainer {
 
     ///// Menu /////
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                if (!nav.handleHomeClick()) {
-                    onBackPressed()  // Going up is more similar to onBackPressed() than finish(), especially because the former can have pre-finish check
-                }
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
+    // TODO: Move to GScreen
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            android.R.id.home -> {
+//                if (!nav.handleHomeClick()) {
+//                    onBackPressed()  // Going up is more similar to onBackPressed() than finish(), especially because the former can have pre-finish check
+//                }
+//                return true
+//            }
+//        }
+//
+//        return super.onOptionsItemSelected(item)
+//    }
 
     class IntentBuilder internal constructor(cls: KClass<out GActivity>) {
         val intent: Intent

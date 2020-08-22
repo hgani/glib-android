@@ -7,15 +7,13 @@ import com.glib.core.http.GRestCallback
 import com.glib.core.http.Rest
 import com.glib.core.http.UrlUtils
 import com.glib.core.json.GJson
-import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
+import com.glib.core.screen.GScreen
 import com.glib.core.screen.GScreenContainer
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.menu.GMenu
-import com.glib.core.utils.Res
-import java.lang.RuntimeException
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
@@ -48,7 +46,7 @@ abstract class JsonUiFragment : GFragment {
             JsonUi.parseScreenContent(result, this@JsonUiFragment)
             page = result
 
-            gActivity?.let {
+            screen?.let {
                 it.invalidateOptionsMenu()
                 updateDrawer(it, result["leftDrawer"])
             }
@@ -60,16 +58,16 @@ abstract class JsonUiFragment : GFragment {
         }
     }
 
-    private fun updateDrawer(activity: GActivity, spec: GJson) {
+    private fun updateDrawer(screen: GScreen, spec: GJson) {
         if (spec.isNull()) {
             return
         }
 
-        val nav = activity.nav
+        val nav = screen.nav
         nav.initLeftDrawer { menu ->
             spec["rows"].arrayValue.forEach { row ->
                 menu.add(JsonUi.iconDrawable(row["icon"]), row["text"].stringValue) {
-                    JsonAction.execute(row["onClick"], activity, null, null)
+                    JsonAction.execute(row["onClick"], screen, null, null)
                 }
             }
         }

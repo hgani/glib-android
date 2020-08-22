@@ -3,16 +3,12 @@ package com.glib.core.ui.json.actions.windows
 import android.content.Intent
 import android.os.Bundle
 import com.glib.core.json.GJson
-import com.glib.core.json.GJsonObject
-import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
+import com.glib.core.screen.GScreen
 import com.glib.core.screen.GScreenContainer
-import com.glib.core.screen.NavHelper
-import com.glib.core.ui.json.JsonAction
-import java.lang.RuntimeException
 
-class JsonUiScreen : GActivity() {
+class JsonUiScreen : GScreen() {
     companion object {
         val ARG_PATH = "path"
         val ARG_SPEC = "spec"

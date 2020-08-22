@@ -5,43 +5,43 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 
 abstract class INavHelper {
-    open val toolbar: Toolbar?
-        get() = null  // Not applicable to dialog
-
+//    open val toolbar: Toolbar?
+//        get() = null  // Not applicable to dialog
+//
     abstract val layout: ViewGroup
 
     abstract fun setBody(resId: Int)
 
-    internal open fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
+    internal open fun initNavigation(actionBar: ActionBar) {
         // Do nothing by default
     }
 
-    open fun openLeftDrawer() {
-        // Do nothing by default
-    }
-
-    open fun openRightDrawer() {
-        // Do nothing by default
-    }
-
-//    open fun initDrawers() {
+//    internal open fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
+//        // Do nothing by default
+//    }
+//
+//    open fun openLeftDrawer() {
+//        // Do nothing by default
+//    }
+//
+//    open fun openRightDrawer() {
 //        // Do nothing by default
 //    }
 
-    open fun initLeftDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
-        // Do nothing by default
-    }
+//    open fun initLeftDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
+//        // Do nothing by default
+//    }
+//
+//    open fun initRightDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
+//        // Do nothing by default
+//    }
+//
+//    open fun showHomeIcon() {
+//        // Do nothing by default
+//    }
 
-    open fun initRightDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
-        // Do nothing by default
-    }
-
-    open fun showHomeIcon() {
-        // Do nothing by default
-    }
-
-    internal open fun handleHomeClick(): Boolean {
-        // Do nothing by default
-        return false
-    }
+//    internal open fun handleHomeClick(): Boolean {
+//        // Do nothing by default
+//        return false
+//    }
 }

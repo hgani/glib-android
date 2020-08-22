@@ -22,6 +22,9 @@ open class GFragment : Fragment(), GContainer {
     override val gActivity: GActivity?
         get() = activity as? GActivity
 
+    val screen: GScreen?
+        get() = activity as? GScreen
+
     // Implement this in Fragment instead of Activity to ensure it works well on dual panel
     lateinit var refreshView: SwipeRefreshLayout
         private set
