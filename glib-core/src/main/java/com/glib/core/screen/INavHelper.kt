@@ -1,13 +1,10 @@
 package com.glib.core.screen
 
-//import android.support.v7.app.ActionBar
-//import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 
 abstract class INavHelper {
-//    abstract val toolbar: Toolbar?
     open val toolbar: Toolbar?
         get() = null  // Not applicable to dialog
 
@@ -24,6 +21,18 @@ abstract class INavHelper {
     }
 
     open fun openRightDrawer() {
+        // Do nothing by default
+    }
+
+//    open fun initDrawers() {
+//        // Do nothing by default
+//    }
+
+    open fun initLeftDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
+        // Do nothing by default
+    }
+
+    open fun initRightDrawer(populate: (NavHelper.NavigationMenu) -> Unit) {
         // Do nothing by default
     }
 

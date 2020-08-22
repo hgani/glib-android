@@ -8,14 +8,13 @@ import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
-import com.glib.core.logging.GLog
 import com.glib.core.ui.icon.GIcon
 import com.glib.core.utils.Res.context
 import com.google.android.material.navigation.NavigationView
 
 
 open class NavHelper(protected val activity: GActivity) : INavHelper() {
-    private var topNavigation = false
+    private var hasLeftDrawer = false
 
     override final val layout: ViewGroup
     private val body: ViewGroup
@@ -55,20 +54,36 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        if (topNavigation) {
-            initLeftDrawer()
-        }
+//        if (topNavigation) {
+//            initDrawers()
+//        }
     }
 
-    fun initLeftDrawer() {
-        this.topNavigation = true
+//    override fun initDrawers() {
+//        this.hasLeftDrawer = true
+//
+//        val leftNavView = drawer.findViewById<View>(R.id.view_navigation_left) as NavigationView
+//        val leftNavMenu = NavigationMenu(leftNavView.menu, actionBar)
+//
+//        // TODO
+//        val rightNavView = drawer.findViewById<View>(R.id.view_navigation_right) as NavigationView
+//        val rightNavMenu = NavigationMenu(rightNavView.menu, actionBar)
+//
+//        initMenu(leftNavMenu, rightNavMenu)
+//
+//        val icon = menuIcon()
+//        if (icon != null) {
+//            actionBar.setHomeAsUpIndicator(badge.drawable)
+//        }
+//    }
+
+    override fun initLeftDrawer(populate: (NavigationMenu) -> Unit) {
+        this.hasLeftDrawer = true
 
         val leftNavView = drawer.findViewById<View>(R.id.view_navigation_left) as NavigationView
         val leftNavMenu = NavigationMenu(leftNavView.menu, actionBar)
-        val rightNavView = drawer.findViewById<View>(R.id.view_navigation_right) as NavigationView
-        val rightNavMenu = NavigationMenu(rightNavView.menu, actionBar)
 
-        initMenu(leftNavMenu, rightNavMenu)
+        populate(leftNavMenu)
 
         val icon = menuIcon()
         if (icon != null) {
@@ -76,12 +91,19 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
         }
     }
 
+    override fun initRightDrawer(populate: (NavigationMenu) -> Unit) {
+        val rightNavView = drawer.findViewById<View>(R.id.view_navigation_right) as NavigationView
+        val rightNavMenu = NavigationMenu(rightNavView.menu, actionBar)
+
+        populate(rightNavMenu)
+    }
+
     override fun showHomeIcon() {
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun handleHomeClick(): Boolean {
-        if (topNavigation) {
+        if (hasLeftDrawer) {
             openLeftDrawer()
             return true
         }
@@ -92,6 +114,7 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
         // To be overridden
     }
 
+    // TODO: Remove
     protected open fun initMenu(leftNavMenu: NavigationMenu, rightNavMenu: NavigationMenu) {
         // To be overridden
     }
@@ -107,7 +130,7 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
     /////
 
 
-    protected inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
+    inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
         private fun intentEquals(menuIntent: Intent): Boolean {
             val activityIntent = activity.intent
             if (activityIntent.component != menuIntent.component) {

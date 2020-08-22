@@ -63,7 +63,7 @@ class DrawablePagerAdapter : PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = GImageView(container.context).bgColor(Color.BLUE).height(height).centerCrop()
+        val view = GImageView(container.context).height(height).centerCrop()
 //                .adjustBounds()
 
 //        if (drawables != null) {
