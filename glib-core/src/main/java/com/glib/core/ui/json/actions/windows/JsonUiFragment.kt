@@ -1,15 +1,21 @@
+package com.glib.core.ui.json.actions.windows
+
 import android.view.Menu
 import android.view.MenuInflater
 import com.glib.core.BuildConfig
 import com.glib.core.http.GRestCallback
 import com.glib.core.http.Rest
 import com.glib.core.http.UrlUtils
+import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.menu.GMenu
+import com.glib.core.utils.Res
+import java.lang.RuntimeException
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
@@ -38,15 +44,36 @@ abstract class JsonUiFragment : GFragment {
 
     fun reload(path: String?, onReload: () -> Unit) {
         val callback = GRestCallback.Default(this@JsonUiFragment) { response ->
-            JsonUi.parseScreenContent(response.result, this@JsonUiFragment)
-            page = response.result
-            activity?.invalidateOptionsMenu()
+            val result = response.result
+            JsonUi.parseScreenContent(result, this@JsonUiFragment)
+            page = result
+
+            gActivity?.let {
+                it.invalidateOptionsMenu()
+                updateDrawer(it, result["leftDrawer"])
+            }
 
             onReload()
         }
         path?.let {
             Rest.GET.async(it, null, false).execute(callback)
         }
+    }
+
+    private fun updateDrawer(activity: GActivity, spec: GJson) {
+        if (spec.isNull()) {
+            return
+        }
+
+        val nav = activity.nav
+        nav.initLeftDrawer { menu ->
+            spec["rows"].arrayValue.forEach { row ->
+                menu.add(JsonUi.iconDrawable(row["icon"]), row["text"].stringValue) {
+                    JsonAction.execute(row["onClick"], activity, null, null)
+                }
+            }
+        }
+        nav.showHomeIcon()
     }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {

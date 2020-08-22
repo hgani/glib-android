@@ -1,6 +1,7 @@
 package com.glib.core.screen
 
 import android.content.Intent
+import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
 import com.glib.core.ui.icon.GIcon
 import com.glib.core.utils.Res.context
+import com.glib.core.utils.Res.str
 import com.google.android.material.navigation.NavigationView
 
 
@@ -130,6 +132,7 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
     /////
 
 
+    // TODO: Move to INavHelper? Or remove INavHelper altogether?
     inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
         private fun intentEquals(menuIntent: Intent): Boolean {
             val activityIntent = activity.intent
@@ -167,14 +170,18 @@ open class NavHelper(protected val activity: GActivity) : INavHelper() {
         }
 
         fun add(icon: GIcon?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
+            return add(icon?.drawable(), string, onClick)
+        }
+
+        fun add(iconDrawable: Drawable?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
             val item = menu.add(Menu.NONE, Menu.NONE, Menu.NONE, string)
 
             item.setOnMenuItemClickListener {
                 onClick(it)
                 true
             }
-            if (icon != null) {
-                item.icon = icon.drawable()
+            iconDrawable?.let {
+                item.icon = it
             }
 
             return item

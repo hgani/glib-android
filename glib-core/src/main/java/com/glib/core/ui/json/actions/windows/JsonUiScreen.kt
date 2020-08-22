@@ -1,11 +1,16 @@
+package com.glib.core.ui.json.actions.windows
+
 import android.content.Intent
 import android.os.Bundle
 import com.glib.core.json.GJson
+import com.glib.core.json.GJsonObject
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
 import com.glib.core.screen.NavHelper
-import com.glib.core.ui.json.actions.windows.JsonUiFragment
+import com.glib.core.ui.json.JsonAction
+import java.lang.RuntimeException
 
 class JsonUiScreen : GActivity() {
     companion object {
@@ -31,9 +36,9 @@ class JsonUiScreen : GActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val view = NavHelper(this)
+        val view = JsonUiNavHelper(this)
         super.onCreateForScreen(savedInstanceState, view)
-        setFragmentWithToolbar(createNewIntentFragment(), false, savedInstanceState)
+        setFragmentWithToolbar(createNewIntentFragment(), true, savedInstanceState)
 
         initNavigation()
     }
@@ -47,6 +52,7 @@ class JsonUiScreen : GActivity() {
             nav.showHomeIcon()
         }
     }
+
 
 
 
