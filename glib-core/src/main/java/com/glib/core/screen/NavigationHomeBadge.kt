@@ -12,24 +12,12 @@ internal class NavigationHomeBadge(private val screen: GScreen) {
 //    private val context: Context
     internal val drawable: LayerDrawable
 
-//    internal val drawable: LayerDrawable
-
     init {
 //        this.context = screenView.layout.context
         this.drawable = Res.drawable(R.drawable.action_bar_home_drawable) as LayerDrawable
 
-//        // Gets the drawable layerlist that has the navigation view and the badger
-//        drawable = (if (Build.VERSION.SDK_INT >= 21)
-//            context.applicationContext.getDrawable(R.drawable.action_bar_home_drawable)
-//        else
-//            context.resources.getDrawable(R.drawable.action_bar_home_drawable)) as LayerDrawable
-
         setCount(0)
     }
-
-//    fun getDrawable(): Drawable {
-//        return drawable
-//    }
 
     fun setCount(count: Int) {
         val badge: BadgeDrawable
@@ -122,29 +110,5 @@ internal class NavigationHomeBadge(private val screen: GScreen) {
         override fun getOpacity(): Int {
             return PixelFormat.UNKNOWN
         }
-
-        //    static void setBadgeCount(Context context, LayerDrawable icon, int count) {
-        //      BadgeDrawable badge;
-        ////      Drawable actionBarIcon = new IconDrawable(context, CvIcon.cv_menu).actionBarSize();
-        ////      Drawable actionBarIcon = CvIcon.cv_menu.drawable().actionBarSize();
-        //      Drawable actionBarIcon = screenView.menuIcon();
-        //
-        //      // Reuse drawable if possible
-        ////      Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
-        ////      if (reuse != null && reuse instanceof BadgeDrawable) {
-        ////        badge = (BadgeDrawable) reuse;
-        ////      } else {
-        ////        badge = new BadgeDrawable(context);
-        ////      }
-        //
-        //      // Experiment with not reusing and see if it causes any issue
-        //      badge = new BadgeDrawable(context);
-        //      badge.setCount(count);
-        //
-        //      icon.mutate();
-        //      icon.setDrawableByLayerId(R.id.ic_badge, badge);
-        //      icon.setDrawableByLayerId(R.id.ic_navigation, actionBarIcon);
-        //      icon.invalidateSelf();
-        //    }
     }
 }
