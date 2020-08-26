@@ -12,9 +12,9 @@ abstract class INavHelper {
 
     abstract fun setBody(resId: Int)
 
-    internal open fun initNavigation(actionBar: ActionBar) {
-        // Do nothing by default
-    }
+//    internal open fun initNavigation(actionBar: ActionBar) {
+//        // Do nothing by default
+//    }
 
 //    internal open fun initNavigation(topNavigation: Boolean, actionBar: ActionBar) {
 //        // Do nothing by default

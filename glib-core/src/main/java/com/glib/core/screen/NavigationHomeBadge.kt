@@ -8,14 +8,14 @@ import com.glib.core.R
 import com.glib.core.ui.style.Length
 import com.glib.core.utils.Res
 
-internal class NavigationHomeBadge(private val screenView: NavHelper) {
-    private val context: Context
+internal class NavigationHomeBadge(private val screen: GScreen) {
+//    private val context: Context
     internal val drawable: LayerDrawable
 
 //    internal val drawable: LayerDrawable
 
     init {
-        this.context = screenView.layout.context
+//        this.context = screenView.layout.context
         this.drawable = Res.drawable(R.drawable.action_bar_home_drawable) as LayerDrawable
 
 //        // Gets the drawable layerlist that has the navigation view and the badger
@@ -34,12 +34,12 @@ internal class NavigationHomeBadge(private val screenView: NavHelper) {
     fun setCount(count: Int) {
         val badge: BadgeDrawable
 
-        val icon = screenView.menuIcon()
+        val icon = screen.navMenuIcon()
         if (icon != null) {
             val actionBarIcon = icon
 
             // Experiment with not reusing and see if it causes any issue
-            badge = BadgeDrawable(context)
+            badge = BadgeDrawable(screen)
             badge.setCount(count)
 
             drawable.mutate()

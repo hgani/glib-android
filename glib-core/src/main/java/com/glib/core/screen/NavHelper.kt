@@ -1,7 +1,6 @@
 package com.glib.core.screen
 
 import android.content.Intent
-import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,13 +9,11 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
 import com.glib.core.ui.icon.GIcon
-import com.glib.core.ui.style.LibIcon
 import com.glib.core.utils.Res.context
-import com.glib.core.utils.Res.str
 import com.google.android.material.navigation.NavigationView
 
 
-open class NavHelper(protected val activity: GActivity): INavHelper() {
+open class NavHelper(protected val screen: GScreen): INavHelper() {
     private var hasLeftDrawer = false
 
     override final val layout: ViewGroup
@@ -29,10 +26,10 @@ open class NavHelper(protected val activity: GActivity): INavHelper() {
 
 
     init {
-        this.layout = LayoutInflater.from(activity).inflate(R.layout.view_screen, null) as ViewGroup
+        this.layout = LayoutInflater.from(screen).inflate(R.layout.view_screen, null) as ViewGroup
         this.body = layout.findViewById<View>(R.id.screen_body) as ViewGroup
         this.drawer = layout.findViewById<View>(R.id.screen_drawer) as DrawerLayout
-        this.badge = NavigationHomeBadge(this)
+        this.badge = NavigationHomeBadge(screen)
         this.toolbar = layout.findViewById<View>(R.id.screen_toolbar) as Toolbar
     }
 
@@ -50,7 +47,7 @@ open class NavHelper(protected val activity: GActivity): INavHelper() {
 
     ///// Navigation /////
 
-    override final fun initNavigation(actionBar: ActionBar) {
+    fun initNavigation(actionBar: ActionBar) {
         this.actionBar = actionBar
 
         initToolbar(toolbar)
@@ -66,7 +63,7 @@ open class NavHelper(protected val activity: GActivity): INavHelper() {
 
         populate(leftNavMenu)
 
-        val icon = menuIcon()
+        val icon = screen.navMenuIcon()
         if (icon != null) {
             actionBar.setHomeAsUpIndicator(badge.drawable)
         }
@@ -104,17 +101,17 @@ open class NavHelper(protected val activity: GActivity): INavHelper() {
         badge.setCount(count)
     }
 
-    // TODO: Allow customization
-    open fun menuIcon(): Drawable? {
-        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
-    }
+//    // TODO: Allow customization
+//    open fun menuIcon(): Drawable? {
+//        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
+//    }
 
     /////
 
 
     inner class NavigationMenu internal constructor(private val menu: Menu, private val bar: ActionBar) {
         private fun intentEquals(menuIntent: Intent): Boolean {
-            val activityIntent = activity.intent
+            val activityIntent = screen.intent
             if (activityIntent.component != menuIntent.component) {
                 return false
             }

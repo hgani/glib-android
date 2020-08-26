@@ -3,6 +3,7 @@ package com.glib.core.screen
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -18,8 +19,10 @@ import com.glib.core.R
 import com.glib.core.logging.GLog
 import com.glib.core.model.GBundle
 import com.glib.core.ui.ProgressIndicator
+import com.glib.core.ui.icon.GIcon
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.actions.windows.Close
+import com.glib.core.ui.style.LibIcon
 import com.glib.core.utils.Res
 import java.io.Serializable
 import kotlin.reflect.KClass
@@ -64,6 +67,10 @@ open class GScreen : GActivity() {
 //        if (toolbar != null) {
 //            toolbar.visibility = View.VISIBLE
 //        }
+    }
+
+    open fun navMenuIcon(): Drawable? {
+        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
     }
 
 

@@ -173,7 +173,7 @@ open class GActivity : AppCompatActivity(), GContainer {
     override fun setContentView(@LayoutRes layoutResID: Int) {
         setContentView(null)
     }
-    
+
 //    // Unfortunately when setting theme programatically, the background won't be transparent. See http://stackoverflow.com/questions/15455979/translucent-theme-does-not-work-when-set-programmatically-on-android-2-3-3-or-4
 //    // So we'll stick to setting theme in manifest and calling the right dialog method here. Ideally both can be done in this method.
 //    //
