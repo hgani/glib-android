@@ -33,18 +33,18 @@ class JsonUiScreen : GScreen() {
         super.onCreate(savedInstanceState)
         super.onCreateForScreen(savedInstanceState)
         setFragmentWithToolbar(createNewIntentFragment(), savedInstanceState)
-        initNavigation()
+//        initNavigation()
     }
 
     override fun createNewIntentFragment(): GFragment {
         return ContentFragment()
     }
 
-    private fun initNavigation() {
-        if (!args[ARG_ROOT].boolValue) {
-            nav.showHomeIcon()
-        }
-    }
+//    private fun initNavigation() {
+//        if (!args[ARG_ROOT].boolValue) {
+//            nav.showHomeIcon()
+//        }
+//    }
 
 
 

@@ -7,7 +7,8 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.IIcon
 
 enum class LibIcon private constructor(delegate: IIcon) : GIcon {
-    icon_menu(GoogleMaterial.Icon.gmd_menu);
+    icon_menu(GoogleMaterial.Icon.gmd_menu),
+    icon_back(GoogleMaterial.Icon.gmd_arrow_back);
 
     private val helper: GIconHelper
 

@@ -71,7 +71,8 @@ abstract class JsonUiFragment : GFragment {
                 }
             }
         }
-        nav.showHomeIcon()
+
+        nav.showLeftIcon(nav.menuIcon())
     }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {

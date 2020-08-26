@@ -11,35 +11,40 @@ import com.glib.core.utils.Res
 internal class NavigationHomeBadge(private val screen: GScreen) {
 //    private val context: Context
     internal val drawable: LayerDrawable
+    private var icon: Drawable? = null
 
     init {
 //        this.context = screenView.layout.context
         this.drawable = Res.drawable(R.drawable.action_bar_home_drawable) as LayerDrawable
 
+//        setCount(0)
+    }
+
+    fun setIcon(icon: Drawable?) {
+        this.icon = icon
         setCount(0)
     }
 
     fun setCount(count: Int) {
         val badge: BadgeDrawable
 
-        val icon = screen.navMenuIcon()
+//        val icon = screen.navMenuIcon()
         if (icon != null) {
-            val actionBarIcon = icon
+//            val actionBarIcon = icon
 
             // Experiment with not reusing and see if it causes any issue
-            badge = BadgeDrawable(screen)
+            badge = BadgeDrawable()
             badge.setCount(count)
 
             drawable.mutate()
             drawable.setDrawableByLayerId(R.id.ic_badge, badge)
-            drawable.setDrawableByLayerId(R.id.ic_navigation, actionBarIcon)
+            drawable.setDrawableByLayerId(R.id.ic_navigation, icon)
             drawable.invalidateSelf()
         }
     }
 
 
-    private class BadgeDrawable(context: Context) : Drawable() {
-
+    private class BadgeDrawable() : Drawable() {
         private val mTextSize: Float
         private val mBadgePaint: Paint
         private val mTextPaint: Paint

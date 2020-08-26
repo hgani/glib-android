@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
 import com.glib.core.ui.icon.GIcon
+import com.glib.core.ui.style.LibIcon
 import com.glib.core.utils.Res.context
 import com.google.android.material.navigation.NavigationView
 
@@ -21,9 +22,8 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
     private val drawer: DrawerLayout
     private var selectedItem: MenuItem? = null
     private val badge: NavigationHomeBadge
-    final val toolbar: Toolbar
+    val toolbar: Toolbar
     lateinit var actionBar: ActionBar
-
 
     init {
         this.layout = LayoutInflater.from(screen).inflate(R.layout.view_screen, null) as ViewGroup
@@ -62,11 +62,6 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
         val leftNavMenu = NavigationMenu(leftNavView.menu, actionBar)
 
         populate(leftNavMenu)
-
-        val icon = screen.navMenuIcon()
-        if (icon != null) {
-            actionBar.setHomeAsUpIndicator(badge.drawable)
-        }
     }
 
     fun initRightDrawer(populate: (NavigationMenu) -> Unit) {
@@ -76,9 +71,18 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
         populate(rightNavMenu)
     }
 
-    fun showHomeIcon() {
+    fun showLeftIcon(icon: Drawable?) {
+//        val icon = screen.navMenuIcon()
+//        if (icon != null) {
+            badge.setIcon(icon)
+            actionBar.setHomeAsUpIndicator(badge.drawable)
+//        }
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
+
+//    fun showHomeIcon() {
+//        actionBar.setDisplayHomeAsUpEnabled(true)
+//    }
 
     fun handleHomeClick(): Boolean {
         if (hasLeftDrawer) {
@@ -101,10 +105,9 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
         badge.setCount(count)
     }
 
-//    // TODO: Allow customization
-//    open fun menuIcon(): Drawable? {
-//        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
-//    }
+    fun menuIcon(): Drawable? {
+        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
+    }
 
     /////
 

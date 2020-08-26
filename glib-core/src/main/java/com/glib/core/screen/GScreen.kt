@@ -69,10 +69,6 @@ open class GScreen : GActivity() {
 //        }
     }
 
-    open fun navMenuIcon(): Drawable? {
-        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
-    }
-
 
 
     ///// Menu /////
