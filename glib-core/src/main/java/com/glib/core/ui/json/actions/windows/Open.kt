@@ -27,7 +27,7 @@ class Open(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
         if (url == null) {
             return false
         }
-        screen.startActivityForResult(JsonUiScreen.intent(url, false, false), 0)
+        screen.startActivityForResult(JsonUiScreen.intent(url, false), 0)
         return true
     }
 }

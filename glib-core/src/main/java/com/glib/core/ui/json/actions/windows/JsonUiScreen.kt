@@ -12,14 +12,16 @@ class JsonUiScreen : GScreen() {
     companion object {
         val ARG_PATH = "path"
         val ARG_SPEC = "spec"
-        val ARG_ROOT = "isRoot"
+//        val ARG_ROOT = "isRoot"
         val ARG_PREPEND_HOST = "prependHost"
 
-        fun intent(path: String, isRoot: Boolean = false, prependHost: Boolean = true): Intent {
+//        fun intent(path: String, isRoot: Boolean = false, prependHost: Boolean = true): Intent {
+        fun intent(path: String, prependHost: Boolean = true): Intent {
             return intentBuilder(JsonUiScreen::class)
                     .withArg(ARG_PATH, path)
                     .withArg(ARG_PREPEND_HOST, prependHost)
-                    .withArg(ARG_ROOT, isRoot).intent
+//                    .withArg(ARG_ROOT, isRoot)
+                    .intent
         }
 
         fun intent(actionSpec: GJson): Intent {
