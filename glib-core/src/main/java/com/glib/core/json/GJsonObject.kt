@@ -164,11 +164,24 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
 
     fun merge(map: Map<String, Any>): JO {
         val clone = clone()
+        val cloneJson = clone.rawJson
 
         for ((k, v) in map) {
-            clone.rawJson.put(k, v)
+            // Merge nested keys, e.g. "formData[authenticity_token]"
+            val keys = k.trimEnd(']').split("[", "][")
+            var json = cloneJson
+            for (key in keys.dropLast(1)) {
+                json = json.getJSONObject(key)
+            }
+            json.put(keys.last(), v)
+
+//            clone.rawJson.put(k, v)
         }
         return clone
+    }
+
+    fun keys(): Iterator<String> {
+        return rawJson.keys()
     }
 
     /////
