@@ -158,6 +158,19 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
     protected abstract fun createArray(array: JSONArray): JA
     protected abstract fun createObject(rawString: String?): JO
 
+    fun clone(): JO {
+        return createObject(rawString)
+    }
+
+    fun merge(map: Map<String, Any>): JO {
+        val clone = clone()
+
+        for ((k, v) in map) {
+            clone.rawJson.put(k, v)
+        }
+        return clone
+    }
+
     /////
 
     operator fun get(name: String): JO {
