@@ -10,13 +10,7 @@ class SaveCsrfToken(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         GAuth.csrfToken = spec["token"].string
 
-        val paramKey = spec["paramNameForToken"].string ?: "token"
-        var properties = spec["onSave"]
-        GAuth.csrfToken?.let {
-            properties = properties.merge(hashMapOf(paramKey to it))
-        }
-
-        execute(properties, screen, this)
+        execute(spec["onSave"], screen, this)
 
         return true
     }
