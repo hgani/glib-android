@@ -171,11 +171,15 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             val keys = k.trimEnd(']').split("[", "][")
             var json = cloneJson
             for (key in keys.dropLast(1)) {
-                json = json.getJSONObject(key)
+                try {
+                    json = json.getJSONObject(key)
+                } catch (e: JSONException) {
+                    val parentJson = JSONObject()
+                    json.put(key, parentJson)
+                    json = parentJson
+                }
             }
             json.put(keys.last(), v)
-
-//            clone.rawJson.put(k, v)
         }
         return clone
     }

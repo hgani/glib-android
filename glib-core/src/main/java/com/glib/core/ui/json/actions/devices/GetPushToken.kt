@@ -23,10 +23,9 @@ class GetPushToken(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(screen, object : OnSuccessListener<InstanceIdResult?> {
                 override fun onSuccess(instanceIdResult: InstanceIdResult?) {
                     instanceIdResult?.let { result ->
-                        spec["paramNameForToken"].string?.let {
-                            val properties = spec["onGet"].merge(hashMapOf(it to result.token))
-                            execute(properties, screen, this@GetPushToken)
-                        }
+                        val paramKey = spec["paramNameForToken"].string ?: "formData[token]"
+                        val properties = spec["onGet"].merge(hashMapOf(paramKey to result.token))
+                        execute(properties, screen, this@GetPushToken)
                     }
                 }
 //                fun onSuccess(instanceIdResult: InstanceIdResult) {
