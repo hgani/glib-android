@@ -7,6 +7,7 @@ import com.glib.core.http.GRestCallback
 import com.glib.core.http.Rest
 import com.glib.core.http.UrlUtils
 import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreen
@@ -77,11 +78,17 @@ abstract class JsonUiFragment : GFragment {
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {
         enableRefreshPull()
-        onRefresh()
+        reload(path, {
+            args[JsonUiScreen.ARG_ON_OPEN_SPEC].json?.let {
+                JsonAction.execute(it, activity, null, null)
+            }
+        })
 
-        args[JsonUiScreen.ARG_SPEC].json?.let {
+        args[JsonUiScreen.ARG_ACTION_SPEC].json?.let {
             JsonAction.execute(it, activity, null, null)
-            activity.finish()
+
+            // This doesn't work in practice because the execution will get killed along with the Activity.
+//            activity.finish()
         }
     }
 

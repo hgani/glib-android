@@ -14,13 +14,14 @@ import java.text.ParsePosition
 import java.util.*
 
 typealias GJson = GJsonObject<*, *>
+typealias GJsonDefault = GJsonObject.Default
 
 //abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> @JvmOverloads protected constructor(val rawString: String? = null) {
 abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Serializable {
     private val rawString: String?
 
     companion object {
-        fun rawJsonFrom(rawString: String?): JSONObject {
+        private fun rawJsonFrom(rawString: String?): JSONObject {
             try {
                 return JSONObject(rawString)
             } catch (e: JSONException) {

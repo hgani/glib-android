@@ -22,10 +22,6 @@ class GBundle(val native: Bundle) {
     val single: Serializable?
         get() = if (containsKey(KEY_SINGLETON)) { native.getSerializable(KEY_SINGLETON) } else null
 
-//    operator fun get(key: String): Serializable? {
-//        return native.getSerializable(key)
-//    }
-
     operator fun get(key: String): Value {
         return Value(native.getSerializable(key))
     }
