@@ -13,7 +13,7 @@ import com.glib.core.screen.GScreenContainer
 class JsonUiScreen : GScreen() {
     companion object {
         val ARG_PATH = "path"
-        val ARG_ACTION_SPEC = "actionSpec"
+//        val ARG_ACTION_SPEC = "actionSpec"
         val ARG_ON_OPEN_SPEC = "onOpenSpec"
         val ARG_PREPEND_HOST = "prependHost"
 
@@ -25,11 +25,11 @@ class JsonUiScreen : GScreen() {
                     .intent
         }
 
-        fun intent(actionSpec: GJson): Intent {
-            return intentBuilder(JsonUiScreen::class)
-                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .withArg(ARG_ACTION_SPEC, actionSpec).intent
-        }
+//        fun intent(actionSpec: GJson): Intent {
+//            return intentBuilder(JsonUiScreen::class)
+//                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    .withArg(ARG_ACTION_SPEC, actionSpec).intent
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
