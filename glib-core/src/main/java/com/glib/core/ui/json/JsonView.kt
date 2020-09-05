@@ -33,12 +33,26 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
     }
 
     private fun initBackgroundColor(view: IView) {
-        spec["backgroundColor"].string?.let {
+//        spec["backgroundColor"].string?.let {
+//            val color = when (it) {
+//                "transparent" -> Color.TRANSPARENT
+//                else -> Res.color(it)
+//            }
+//            view.bgColor(color)
+//        }
+
+        ifColor(spec["backgroundColor"].string) {
+            view.bgColor(it)
+        }
+    }
+
+    protected fun ifColor(colorName: String?, handler: (Int) -> Unit) {
+        colorName?.let {
             val color = when (it) {
                 "transparent" -> Color.TRANSPARENT
                 else -> Res.color(it)
             }
-            view.bgColor(color)
+            handler(color)
         }
     }
 
