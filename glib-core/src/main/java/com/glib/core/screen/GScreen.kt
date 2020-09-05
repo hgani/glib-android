@@ -16,12 +16,14 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.glib.core.R
+import com.glib.core.json.GJsonObject
 import com.glib.core.logging.GLog
 import com.glib.core.model.GBundle
 import com.glib.core.ui.ProgressIndicator
 import com.glib.core.ui.icon.GIcon
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.actions.windows.Close
+import com.glib.core.ui.json.actions.windows.JsonUiScreen
 import com.glib.core.ui.style.LibIcon
 import com.glib.core.utils.Res
 import java.io.Serializable
@@ -67,6 +69,21 @@ open class GScreen : GActivity() {
 //        if (toolbar != null) {
 //            toolbar.visibility = View.VISIBLE
 //        }
+    }
+
+    fun handleStartingScreen(intent: Intent) {
+        // Sometimes a starting screen needs to:
+        // - Stay open so that it can execute stuff in the background (e.g. handle beacon scans)
+        // - Closes itself when it receives result from the last screen
+        startActivityForResult(intent, 0)
+
+        val data = args
+        val openUrl = data["openUrl"].string
+        val onOpen = GJsonObject.Default(data["onOpen"].string)
+
+        openUrl?.let {
+            startActivity(JsonUiScreen.intent(it, false, onOpen))
+        }
     }
 
 

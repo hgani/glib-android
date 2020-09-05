@@ -7,14 +7,15 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
-    <activity android:name="com.glib.core.ui.json.actions.windows.JsonUiScreen" />
+    <activity android:name=".ui.json.actions.windows.JsonUiScreen" />
 
     <activity
         android:name=".dialog.GRestDialog"
         android:theme="@style/FakeDialogNoTitleBar" />
 
     <service
-        android:name=".ui.json.actions.devices.GFirebaseMessagingService">
+        android:name=".ui.json.actions.devices.GFirebaseMessagingService"
+        android:exported="false">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>

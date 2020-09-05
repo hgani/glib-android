@@ -59,6 +59,9 @@ class GFirebaseMessagingService : FirebaseMessagingService() {
 //        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 //        notificationManager.notify(0, notificationBuilder.build())
 
+        // TODO: Consider reusing the same workflow as GScreen.handleStartingScreen()
+        // But we need to first register StartingScreen to GLib and automatically launch the StartingScreen here
+        // The registered StartingScreen can also be useful for Auth/Restart
         val intent = if (openUrl == null) null else JsonUiScreen.intent(openUrl, false, onOpen)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT)

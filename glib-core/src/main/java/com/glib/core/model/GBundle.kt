@@ -65,14 +65,9 @@ class GBundle(val native: Bundle) {
         return native.containsKey(key)
     }
 
-//    fun <T> getClass(key: String): Class<T> {
-//        return getSerializable(key) as Class<T>?
-//    }
-//
-//    fun getParams(key: String): GImmutableParams {
-//        return native.getSerializable(key) as GImmutableParams
-//    }
-
+    fun keys(): Set<String> {
+        return native.keySet()
+    }
 
     fun getSerializable(key: String): Serializable? {
         val `object` = native.getSerializable(key)
