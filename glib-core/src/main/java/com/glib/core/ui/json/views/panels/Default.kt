@@ -2,16 +2,11 @@ package com.glib.core.ui.json.views.panels
 
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import com.glib.core.json.GJson
-import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
-import com.glib.core.ui.json.JsonAction
-import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.panel.GVerticalPanel
-import com.glib.core.ui.view.GWeightable
 
 open class Default: JsonView {
     protected val panel: GVerticalPanel
@@ -23,18 +18,14 @@ open class Default: JsonView {
     }
 
     override fun initView(): View {
-        GLog.t(javaClass, "ALIGN1 ${spec["align"].stringValue}")
         when (spec["align"].stringValue) {
             "center" -> {
-                GLog.t(javaClass, "ALIGN2 ${spec["align"].stringValue}")
                 panel.gravity(Gravity.CENTER)
             }
             "right" -> {
-                GLog.t(javaClass, "ALIGN3 ${spec["align"].stringValue}")
                 panel.gravity(Gravity.RIGHT)
             }
             else -> {
-                GLog.t(javaClass, "ALIGN4 ${spec["align"].stringValue}")
                 panel.gravity(Gravity.LEFT)
             }
         }

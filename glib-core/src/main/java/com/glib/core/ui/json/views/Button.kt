@@ -1,7 +1,9 @@
 package com.glib.core.ui.json.views
 
+import android.graphics.Color
 import android.view.View
 import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonAction
@@ -24,6 +26,11 @@ class Button(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
 
         button.onClick {
             JsonAction.execute(spec["onClick"], screen, it, this)
+        }
+
+        if (styleClasses().contains("link")) {
+            button.background = null
+            button.color(Color.BLUE)
         }
 
         return button

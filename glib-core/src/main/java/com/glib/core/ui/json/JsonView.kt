@@ -92,6 +92,10 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
         // To be overridden
     }
 
+    fun styleClasses(): List<String> {
+        return spec["styleClasses"].arrayValue.map { it.stringValue }
+    }
+
     companion object {
         fun create(spec: GJson, screen: GActivity, fragment: GFragment): JsonView? {
             val klass = JsonUi.loadClass(spec["view"].stringValue, JsonView::class.java, "views")

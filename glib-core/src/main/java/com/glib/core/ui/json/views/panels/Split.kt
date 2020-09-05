@@ -2,6 +2,7 @@ package com.glib.core.ui.json.views.panels
 
 import android.view.View
 import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
@@ -12,8 +13,8 @@ class Split(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec,
     private val panel = GSplitPanel(context)
 
     override fun initView(): View {
-        val content = spec["content"]
-        panel.withViews(createSubview(content["left"]), createSubview(content["center"]), createSubview(content["right"]))
+//        val content = spec["content"]
+        panel.withViews(createSubview(spec["left"]), createSubview(spec["center"]), createSubview(spec["right"]))
         return panel
     }
 
@@ -21,6 +22,8 @@ class Split(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec,
         if (subviewSpec.isNull()) {
             return GView(context).width(0)
         }
-        return create(subviewSpec, screen, fragment)?.createView() ?: GView(context)
+
+//        return create(subviewSpec, screen, fragment)?.createView() ?: GView(context)
+        return Default(subviewSpec, screen, fragment).createView()
     }
 }

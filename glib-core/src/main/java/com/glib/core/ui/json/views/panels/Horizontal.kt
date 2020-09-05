@@ -16,7 +16,7 @@ class Horizontal(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(
 
     override fun initView(): View {
         val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
-            JsonView.create(subviewSpec, screen, fragment)?.createView()
+            create(subviewSpec, screen, fragment)?.createView()
         }
 
         when (spec["distribution"].stringValue) {

@@ -12,13 +12,6 @@ import com.glib.core.ui.view.GWeightable
 
 class Vertical(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val panel = GVerticalPanel(context)
-//    private val panel: GVerticalPanel
-
-//    constructor(spec: GJson, screen: GActivity, fragment: GFragment): this(GVerticalPanel(screen), spec, screen, fragment)
-//
-//    constructor(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment): super(spec, screen, fragment) {
-//        this.panel = panel
-//    }
 
     override fun initView(): View {
         val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
