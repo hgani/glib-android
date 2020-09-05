@@ -8,7 +8,7 @@ import com.glib.core.ui.view.ViewHelper
 
 class GScrollPanel: GScrollView<GScrollPanel> {
     private var helper = ViewHelper(this)
-    private val contentView = GVerticalPanel(context)
+    val contentView = GVerticalPanel(context)
 
     constructor(context: Context) : super(context) {
         init()

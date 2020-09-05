@@ -53,12 +53,12 @@ open class GLinearLayout<T : GLinearLayout<T>> : LinearLayout, ILayout, GWeighta
     }
 
     protected fun vertical(): T {
-        this.orientation = LinearLayout.VERTICAL
+        this.orientation = VERTICAL
         return self()
     }
 
     protected fun horizontal(): T {
-        this.orientation = LinearLayout.HORIZONTAL
+        this.orientation = HORIZONTAL
         return self()
     }
 

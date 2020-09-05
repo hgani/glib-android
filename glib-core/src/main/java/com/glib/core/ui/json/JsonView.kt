@@ -17,6 +17,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
     val context: Context
         get() = screen.context
 
+    // TODO: Rename to initView()
     fun createView(): View {
         val view = initView()
         initGenericAttributes(view)

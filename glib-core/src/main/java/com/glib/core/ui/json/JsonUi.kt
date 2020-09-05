@@ -6,6 +6,7 @@ import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.icon.GIcon
+import com.glib.core.ui.json.views.panels.Default
 import com.glib.core.ui.json.views.panels.Vertical
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.utils.Res
@@ -52,12 +53,13 @@ class JsonUi {
 
         private fun resetVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
             panel.removeAllViews()
-            initVerticalPanel(panel, spec, screen, fragment)
+//            initVerticalPanel(panel, spec, screen, fragment)
+            Default.initPanel(panel, spec, screen, fragment)
         }
 
-        fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
-            Vertical(panel, spec, screen, fragment).createView()
-        }
+//        fun initVerticalPanel(panel: GVerticalPanel, spec: GJson, screen: GActivity, fragment: GFragment) {
+//            Default(panel, spec, screen, fragment).createView()
+//        }
 
         fun <T> loadClass(name: String, type: Class<T>, namespace: String): Class<T>? {
             val substrings = name.removeSuffix("-v1").split("/")
