@@ -77,7 +77,9 @@ abstract class JsonUiFragment : GFragment {
     }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {
-        enableRefreshPull()
+        // TODO: Fix. Doesn't work well with scroll panel.
+//        enableRefreshPull()
+
         reload(path, {
             args[JsonUiScreen.ARG_ON_OPEN_SPEC].json?.let {
                 JsonAction.execute(it, activity, null, null)
