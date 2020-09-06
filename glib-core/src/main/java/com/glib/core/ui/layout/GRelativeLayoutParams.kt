@@ -72,4 +72,27 @@ class GRelativeLayoutParams: RelativeLayout.LayoutParams(ViewGroup.LayoutParams.
     fun alignParentEnd() {
         addRule(RelativeLayout.ALIGN_PARENT_END)
     }
+
+    fun alignParentTop() {
+        addRule(RelativeLayout.ALIGN_PARENT_TOP)
+    }
+
+    fun alignParentBottom() {
+        addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+    }
+
+    fun bottomTo(view: View) {
+        if (view.id == View.NO_ID) {
+            view.id = View.generateViewId()
+        }
+        addRule(RelativeLayout.ALIGN_BOTTOM, view.id)
+    }
+
+    fun width(width: Int) {
+        this.width = width
+    }
+
+    fun height(height: Int) {
+        this.height = height
+    }
 }

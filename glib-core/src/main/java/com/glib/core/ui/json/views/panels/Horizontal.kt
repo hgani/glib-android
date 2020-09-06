@@ -1,9 +1,11 @@
 package com.glib.core.ui.json.views.panels
 
+import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.glib.core.json.GJson
+import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
@@ -18,6 +20,22 @@ class Horizontal(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(
         val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
             create(subviewSpec, screen, fragment)?.createView()
         }
+
+        // Doesn't seem to work
+//        when (spec["align"].stringValue) {
+//            "middle" -> {
+//                GLog.t(javaClass, "ALIGN1: ${spec["align"].stringValue}")
+//                panel.gravity(Gravity.CENTER_VERTICAL)
+//            }
+//            "bottom" -> {
+//                GLog.t(javaClass, "ALIGN2: ${spec["align"].stringValue}")
+//                panel.bgColor(Color.RED).gravity(Gravity.BOTTOM).gravity(Gravity.LEFT)
+//            }
+//            else -> {
+//                GLog.t(javaClass, "ALIGN3: ${spec["align"].stringValue}")
+//                panel.bgColor(Color.RED).gravity(Gravity.TOP).gravity(Gravity.RIGHT)
+//            }
+//        }
 
         when (spec["distribution"].stringValue) {
             "fillEqually" -> {

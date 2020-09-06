@@ -20,7 +20,7 @@ open class Default: JsonView {
     override fun initView(): View {
         when (spec["align"].stringValue) {
             "center" -> {
-                panel.gravity(Gravity.CENTER)
+                panel.gravity(Gravity.CENTER_HORIZONTAL)
             }
             "right" -> {
                 panel.gravity(Gravity.RIGHT)
