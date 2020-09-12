@@ -38,17 +38,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             view.bgColor(it)
         }
     }
-
-    protected fun ifColor(colorName: String?, handler: (Int) -> Unit) {
-        colorName?.let {
-            val color = when (it) {
-                "transparent" -> Color.TRANSPARENT
-                else -> Res.color(it)
-            }
-            handler(color)
-        }
-    }
-
+    
     private fun initWidth(view: IView) {
         when (spec["width"].stringValue) {
             "matchParent" -> view.width(ViewGroup.LayoutParams.MATCH_PARENT)
@@ -97,6 +87,16 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             }
             GLog.w(JsonView::class.java, "Failed loading view: $spec")
             return null
+        }
+
+        fun ifColor(colorName: String?, handler: (Int) -> Unit) {
+            colorName?.let {
+                val color = when (it) {
+                    "transparent" -> Color.TRANSPARENT
+                    else -> Res.color(it)
+                }
+                handler(color)
+            }
         }
     }
 }

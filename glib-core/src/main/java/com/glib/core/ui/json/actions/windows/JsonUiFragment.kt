@@ -14,6 +14,7 @@ import com.glib.core.screen.GScreen
 import com.glib.core.screen.GScreenContainer
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
+import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.menu.GMenu
 
 abstract class JsonUiFragment : GFragment {
@@ -48,6 +49,7 @@ abstract class JsonUiFragment : GFragment {
             page = result
 
             screen?.let {
+                updateNavBar(it, result["navBar"])
                 it.invalidateOptionsMenu()
                 updateDrawer(it, result["leftDrawer"])
             }
@@ -56,6 +58,17 @@ abstract class JsonUiFragment : GFragment {
         }
         path?.let {
             Rest.GET.async(it, null, false).execute(callback)
+        }
+    }
+
+    private fun updateNavBar(screen: GScreen, spec: GJson) {
+        val toolbar = screen.nav.toolbar
+
+        JsonView.ifColor(spec["backgroundColor"].string) {
+            toolbar.setBackgroundColor(it)
+        }
+        JsonView.ifColor(spec["color"].string) {
+            toolbar.setTitleTextColor(it)
         }
     }
 
