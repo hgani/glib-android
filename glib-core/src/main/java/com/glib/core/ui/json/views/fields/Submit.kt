@@ -7,6 +7,7 @@ import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.json.actions.forms.Submit
 import com.glib.core.ui.view.GButton
+import com.glib.core.ui.view.IView
 
 class Submit(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
     private val button = GButton(context)
@@ -20,6 +21,8 @@ class Submit(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
     }
 
     override fun initView(): View {
+        initColor()
+
         spec["text"].string?.let { button.text(it) }
 
         button.onClick {
@@ -30,5 +33,17 @@ class Submit(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
         }
 
         return button
+    }
+
+    override fun initBackgroundColor(view: IView) {
+        ifColor(spec["backgroundColor"].string) {
+            button.bgTint(it)
+        }
+    }
+
+    private fun initColor() {
+        ifColor(spec["color"].string) {
+            button.color(it)
+        }
     }
 }

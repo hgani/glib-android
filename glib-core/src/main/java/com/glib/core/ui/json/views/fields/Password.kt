@@ -11,7 +11,7 @@ class Password(spec: GJson, screen: GActivity, fragment: GFragment): AbstractTex
     override fun initView(): View {
         super.initView()
 
-        view
+        editText
             .inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
             .typeface(Typeface.DEFAULT)  // Without this, the hint gets displayed using a different font
         return view

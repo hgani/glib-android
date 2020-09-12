@@ -10,7 +10,7 @@ class Email(spec: GJson, screen: GActivity, fragment: GFragment): AbstractText(s
     override fun initView(): View {
         super.initView()
 
-        view.inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+        editText.inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         return view
     }
 }
