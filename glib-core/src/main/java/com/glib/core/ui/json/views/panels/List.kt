@@ -77,7 +77,8 @@ class List(spec: GJson, screen: GActivity, fragment: GFragment) : JsonView(spec,
             }
         }
 
-        adapter.notifyDataSetChanged()
+        // This causes the cells on screen to flicker
+//        adapter.notifyDataSetChanged()
     }
 
     private fun addTemplate(template: JsonTemplate) {
