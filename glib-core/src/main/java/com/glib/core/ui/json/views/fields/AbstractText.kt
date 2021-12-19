@@ -1,5 +1,6 @@
 package com.glib.core.ui.json.views.fields
 
+import android.graphics.Color
 import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,19 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GEditText
 import com.glib.core.ui.view.GTextInputEditText
 import com.glib.core.ui.view.GTextInputLayout
+import com.google.android.material.textfield.TextInputLayout
+
+const val CORNER_RADIUS = 16f
 
 abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment), SubmittableField {
 //    protected val view = GEditText(context)
-    protected val editText = GTextInputEditText(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
-    protected val view = GTextInputLayout(context).append(editText)
+
+    protected val view = GTextInputLayout(context)
+//    .append(editText)
+//    protected val editText = GTextInputEditText(view.context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+    protected val editText by lazy {
+        GTextInputEditText(view.context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+    }
 
     final override var name: String? = null
         private set
@@ -27,10 +36,19 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
 
         editText.text(spec["value"].stringValue)
 
+        // TODO: Move to glib
+//        view.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);
+
+        view.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+        view.setBoxCornerRadii(CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS)
+
+        view.boxBackgroundColor = Color.TRANSPARENT
+
 //        view.isErrorEnabled = true
         view.isErrorEnabled = false
 
         view.hint = spec["label"].stringValue
+//        view.hint = "Test label"
 
         spec["placeholder"].string?.let {
             editText.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
@@ -42,6 +60,6 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
             }
         }
 
-        return view
+        return view.append(editText)
     }
 }
