@@ -27,10 +27,12 @@ class Form(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, 
             JsonView.create(subviewSpec, screen, fragment)?.let {jsonView ->
                 panel.addView(jsonView.createView())
 
-                // NOTE: Currently we assume all fields are direct children.
-                if (jsonView is SubmittableField) {
-                    fields.add(jsonView)
-                }
+//                // NOTE: Currently we assume all fields are direct children.
+//                if (jsonView is SubmittableField) {
+//                    GLog.t(javaClass, "FIELD ${jsonView}")
+//
+//                    fields.add(jsonView)
+//                }
             }
         }
         return panel
@@ -51,6 +53,10 @@ class Form(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, 
             vertical()
         }
 
+        fun addField(field: SubmittableField) {
+            fields.add(field)
+        }
+
         fun submit(trigger: JsonView?) {
             val params = GParams.Default()
             for (field in fields) {
@@ -58,6 +64,8 @@ class Form(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, 
                     params.put(it, field.value)
                 }
             }
+
+            GLog.t(javaClass, "FIELDS ${fields.size}")
 
             GLog.t(javaClass, "S ${params}")
 
