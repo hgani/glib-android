@@ -34,27 +34,13 @@ abstract class AbstractField(spec: GJson, screen: GActivity, fragment: GFragment
     }
 
     fun registerToClosestForm(field: View) {
-        GLog.t(javaClass, "registerToClosestForm1")
-
         closest(Form.FormPanel::class.java, field)?.let { panel ->
-            GLog.t(javaClass, "registerToClosestForm2")
-
             val jsonField = this as? SubmittableField
             if (jsonField != null) {
-                GLog.t(javaClass, "registerToClosestForm3")
                 panel.addField(jsonField)
             } else {
                 throw IllegalStateException("Not a JSON field")
             }
         }
-
-//        if let form = closest(JsonView_Panels_Form.FormPanel.self, from: field) {
-//            if let jsonField = self as? SubmittableField {
-//                form.addField(jsonField)
-//            } else {
-//                fatalError("Not a JSON field")
-//            }
-//        }
     }
-
 }

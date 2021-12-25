@@ -37,7 +37,8 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
         }
 
         if (styleClasses.contains("outlined")) {
-            // outlined() has to be called before append()
+            // outlined() has to be called before append() otherwise the outline styling will
+            // look incomplete.
             view.outlined()
         }
 

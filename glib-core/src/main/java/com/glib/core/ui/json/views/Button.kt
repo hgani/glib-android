@@ -3,11 +3,11 @@ package com.glib.core.ui.json.views
 import android.graphics.Color
 import android.view.View
 import com.glib.core.json.GJson
-import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonView
+import com.glib.core.ui.json.actions.windows.JsonUiStyling
 import com.glib.core.ui.view.GButton
 import com.glib.core.ui.view.IView
 
@@ -48,6 +48,12 @@ class Button(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
     private fun initColor() {
         ifColor(spec["color"].string) {
             button.color(it)
+        }
+    }
+
+    override fun applyStyleClass(styleClass: String) {
+        JsonUiStyling.buttons[styleClass]?.let {
+            it.decorate(button)
         }
     }
 }
