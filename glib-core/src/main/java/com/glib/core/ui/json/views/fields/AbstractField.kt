@@ -20,58 +20,6 @@ import java.lang.IllegalStateException
 import java.lang.RuntimeException
 
 abstract class AbstractField(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment), SubmittableField {
-////    protected val view = GEditText(context)
-//
-//    protected val view = GTextInputLayout(context)
-////    .append(editText)
-////    protected val editText = GTextInputEditText(view.context).width(ViewGroup.LayoutParams.MATCH_PARENT)
-//    protected val editText by lazy {
-//        GTextInputEditText(view.context).width(ViewGroup.LayoutParams.MATCH_PARENT)
-//    }
-//
-//    final override var name: String? = null
-//        private set
-//
-//    override val value: String
-//        get() = editText.text.toString()
-//
-//    override fun initView(): View {
-////        view.gravity = Gravity.TOP or Gravity.START
-////        editText.gravity = Gravity.TOP or Gravity.START
-//
-//        editText.padding(null, 18, null, 18)
-//
-//        this.name = spec["name"].string
-//
-//        editText.text(spec["value"].stringValue)
-//
-//        // TODO: Move to glib wrapper
-////        view.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);
-//
-//        // TODO: Only do this if styleClass includes outline
-//        view.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-//        view.setBoxCornerRadii(CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS)
-//
-//        view.boxBackgroundColor = Color.TRANSPARENT
-//
-////        view.isErrorEnabled = true
-//        view.isErrorEnabled = false
-//
-//        view.hint = spec["label"].stringValue
-//
-////        spec["placeholder"].string?.let {
-////            editText.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-////                if (hasFocus) {
-////                    editText.setHint(it)
-////                } else {
-////                    editText.setHint(null)
-////                }
-////            }
-////        }
-//
-//        return view.append(editText)
-//    }
-
     final override var name: String? = null
         private set
 
@@ -87,10 +35,6 @@ abstract class AbstractField(spec: GJson, screen: GActivity, fragment: GFragment
 
     fun registerToClosestForm(field: View) {
         GLog.t(javaClass, "registerToClosestForm1")
-//
-//        Ui.exec {
-//
-//        }
 
         closest(Form.FormPanel::class.java, field)?.let { panel ->
             GLog.t(javaClass, "registerToClosestForm2")

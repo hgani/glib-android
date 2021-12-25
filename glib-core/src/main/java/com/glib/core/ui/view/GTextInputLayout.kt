@@ -7,6 +7,8 @@ import com.glib.core.utils.Res
 import com.google.android.material.textfield.TextInputLayout
 
 
+const val CORNER_RADIUS = 16f
+
 class GTextInputLayout : TextInputLayout, IView {
     private val helper = ViewHelper(this)
 
@@ -49,6 +51,12 @@ class GTextInputLayout : TextInputLayout, IView {
 
     fun append(view: View): GTextInputLayout {
         addView(view)
+        return self()
+    }
+
+    fun outlined(): GTextInputLayout {
+        boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+        setBoxCornerRadii(CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS)
         return self()
     }
 }

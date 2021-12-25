@@ -76,6 +76,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             initWidth(it)
             initHeight(it)
             initPadding(it)
+            applyStyleClasses(spec["styleClasses"].arrayValue.map { it.stringValue })
         }
     }
 
@@ -113,6 +114,16 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
 //    }
 
     open fun onAfterInitView(view: View) {
+        // To be overridden
+    }
+
+    private fun applyStyleClasses(styleClasses: List<String>) {
+        styleClasses.forEach {
+            applyStyleClass(it)
+        }
+    }
+
+    open fun applyStyleClass(styleClass: String) {
         // To be overridden
     }
 
