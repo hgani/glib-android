@@ -1,6 +1,7 @@
 package com.glib.core.ui.view
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import com.glib.core.utils.Res
@@ -57,6 +58,8 @@ class GTextInputLayout : TextInputLayout, IView {
     fun outlined(): GTextInputLayout {
         boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
         setBoxCornerRadii(CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS, CORNER_RADIUS)
+        boxBackgroundColor = Color.TRANSPARENT
+
         return self()
     }
 }

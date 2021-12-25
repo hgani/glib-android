@@ -19,6 +19,9 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
     val context: Context
         get() = screen.context
 
+    val styleClasses: List<String>
+        get() = spec["styleClasses"].arrayValue.map { it.stringValue }
+
     fun <T: View> closest(instanceType: Class<T>, from: View): T? {
         var ancestor = from?.parent
         while (ancestor != null && !instanceType.isInstance(ancestor)) {
@@ -76,7 +79,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             initWidth(it)
             initHeight(it)
             initPadding(it)
-            applyStyleClasses(spec["styleClasses"].arrayValue.map { it.stringValue })
+            applyStyleClasses(styleClasses)
         }
     }
 
