@@ -25,11 +25,11 @@ class JsonUiScreen : GScreen() {
                     .intent
         }
 
-//        fun intent(actionSpec: GJson): Intent {
-//            return intentBuilder(JsonUiScreen::class)
-//                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    .withArg(ARG_ACTION_SPEC, actionSpec).intent
-//        }
+        fun intent(actionSpec: GJson): Intent {
+            return intentBuilder(JsonUiScreen::class)
+                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .withArg(ARG_ON_OPEN_SPEC, actionSpec).intent
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -93,11 +93,26 @@ abstract class JsonUiFragment : GFragment {
         // TODO: Fix. Doesn't work well with scroll panel.
 //        enableRefreshPull()
 
-        reload(path, {
-            args[JsonUiScreen.ARG_ON_OPEN_SPEC].json?.let {
+        val onOpenSpec = args[JsonUiScreen.ARG_ON_OPEN_SPEC].json
+
+        GLog.t(javaClass, "initContent1: ${onOpenSpec}")
+
+        if (path == null) {
+            GLog.t(javaClass, "initContent2: ${onOpenSpec}")
+
+            onOpenSpec?.let {
                 JsonAction.execute(it, activity, null, null)
             }
-        })
+        } else {
+            reload(path, {
+                GLog.t(javaClass, "initContent3: ${onOpenSpec}")
+
+                onOpenSpec?.let {
+                    JsonAction.execute(it, activity, null, null)
+                }
+            })
+        }
+
 
 //        args[JsonUiScreen.ARG_ACTION_SPEC].json?.let {
 //            JsonAction.execute(it, activity, null, null)
