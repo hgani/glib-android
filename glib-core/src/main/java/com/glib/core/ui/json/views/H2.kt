@@ -7,6 +7,8 @@ import com.glib.core.ui.view.GTextView
 
 class H2(spec: GJson, screen: GActivity, fragment: GFragment): AbstractText(spec, screen, fragment) {
     override fun initView(): GTextView {
-        return super.initView().textSize(16f).bold()
+        val view = super.initView().textSize(16f).bold()
+        applyStyleClass("h2")
+        return view
     }
 }

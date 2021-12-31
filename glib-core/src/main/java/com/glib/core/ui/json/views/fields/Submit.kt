@@ -6,6 +6,7 @@ import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.json.actions.forms.Submit
+import com.glib.core.ui.json.actions.windows.JsonUiStyling
 import com.glib.core.ui.view.GButton
 import com.glib.core.ui.view.IView
 
@@ -27,9 +28,6 @@ class Submit(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
 
         button.onClick {
             Submit.execute(it, this)
-
-//            val submitSpec = GJsonObject.Default(hashMapOf("action" to "forms/submit-v1"))
-//            JsonAction.execute(submitSpec, screen, it, this)
         }
 
         return button
@@ -44,6 +42,12 @@ class Submit(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec
     private fun initColor() {
         ifColor(spec["color"].string) {
             button.color(it)
+        }
+    }
+
+    override fun applyStyleClass(styleClass: String) {
+        JsonUiStyling.buttons[styleClass]?.let {
+            it.decorate(button)
         }
     }
 }

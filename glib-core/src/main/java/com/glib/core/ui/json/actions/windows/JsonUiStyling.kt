@@ -41,7 +41,6 @@ class JsonUiStyling {
 //        public static var screens = [String: JsonUiScreenSpec]()
 
 
-
 //        val ARG_PATH = "path"
 ////        val ARG_ACTION_SPEC = "actionSpec"
 //        val ARG_ON_OPEN_SPEC = "onOpenSpec"

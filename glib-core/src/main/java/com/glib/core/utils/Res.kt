@@ -93,9 +93,14 @@ object Res {
         //  }
     }
 
+    // Load a font file from `app/src/main/assets/font`
     fun font(font: String): Typeface {
-        return Typeface.createFromAsset(context.assets, font)
+        return Typeface.createFromAsset(context.assets, "font/$font")
     }
+
+//    fun font(fontResId: Int): Typeface {
+//        return Typeface.createFromAsset(context.assets, fontResId)
+//    }
 
     fun integer(resId: Int): Int {
         return resources.getInteger(resId)
