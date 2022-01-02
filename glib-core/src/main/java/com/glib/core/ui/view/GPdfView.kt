@@ -1,5 +1,6 @@
 package com.glib.core.ui.view
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -7,8 +8,12 @@ import android.util.AttributeSet
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.viewpager.widget.ViewPager
 import com.glib.core.http.GImmutableParams
 import com.glib.core.logging.GLog
+import com.glib.core.notification.SnackbarUtils
+import com.glib.core.screen.GActivity
+import com.glib.core.screen.LaunchHelper
 import com.glib.core.ui.ProgressIndicator
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.ui.panel.GWrapper
@@ -16,6 +21,7 @@ import es.voghdev.pdfviewpager.library.RemotePDFViewPager
 import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter
 import es.voghdev.pdfviewpager.library.remote.DownloadFile
 import java.lang.Exception
+
 //
 //class GPdfView : RemotePDFViewPager, IView {
 //    private val helper = ViewHelper(this)
@@ -140,10 +146,10 @@ import java.lang.Exception
 
 
 class GPdfView : GWrapper, DownloadFile.Listener {
-    private val helper: ViewHelper = ViewHelper(this)
+    private val helper = ViewHelper(this)
     private lateinit var pager: RemotePDFViewPager
+//    private var adapter: PDFPagerAdapter? = null
 
-//    private val helper = ViewHelper(this)
 
 //    private var indicator: ProgressIndicator? = null
 //
@@ -152,42 +158,54 @@ class GPdfView : GWrapper, DownloadFile.Listener {
 ////        this.indicator = progress
 //    }
 
-//    private val adapter: PDFPagerAdapter!
-
     constructor(context: Context) : super(context) {
-        init()
-//        this.indicator = progress
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
+    }
+
+    private fun showPageNumber() {
+        pager.adapter?.let { adapter ->
+            val total = adapter.count
+            val current = pager.currentItem + 1
+
+            GLog.t(javaClass, "onPageScrollStateChanged2: $context")
+            (context as? GActivity)?.let { activity ->
+                GLog.t(javaClass, "onPageScrollStateChanged3")
+                SnackbarUtils.standard(activity, "$current of $total").show()
+            }
+        }
     }
 
     fun load(url: String) {
         this.pager = RemotePDFViewPager(context, url, this)
+        this.pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                if (state != ViewPager.SCROLL_STATE_IDLE) {
+                    return
+                }
+                showPageNumber()
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                GLog.t(javaClass, "onPageScrolled1")
+                // Nothing to do
+            }
+
+            override fun onPageSelected(position: Int) {
+                // Nothing to do
+                GLog.t(javaClass, "onPageSelected1")
+//                (context as? GActivity)?.let {
+//                    SnackbarUtils.standard(it, "$position of TOTAL")
+//                }
+            }
+        })
+
         addView(pager)
-    }
-
-    private fun init() {
-//        webViewClient = ProgressAwareWebViewClient()
-//
-//        // Mimic turbolinks-android's WebView as much as possible.
-//        val webSettings = settings
-//        //    webSettings.setUserAgentString(ConnectionPreparator.userAgent());
-//        webSettings.javaScriptEnabled = true
-//        webSettings.domStorageEnabled = true
-//        webSettings.databaseEnabled = true
-//
-//        // http://stackoverflow.com/questions/9055347/fitting-webpage-contents-inside-a-webview-android
-//        webSettings.loadWithOverviewMode = true
-//        webSettings.useWideViewPort = true
-//
-//        // To enable js alert and confirm dialog.
-//        webChromeClient = WebChromeClient()
-
-
-//        adapter = PDFPagerAdapter(this, "AdobeXMLFormsSamples.pdf")
-
     }
 
     override fun width(width: Int?): GPdfView {
@@ -217,28 +235,30 @@ class GPdfView : GWrapper, DownloadFile.Listener {
 
     ///// DownloadFile.Listener
 
-    private var adapter: PDFPagerAdapter? = null
-
     override fun onSuccess(url: String?, destinationPath: String?) {
-        adapter = PDFPagerAdapter(context, destinationPath)
+//        adapter = PDFPagerAdapter(context, destinationPath)
+//
+//        pager.adapter = adapter
 
-        GLog.t(javaClass, "PAGER: $pager")
-        pager?.setAdapter(adapter)
-
-        // TODO: Clean up adapter in onDestroy()
+        pager.adapter = PDFPagerAdapter(context, destinationPath)
+        showPageNumber()
     }
 
     override fun onFailure(e: Exception?) {
-//            TODO("Not yet implemented")
+        LaunchHelper(context).alert("Failed loading document")
     }
 
     override fun onProgressUpdate(progress: Int, total: Int) {
-//            TODO("Not yet implemented")
+        // Nothing to do for now
     }
 
-
-
     /////
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+
+        adapter?.close()
+    }
 
 //    @JvmOverloads
 //    fun load(url: String, params: GImmutableParams? = null): GPdfView {
@@ -253,7 +273,6 @@ class GPdfView : GWrapper, DownloadFile.Listener {
 //    }
 
 
-
 //    private class GRemotePDFViewPager : RemotePDFViewPager, DownloadFile.Listener {
 ////        private var adapter: PDFPagerAdapter? = null
 //
@@ -262,7 +281,6 @@ class GPdfView : GWrapper, DownloadFile.Listener {
 //    //        this.indicator = progress
 //        }
 //    }
-
 
 
 //    private class Listener(val context: Context) : DownloadFile.Listener {
