@@ -11,6 +11,7 @@ import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.ViewOutlineProvider
 import androidx.appcompat.widget.AppCompatButton
 import com.glib.core.ui.layout.GRelativeLayoutParams
 import com.glib.core.ui.style.Length
@@ -126,6 +127,16 @@ class GButton : AppCompatButton, IView, GWeightable {
 
     fun background(drawable: Drawable): GButton {
         background = drawable
+        return self()
+    }
+
+    fun elevation(elevation: Float): GButton {
+        // Required for elevation to show.
+        // See https://stackoverflow.com/questions/38278179/android-elevation-not-showing-shadow-on-button/38278308
+        outlineProvider = ViewOutlineProvider.BOUNDS
+
+        this.elevation = elevation
+
         return self()
     }
 
