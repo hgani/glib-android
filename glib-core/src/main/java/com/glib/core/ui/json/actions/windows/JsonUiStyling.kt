@@ -8,6 +8,8 @@ class JsonUiStyling {
     companion object {
         val buttons = mutableMapOf("link" to GButton.Spec.LINK, "icon" to GButton.Spec.ICON)
         val labels = mutableMapOf("link" to GTextView.Spec.LINK)
+        val windows = mutableMapOf<String, JsonUiFragment.Spec>()
+//        val windows = mutableMapOf("standard" to JsonUiFragment.Spec.STANDARD)
 
 
 //        public static var labels: [String: GLabelSpec] = [

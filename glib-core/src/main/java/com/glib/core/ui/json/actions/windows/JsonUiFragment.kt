@@ -1,5 +1,6 @@
 package com.glib.core.ui.json.actions.windows
 
+import android.graphics.Color
 import android.view.Menu
 import android.view.MenuInflater
 import com.glib.core.BuildConfig
@@ -16,6 +17,8 @@ import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.menu.GMenu
+import com.glib.core.ui.view.GButton
+import java.lang.UnsupportedOperationException
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
@@ -46,6 +49,7 @@ abstract class JsonUiFragment : GFragment {
         val callback = GRestCallback.Default(this@JsonUiFragment) { response ->
             val result = response.result
             JsonUi.parseScreenContent(result, this@JsonUiFragment)
+            applyStyling(result)
             page = result
 
             screen?.let {
@@ -58,6 +62,15 @@ abstract class JsonUiFragment : GFragment {
         }
         path?.let {
             Rest.GET.async(it, null, false).execute(callback)
+        }
+    }
+
+    private fun applyStyling(spec: GJson) {
+        val styleClasses = spec["styleClasses"].arrayValue.map { it.stringValue }
+        for (styleClass in styleClasses) {
+            JsonUiStyling.windows[styleClass]?.let {
+                it.decorate(this)
+            }
         }
     }
 
@@ -102,7 +115,6 @@ abstract class JsonUiFragment : GFragment {
                 }
             }
         }
-
 
 //        args[JsonUiScreen.ARG_ACTION_SPEC].json?.let {
 //            JsonAction.execute(it, activity, null, null)
@@ -173,4 +185,19 @@ abstract class JsonUiFragment : GFragment {
 //            }
 //        }
 //    }
+
+
+    open class Spec(val decorator: (JsonUiFragment) -> Unit) {
+        companion object {
+//            val STANDARD = JsonUiFragment.Spec() { fragment ->
+////                fragment.container?.bgColor(Color.RED)
+//
+//                // Nothing to do
+//            }
+        }
+
+        fun decorate(view: JsonUiFragment) {
+            decorator(view)
+        }
+    }
 }
