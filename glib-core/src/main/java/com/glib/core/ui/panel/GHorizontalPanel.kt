@@ -24,18 +24,6 @@ class GHorizontalPanel: GLinearLayout<GHorizontalPanel>, IView {
 
 
     open class Spec(val decorator: (GHorizontalPanel) -> Unit) {
-//        companion object {
-//            val LINK = GButton.Spec() { view ->
-//                view.bgColor(Color.TRANSPARENT)
-//                view.color(Color.parseColor("#1976d2"))
-//            }
-//
-//            val ICON = GButton.Spec() { view ->
-//                // TODO
-//                throw UnsupportedOperationException("Not yet implemented")
-//            }
-//        }
-
         fun decorate(view: GHorizontalPanel) {
             decorator(view)
         }

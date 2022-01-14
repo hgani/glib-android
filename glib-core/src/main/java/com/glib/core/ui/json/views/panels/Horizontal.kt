@@ -8,6 +8,7 @@ import com.glib.core.json.GJson
 import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
+import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.json.actions.windows.JsonUiStyling
 import com.glib.core.ui.panel.GHorizontalPanel
@@ -20,6 +21,12 @@ class Horizontal(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(
     override fun initView(): View {
         val subviews = (spec["subviews"].array ?: spec["childViews"].arrayValue).mapNotNull { subviewSpec ->
             create(subviewSpec, screen, fragment)?.createView()
+        }
+
+        spec["onClick"].presence?.let { spec ->
+            panel.onClick {
+                JsonAction.execute(spec, screen, panel, this)
+            }
         }
 
         // Doesn't seem to work

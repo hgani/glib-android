@@ -66,6 +66,10 @@ abstract class JsonUiFragment : GFragment {
     }
 
     private fun applyStyling(spec: GJson) {
+        JsonUiStyling.windows["default"]?.let {
+            it.decorate(this)
+        }
+
         val styleClasses = spec["styleClasses"].arrayValue.map { it.stringValue }
         for (styleClass in styleClasses) {
             JsonUiStyling.windows[styleClass]?.let {
@@ -133,8 +137,20 @@ abstract class JsonUiFragment : GFragment {
 
         val gMenu = GMenu(menu)
         if (parseMenu) {
-            page["rightNavButtons"].arrayValue.forEach { button ->
-                val name = button["icon"]["materialName"].stringValue
+//            page["rightNavButtons"].arrayValue.forEach { button ->
+//                val name = button["icon"]["materialName"].stringValue
+//                gMenu.add(name) { item ->
+//                    item.showIfRoom().onClick {
+//                        JsonAction.execute(button["onClick"], activity, null, null)
+//                    }
+//                    JsonUi.iconDrawable(button["icon"])?.let { drawable ->
+//                        item.icon(drawable)
+//                    }
+//                }
+//            }
+
+            page["navBar"]["rightButtons"].arrayValue.forEach { button ->
+                val name = button["icon"]["material"]["name"].stringValue
                 gMenu.add(name) { item ->
                     item.showIfRoom().onClick {
                         JsonAction.execute(button["onClick"], activity, null, null)
@@ -146,13 +162,13 @@ abstract class JsonUiFragment : GFragment {
             }
         }
 
-        if (BuildConfig.DEBUG) {
-            gMenu.add("?") { item ->
-                item.showIfRoom().onClick {
-                    launch.alert(page.toString(), "Debug Info")
-                }
-            }
-        }
+//        if (BuildConfig.DEBUG) {
+//            gMenu.add("?") { item ->
+//                item.showIfRoom().onClick {
+//                    launch.alert(page.toString(), "Debug Info")
+//                }
+//            }
+//        }
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
