@@ -9,6 +9,7 @@ import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonView
+import com.glib.core.ui.json.actions.windows.JsonUiStyling
 import com.glib.core.ui.panel.GHorizontalPanel
 import com.glib.core.ui.panel.GVerticalPanel
 import com.glib.core.ui.view.GWeightable
@@ -58,5 +59,11 @@ class Horizontal(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(
             }
         }
         return panel
+    }
+
+    override fun applyStyleClass(styleClass: String) {
+        JsonUiStyling.horizontalPanels[styleClass]?.let {
+            it.decorate(panel)
+        }
     }
 }

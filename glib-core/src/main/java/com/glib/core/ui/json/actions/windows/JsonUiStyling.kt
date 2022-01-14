@@ -1,5 +1,6 @@
 package com.glib.core.ui.json.actions.windows
 
+import com.glib.core.ui.panel.GHorizontalPanel
 import com.glib.core.ui.view.GButton
 import com.glib.core.ui.view.GTextView
 
@@ -9,6 +10,8 @@ class JsonUiStyling {
         val buttons = mutableMapOf("link" to GButton.Spec.LINK, "icon" to GButton.Spec.ICON)
         val labels = mutableMapOf("link" to GTextView.Spec.LINK)
         val windows = mutableMapOf<String, JsonUiFragment.Spec>()
+
+        val horizontalPanels = mutableMapOf<String, GHorizontalPanel.Spec>()
 //        val windows = mutableMapOf("standard" to JsonUiFragment.Spec.STANDARD)
 
 
