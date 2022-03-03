@@ -25,6 +25,18 @@ class Vertical(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(sp
             }
         }
 
+        when (spec["align"].stringValue) {
+            "center" -> {
+                panel.gravity(Gravity.CENTER)
+            }
+            "right" -> {
+                panel.gravity(Gravity.RIGHT)
+            }
+            "left" -> {
+                panel.gravity(Gravity.LEFT)
+            }
+        }
+
         when (spec["distribution"].stringValue) {
             "fillEqually" -> {
                 subviews.forEach {
