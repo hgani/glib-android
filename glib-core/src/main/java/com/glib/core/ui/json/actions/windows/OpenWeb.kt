@@ -25,7 +25,6 @@ import com.glib.core.utils.Res
 class OpenWeb(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         val url = spec["url"].string ?: return false
-        GLog.t(javaClass, "URL: " + UrlUtils.jsonToHtml(url))
         screen.launch.url(UrlUtils.jsonToHtml(url))
         return true
     }

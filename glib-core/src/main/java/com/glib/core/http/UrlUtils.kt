@@ -29,22 +29,6 @@ object UrlUtils {
         // If no match, then we replace the front fragment
         newUrl = newUrl.replace(Regex("[\\&\\?]format=json"), "");
 
-//        if (originalUrl.indexOf("?") > -1) {
-//            url = originalUrl.replace(/.json\?/, "?");
-//        } else {
-//            url = originalUrl.replace(/.json$/, "");
-//        }
-//        // As much as possible, try retaining the front fragment by matching the back, because
-//        // the front could be either a `?` or `&`
-//        url = url.replace(/format=json\&/, "");
-//        // If no match, then we replace the front fragment
-//        url = url.replace(/[\&\?]format=json/, "");
-//        return url;
-
-//        if (url.indexOf('?') > -1) {
-//
-//        }
-
         return newUrl
     }
 }
