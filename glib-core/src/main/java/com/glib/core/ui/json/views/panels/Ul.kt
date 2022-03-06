@@ -20,9 +20,6 @@ class Ul(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, sc
     private val panel = GVerticalPanel(context)
 
     override fun initView(): View {
-//        val content = spec["content"]
-//        panel.withViews(createSubview(spec["left"]), createSubview(spec["center"]), createSubview(spec["right"]))
-
         val childViews = spec["childViews"].arrayValue.mapNotNull { subviewSpec ->
             create(subviewSpec, screen, fragment)?.createView()
         }
@@ -38,24 +35,17 @@ class Ul(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, sc
                     .margin(null, null, 4, null)
                 panel.addView(horizontal.append(bullet).append(childView))
             }
-//            bullet.source(GIcon)
-
-
-//            let bullet = GLabel().icon(GIcon(font: .materialIcon, code: "chevron_right"))
-//            horizontal.append(bullet).append(view, left: 4)
-//            panel.addView(bullet)
         }
-//        panel.addView()
 
         return panel
     }
-
-    private fun createSubview(subviewSpec: GJson) : View {
-        if (subviewSpec.isNull()) {
-            return GView(context).width(0)
-        }
-
-//        return create(subviewSpec, screen, fragment)?.createView() ?: GView(context)
-        return Default(subviewSpec, screen, fragment).createView()
-    }
+//
+//    private fun createSubview(subviewSpec: GJson) : View {
+//        if (subviewSpec.isNull()) {
+//            return GView(context).width(0)
+//        }
+//
+////        return create(subviewSpec, screen, fragment)?.createView() ?: GView(context)
+//        return Default(subviewSpec, screen, fragment).createView()
+//    }
 }
