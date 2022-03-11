@@ -69,6 +69,11 @@ class GTextInputEditText : TextInputEditText, IView {
         return this
     }
 
+    fun textColor(color: Int): GTextInputEditText {
+        setTextColor(color)
+        return self()
+    }
+
 //    fun append(view: View): GTextInputEditText {
 //        addView(view)
 //        return self()

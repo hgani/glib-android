@@ -45,14 +45,14 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
             view.outlined()
         }
 
-        initOnFocusBorderColor()
+        initDefaults()
 
         return view.append(editText)
     }
 
-    fun initOnFocusBorderColor() {
+    fun initBorderColor() {
         // Avoid hardcoding
-        view.boxStrokeColor = Color.BLACK
+//        view.boxStrokeColor = Color.BLACK
 
         // See https://stackoverflow.com/questions/15543186/how-do-i-create-colorstatelist-programmatically
         val states = arrayOf(
@@ -64,6 +64,7 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
             )
         )
 
+        // TODO: Avoid hardcoding
         val colors = intArrayOf(
             Color.BLACK,
             Color.RED,
@@ -72,5 +73,13 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
         )
 
         view.hintTextColor = ColorStateList(states, colors)
+        view.setBoxStrokeColorStateList(ColorStateList(states, colors))
+    }
+
+    // Explicitly set colors so that things are still visible in dark mode
+    fun initDefaults() {
+        // TODO: Avoid hardcoding
+        editText.textColor(Color.BLACK)
+        initBorderColor()
     }
 }
