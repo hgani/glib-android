@@ -1,5 +1,6 @@
 package com.glib.core.ui.json.views
 
+import android.graphics.Color
 import android.view.View
 import com.glib.core.json.GJson
 import com.glib.core.screen.GActivity
@@ -9,7 +10,7 @@ import com.glib.core.ui.view.GImageView
 
 
 class Image(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
-    private val view = GImageView(context)
+    private val view = GImageView(context).adjustBounds()
 
     override fun initView(): View {
         // Doesn't recognize our example base64 image data.

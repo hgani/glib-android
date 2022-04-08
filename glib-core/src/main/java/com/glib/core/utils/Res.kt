@@ -13,6 +13,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
 
 object Res {
@@ -93,9 +94,21 @@ object Res {
         //  }
     }
 
-    // Load a font file from `app/src/main/assets/font`
+    // Load a font file from `app/src/main/assets/fonts`
     fun font(font: String): Typeface {
-        return Typeface.createFromAsset(context.assets, "font/$font")
+        return Typeface.createFromAsset(context.assets, "fonts/$font")
+    }
+
+    // Load an image file from `app/src/main/assets/images`
+    fun image(image: String): Drawable? {
+        val input: InputStream
+        try {
+            input = context.assets.open("images/$image")
+        }
+        catch (ex: IOException) {
+            return null
+        }
+        return Drawable.createFromStream(input, null)
     }
 
 //    fun font(fontResId: Int): Typeface {
