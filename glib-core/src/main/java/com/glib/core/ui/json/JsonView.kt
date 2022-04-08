@@ -10,6 +10,8 @@ import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.ProgressIndicator
+import com.glib.core.ui.Ui
+import com.glib.core.ui.json.views.panels.Form
 import com.glib.core.ui.view.IView
 import com.glib.core.utils.Res
 
@@ -17,10 +19,57 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
     val context: Context
         get() = screen.context
 
+    val styleClasses: List<String>
+        get() = spec["styleClasses"].arrayValue.map { it.stringValue }
+
+    fun <T: View> closest(instanceType: Class<T>, from: View): T? {
+        var ancestor = from?.parent
+        while (ancestor != null && !instanceType.isInstance(ancestor)) {
+            ancestor = ancestor.parent
+        }
+        return instanceType.cast(ancestor)
+
+//        return (ancestor as? instanceType)
+//        (ancestor as? Form.FormPanel)?.submit(controller)
+
+//
+//        var ancestor = from?.parent
+//        while (ancestor != null && !(ancestor is Form.FormPanel)) {
+//            ancestor = ancestor.parent
+//        }
+//        (ancestor as? Form.FormPanel)?.submit(controller)
+
+//        from.pare
+//        if let superview = from.superview {
+//            if let found = superview as? T {
+//                return found
+//            } else {
+//                return closest(instanceType, from: superview)
+//            }
+//        }
+//        return nil
+    }
+
     // TODO: Rename to initView()
     fun createView(): View {
         val view = initView()
         initGenericAttributes(view)
+
+        // This might look hacky but it's much less error prone than the alternative, where we need to
+        // explicitly execute the callback for every parent component, which will get very complex
+        // when it involves nested parents because we won't know at which point the whole nesting has
+        // been fully connected.
+        Ui.exec {
+            GLog.t(javaClass, "createView1")
+            // This is supposed to execute after the view has been added to parent.
+            this.onAfterInitView(view)
+        }
+//        DispatchQueue.main.async {
+//            // This is supposed to execute after the view has been added to parent.
+//            self.onAfterInitView(view)
+//            self.registerJsonLogic(view: view)
+//        }
+
         return view
     }
 
@@ -30,6 +79,7 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
             initWidth(it)
             initHeight(it)
             initPadding(it)
+            applyStyleClasses(styleClasses)
         }
     }
 
@@ -65,6 +115,20 @@ abstract class JsonView(val spec: GJson, val screen: GActivity, val fragment: GF
 //    fun updateStatus(busy: Boolean) {
 //        // To be overridden
 //    }
+
+    open fun onAfterInitView(view: View) {
+        // To be overridden
+    }
+
+    private fun applyStyleClasses(styleClasses: List<String>) {
+        styleClasses.forEach {
+            applyStyleClass(it)
+        }
+    }
+
+    open fun applyStyleClass(styleClass: String) {
+        // To be overridden
+    }
 
     override fun showProgress() {
         // To be overridden

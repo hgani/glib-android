@@ -1,6 +1,8 @@
 package com.glib.core.http
 
 import android.webkit.WebView
+import com.glib.core.GApp
+import com.glib.core.utils.Device
 import org.json.JSONException
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -26,6 +28,14 @@ abstract class GHttpListener {
 
     open fun prepareConnection(connection: HttpURLConnection, params: GImmutableParams, method: HttpMethod) {
         // To be overridden
+
+//        dupHeaders["JsonUiApp-Bundle-Id"] = Bundle.main.bundleIdentifier
+//        dupHeaders["JsonUiApp-Build-Version"] = GApp.version
+//        dupHeaders["JsonUiApp-Device-Os"] = Device.os
+
+//        connection.setRequestProperty("JsonUiApp-Bundle-Id", BuildConfig.APPLICATION_ID)
+        connection.setRequestProperty("JsonUiApp-Build-Version", GApp.INSTANCE.version)
+        connection.setRequestProperty("JsonUiApp-Device-Os", Device.os)
     }
 
     open fun processParams(params: GImmutableParams, method: HttpMethod): GImmutableParams {

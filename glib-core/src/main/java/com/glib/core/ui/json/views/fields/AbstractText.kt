@@ -1,30 +1,24 @@
 package com.glib.core.ui.json.views.fields
 
-import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
 import com.glib.core.json.GJson
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
-import com.glib.core.ui.json.JsonView
-import com.glib.core.ui.view.GEditText
 import com.glib.core.ui.view.GTextInputEditText
 import com.glib.core.ui.view.GTextInputLayout
 
-abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment), SubmittableField {
-//    protected val view = GEditText(context)
-    protected val editText = GTextInputEditText(context).width(ViewGroup.LayoutParams.MATCH_PARENT)
-    protected val view = GTextInputLayout(context).append(editText)
-
-    final override var name: String? = null
-        private set
+abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): AbstractField(spec, screen, fragment), SubmittableField {
+    protected val view = GTextInputLayout(context)
+    protected val editText by lazy {
+        GTextInputEditText(view.context).width(ViewGroup.LayoutParams.MATCH_PARENT)
+    }
 
     override val value: String
         get() = editText.text.toString()
 
     override fun initView(): View {
-        this.name = spec["name"].string
-
+        editText.padding(null, 18, null, 18)
         editText.text(spec["value"].stringValue)
 
 //        view.isErrorEnabled = true
@@ -42,6 +36,12 @@ abstract class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment)
             }
         }
 
-        return view
+        if (styleClasses.contains("outlined")) {
+            // outlined() has to be called before append() otherwise the outline styling will
+            // look incomplete.
+            view.outlined()
+        }
+
+        return view.append(editText)
     }
 }

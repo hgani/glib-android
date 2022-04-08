@@ -6,6 +6,7 @@ import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonView
+import com.glib.core.ui.json.actions.windows.JsonUiStyling
 import com.glib.core.ui.view.GTextView
 
 open class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
@@ -31,5 +32,11 @@ open class AbstractText(spec: GJson, screen: GActivity, fragment: GFragment): Js
         }
 
         return label
+    }
+
+    override fun applyStyleClass(styleClass: String) {
+        JsonUiStyling.labels[styleClass]?.let {
+            it.decorate(label)
+        }
     }
 }

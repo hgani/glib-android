@@ -31,7 +31,9 @@ class DrawablePagerAdapter : PagerAdapter() {
 //        drawables = ArrayList(resources.size)
         drawables.clear()
         for (res in resources) {
-            drawables.add(Res.drawable(res))
+            Res.drawable(res)?.let {
+                drawables.add(it)
+            }
         }
         notifyDataSetChanged()
         return this

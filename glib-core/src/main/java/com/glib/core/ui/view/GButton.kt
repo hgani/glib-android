@@ -1,6 +1,7 @@
 package com.glib.core.ui.view
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -14,6 +15,7 @@ import androidx.appcompat.widget.AppCompatButton
 import com.glib.core.ui.layout.GRelativeLayoutParams
 import com.glib.core.ui.style.Length
 import com.glib.core.utils.Res
+import java.lang.UnsupportedOperationException
 
 class GButton : AppCompatButton, IView, GWeightable {
     private val helper = ViewHelper(this)
@@ -203,6 +205,18 @@ class GButton : AppCompatButton, IView, GWeightable {
 
 
     open class Spec(val decorator: (GButton) -> Unit) {
+        companion object {
+            val LINK = GButton.Spec() { view ->
+                view.bgColor(Color.TRANSPARENT)
+                view.color(Color.parseColor("#1976d2"))
+            }
+
+            val ICON = GButton.Spec() { view ->
+                // TODO
+                throw UnsupportedOperationException("Not yet implemented")
+            }
+        }
+
         fun decorate(view: GButton) {
             decorator(view)
         }

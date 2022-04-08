@@ -1,6 +1,7 @@
 package com.glib.core.ui.view
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -199,6 +200,10 @@ open class GTextView : AppCompatTextView, IView {
 
             val cellSubsubtitle = GTextView.Spec() { view ->
                 view.textSize(12f)
+            }
+
+            val LINK = Spec() { view ->
+                view.color(Color.parseColor("#1976d2"))
             }
         }
 
