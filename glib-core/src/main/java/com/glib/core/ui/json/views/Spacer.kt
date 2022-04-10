@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.view.GView
 
 class Spacer(spec: GJson, screen: GActivity, fragment: GFragment): JsonView(spec, screen, fragment) {
-    private val view = GView(context)
+    private val view = GView(context).width(0).height(0)
 
     override fun initView(): View {
         return view
