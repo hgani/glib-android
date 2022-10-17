@@ -32,6 +32,11 @@ abstract class AbstractBindingHolder private constructor(val container: GVertica
 //        }
     }
 
+
+    protected fun getLayout(): GVerticalPanel {
+        return itemView as GVerticalPanel
+    }
+
     protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {
         return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
     }
