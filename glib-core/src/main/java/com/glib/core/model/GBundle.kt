@@ -120,5 +120,15 @@ class GBundle(val native: Bundle) {
                 return int ?: 0
             }
 
+        val long: Long?
+            get() {
+                return serializable as? Long
+            }
+
+        val longValue: Long
+            get() {
+                return long ?: 0
+            }
+
     }
 }
