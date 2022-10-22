@@ -14,15 +14,10 @@ import com.glib.core.utils.Res
 import java.io.Serializable
 import java.util.*
 
-//import android.support.annotation.IdRes;
-//import android.support.v7.widget.RecyclerView;
-//import com.gani.lib.R;
-//import com.gani.lib.screen.GActivity;
-//import com.gani.lib.utils.Res;
 class ItemSelectScreenHelper<I : SelectableItem?> {
     private var activity: GScreen? = null
     private var fragment: FragmentItemSelect<I?>? = null
-    var mutableSelectedItems: MutableSet<I?>?
+    var mutableSelectedItems: MutableSet<I?>
         private set
     private var multiselect: Boolean
 
@@ -94,25 +89,25 @@ class ItemSelectScreenHelper<I : SelectableItem?> {
                             selectButton.isChecked = false
                         }
                     }
-                    mutableSelectedItems!!.clear()
+                    mutableSelectedItems.clear()
                 }
-                mutableSelectedItems!!.add(item)
+                mutableSelectedItems.add(item)
             } else {
-                mutableSelectedItems!!.remove(item)
+                mutableSelectedItems.remove(item)
             }
         }
 
     }
 
     companion object {
-        val PARAM_SELECTED_ITEMS: String? = "selectedItems"
-        private val BUNDLE_SELECTED_ITEMS: String? = "selectedItems"
+        val PARAM_SELECTED_ITEMS: String = "selectedItems"
+        private val BUNDLE_SELECTED_ITEMS: String = "selectedItems"
 
         //  public static final String RETURN_ITEMS = "items";
         fun <I : SelectableItem?> intent(
             cls: Class<out GActivity?>?,
             currentSelection: List<I>
-        ): Intent? {
+        ): Intent {
             val intent = Intent(Res.context, cls)
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intent.putExtra(
