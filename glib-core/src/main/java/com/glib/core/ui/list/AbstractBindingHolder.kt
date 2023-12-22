@@ -32,9 +32,18 @@ abstract class AbstractBindingHolder private constructor(val container: GVertica
 //        }
     }
 
-    protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {
-        return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
+
+    protected fun getLayout(): GVerticalPanel {
+        return itemView as GVerticalPanel
     }
+
+//    protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {
+//        return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
+//    }
+
+//    protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {
+//        return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
+//    }
 
     protected constructor(context: Context, selectable: Boolean) : this(GVerticalPanel(context).width(ViewGroup.LayoutParams.MATCH_PARENT), selectable) {}
 
@@ -47,5 +56,11 @@ abstract class AbstractBindingHolder private constructor(val container: GVertica
         val outValue = TypedValue()
         Res.context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
         container.setBackgroundResource(outValue.resourceId)
+    }
+
+    companion object {
+        protected fun inflate(parent: ViewGroup, layoutId: Int): ViewGroup {
+            return LayoutInflater.from(parent.context).inflate(layoutId, parent, false) as ViewGroup
+        }
     }
 }

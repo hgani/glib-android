@@ -20,12 +20,13 @@ class GBundle(val native: Bundle) {
     }
 
     val single: Serializable?
-        get() = if (containsKey(KEY_SINGLETON)) { native.getSerializable(KEY_SINGLETON) } else null
+        get() = if (containsKey(KEY_SINGLETON)) {
+            native.getSerializable(KEY_SINGLETON)
+        } else null
 
     operator fun get(key: String): Value {
         return Value(native.getSerializable(key))
     }
-
 
 
 //    fun getIntent(key: String): Intent {
@@ -107,6 +108,26 @@ class GBundle(val native: Bundle) {
         val jsonValue: GJson
             get() {
                 return json ?: GJsonObject.Default()
+            }
+
+        val int: Int?
+            get() {
+                return serializable as? Int
+            }
+
+        val intValue: Int
+            get() {
+                return int ?: 0
+            }
+
+        val long: Long?
+            get() {
+                return serializable as? Long
+            }
+
+        val longValue: Long
+            get() {
+                return long ?: 0
             }
 
     }
