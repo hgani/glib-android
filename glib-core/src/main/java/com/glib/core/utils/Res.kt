@@ -82,7 +82,7 @@ object Res {
     }
 
     @Throws(IOException::class)
-    fun assetDrawable(fileName: String): Drawable {
+    fun assetDrawable(fileName: String): Drawable? {
         val ims = assets().open(fileName)
         return Drawable.createFromStream(ims, null)
         //    try {
