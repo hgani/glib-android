@@ -1,6 +1,6 @@
 
 # Linking to this library in your project
-- NOTE: The method below doesn't seem to work on WSL anymore. Use this library as a git submodule instead.
+- **NOTE: The method below doesn't seem to work on WSL anymore. Use this library as a git submodule instead.**
 - Clone this repository on the same directory level as your project. If your project is located in `~/workspace`, put this library in `~/workspace` too.
 - Make a link to the modules that your project uses (e.g. `glib-core`) in the project's root directory. See below:
 
