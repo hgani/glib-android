@@ -1,6 +1,14 @@
 
-# Linking in Windows
+# Linking to this library in your project
+- Clone this repository on the same directory level as your project. If your project is located in `~/workspace`, put this library in `~/workspace` too.
+- Make a link to the modules that your project uses (e.g. `glib-core`) in the project's root directory. See below:
 
+## Linux
+- `ln -s ../glib-android/glib-core glib-core`
+- `ln -s ../glib-android/glib-map glib-map`
+- `ln -s ../glib-android/glib-camera glib-camera`
+
+## Windows
 - `mklink /J glib-core ..\glib-android\glib-core`
 - `mklink /J glib-map ..\glib-android\glib-map`
 - `mklink /J glib-camera ..\glib-android\glib-camera`
