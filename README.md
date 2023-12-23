@@ -4,6 +4,7 @@
 - `mklink /J glib-core ..\glib-android\glib-core`
 - `mklink /J glib-map ..\glib-android\glib-map`
 - `mklink /J glib-camera ..\glib-android\glib-camera`
+- You might need to use PowerShell to execute the above commands. See https://superuser.com/questions/1307360/how-do-you-create-a-new-symlink-in-windows-10-using-powershell-not-mklink-exe
 
 # Check jitpack status
 - https://jitpack.io/com/github/hgani/glib-android/VERSION_TAG/build.log
