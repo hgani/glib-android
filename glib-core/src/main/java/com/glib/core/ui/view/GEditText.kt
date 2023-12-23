@@ -179,4 +179,16 @@ class GEditText : TextInputEditText, IView {
     }
 
 
+
+//    open class Spec(val decorator: (GEditText) -> Unit) {
+//        companion object {
+//            val default = Spec() { view ->
+//                view.textSize(18f).bold()
+//            }
+//        }
+//
+//        fun decorate(view: GEditText) {
+//            decorator(view)
+//        }
+//    }
 }

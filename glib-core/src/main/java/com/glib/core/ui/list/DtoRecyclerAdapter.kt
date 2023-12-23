@@ -69,11 +69,11 @@ abstract class DtoRecyclerAdapter<DO, VH : DtoBindingHolder<DO>> protected const
 
     protected abstract fun onCreateItemHolder(parent: ViewGroup, viewType: Int): VH
 
-    protected fun onCreateHeaderHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+    open protected fun onCreateHeaderHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return BlankGenericItemHolder(parent.context)
     }
 
-    protected fun onCreateFooterHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+    open protected fun onCreateFooterHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return BlankGenericItemHolder(parent.context)
     }
 

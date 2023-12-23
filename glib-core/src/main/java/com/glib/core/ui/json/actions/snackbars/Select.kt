@@ -8,7 +8,7 @@ import com.glib.core.ui.json.JsonAction
 import com.glib.core.utils.GAuth
 import com.google.android.material.snackbar.Snackbar
 
-class Select(spec: GJson, screen: GActivity): JsonAction(spec, screen) {
+class Select(spec: GJson, screen: GActivity) : JsonAction(spec, screen) {
     override fun silentExecute(): Boolean {
         val snackbar = SnackbarUtils.standard(screen, spec["message"].stringValue)
         for (buttonSpec in spec["buttons"].arrayValue) {

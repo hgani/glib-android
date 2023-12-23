@@ -106,7 +106,9 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
     }
 
     fun menuIcon(): Drawable? {
-        return LibIcon.icon_menu.drawable().sizeDp(GIcon.ACTION_BAR_SIZE)
+        return LibIcon.icon_menu.drawable()
+        // TODO
+            //.sizeDp(GIcon.ACTION_BAR_SIZE)
     }
 
     /////

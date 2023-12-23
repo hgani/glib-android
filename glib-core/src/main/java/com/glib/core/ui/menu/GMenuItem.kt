@@ -18,7 +18,10 @@ class GMenuItem(private val backend: MenuItem) {
     }
 
     fun icon(icon: GIcon): GMenuItem {
-        return icon(icon.drawable().sizeDp(GIcon.ACTION_BAR_SIZE))
+        return icon(icon.drawable())
+
+            // TODO
+            //.sizeDp(GIcon.ACTION_BAR_SIZE))
     }
 
     fun icon(drawable: Drawable): GMenuItem {

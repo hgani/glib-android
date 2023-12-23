@@ -78,14 +78,15 @@ class JsonUi {
         fun iconDrawable(spec: GJson): Drawable? {
             spec["material"]["name"].string?.let { iconName ->
                 GLog.i(JsonUi::class.java, "Icon not found: ${iconName}")
-//                return IconicsDrawable(Res.context, "gmd-${iconName}").sizeDp(GIcon.ACTION_BAR_SIZE)
                 return mdIconDrawable(iconName, GIcon.ACTION_BAR_SIZE)
             }
             return null
         }
 
         fun mdIconDrawable(name: String, size: Int): Drawable? {
-            return IconicsDrawable(Res.context, "gmd-${name}").sizeDp(size)
+            return IconicsDrawable(Res.context, "gmd-${name}")
+                // TODO
+                //.sizeDp(size)
         }
     }
 }
