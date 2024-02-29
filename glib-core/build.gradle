@@ -74,4 +74,31 @@ dependencies {
     // See https://github.com/voghDev/PdfViewPager/pull/195/files for gradle config
     implementation 'com.github.voghDev:PdfViewPager:1.1.2'
 
+
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.9.3'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    implementation 'com.squareup:javapoet:1.13.0'
+
+    // Compose
+    def composeBom = platform('androidx.compose:compose-bom:2024.02.00')
+    implementation composeBom
+    implementation 'androidx.compose.foundation:foundation'
+    implementation 'androidx.compose.ui:ui:1.6.1'
+    implementation 'androidx.compose.ui:ui-graphics:1.6.1'
+    implementation 'androidx.compose.ui:ui-tooling:1.6.1'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.6.1'
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+    implementation 'androidx.compose.runtime:runtime-livedata'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13'
+    implementation 'io.coil-kt:coil-compose:2.4.0'
+    implementation 'androidx.compose.material:material-icons-extended'
+
 }
