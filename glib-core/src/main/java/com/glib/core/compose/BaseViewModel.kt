@@ -7,13 +7,10 @@ import androidx.compose.material.icons.filled.WifiOff
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.glib.core.compose.components.ComponentUiState
+import com.glib.core.compose.model.ComponentDetailScreenItem
 import com.glib.core.compose.model.ErrorItemModel
-import com.teamapp.teamapp.app.App
-import com.teamapp.teamapp.compose.ui.components.ComponentUiState
-import com.teamapp.teamapp.compose.ui.components.model.AccordionItemModel
-import com.teamapp.teamapp.compose.ui.core.model.ErrorItemModel
-import com.teamapp.teamapp.compose.ui.pagelevel.ComponentDetailScreenItem
-import com.teamapp.teamapp.network.helpers.CallResult
+import com.glib.core.compose.network.helpers.CallResult
+import com.glib.core.utils.Res
 import com.teamapp.teamapp.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,13 +19,12 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 // TODO: use Hilt DI for dependency handling also pass URL here using SavedStateHandle Instead of passing to function
-class BaseViewModel(private val repository: Repository = Repository(App.context())) : ViewModel() {
+class BaseViewModel(private val repository: Repository = Repository(Res.context)) : ViewModel() {
 
     private val _componentsState: MutableStateFlow<ComponentUiState> =
         MutableStateFlow(ComponentUiState.Loading)
