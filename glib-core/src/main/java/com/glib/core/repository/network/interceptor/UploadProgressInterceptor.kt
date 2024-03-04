@@ -1,4 +1,4 @@
-package com.teamapp.teamapp.network.interceptor
+package com.glib.core.repository.network.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.MediaType

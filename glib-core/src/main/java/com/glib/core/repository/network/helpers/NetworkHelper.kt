@@ -1,4 +1,4 @@
-package com.glib.core.compose.network.helpers
+package com.glib.core.repository.network.helpers
 
 import okhttp3.Headers
 import org.json.JSONException

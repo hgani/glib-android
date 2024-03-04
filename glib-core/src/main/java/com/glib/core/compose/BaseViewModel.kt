@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.glib.core.compose.components.ComponentUiState
 import com.glib.core.compose.model.ComponentDetailScreenItem
 import com.glib.core.compose.model.ErrorItemModel
-import com.glib.core.compose.network.helpers.CallResult
+import com.glib.core.repository.network.helpers.CallResult
 import com.glib.core.utils.Res
 import com.teamapp.teamapp.repository.Repository
 import kotlinx.coroutines.Dispatchers

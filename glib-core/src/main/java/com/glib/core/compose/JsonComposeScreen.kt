@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.glib.core.compose.components.ComponentScreen
+import com.glib.core.compose.core.extensions.parseColor
 import com.teamapp.teamapp.compose.theme.AppTheme
 import kotlinx.coroutines.launch
 import org.json.JSONObject

@@ -1,17 +1,17 @@
 package com.teamapp.teamapp.repository
 
 import android.content.Context
-import com.glib.core.compose.network.helpers.CallResult
-import com.glib.core.compose.network.helpers.safeApiCall
 import com.glib.core.http.GHttp
 import com.glib.core.repository.db.JsonResponseModel
 import com.glib.core.repository.db.LocalDatabase
+import com.glib.core.repository.network.helpers.CallResult
+import com.glib.core.repository.network.helpers.safeApiCall
+import com.glib.core.repository.network.interceptor.DefaultHeadersInterceptor
+import com.glib.core.repository.network.interceptor.NetworkConnectionInterceptor
+import com.glib.core.repository.network.interceptor.UploadProgressInterceptor
+import com.glib.core.repository.network.interceptor.UploadProgressListener
 import com.glib.core.utils.Res
 import com.teamapp.teamapp.network.api.GenericApi
-import com.teamapp.teamapp.network.interceptor.DefaultHeadersInterceptor
-import com.teamapp.teamapp.network.interceptor.NetworkConnectionInterceptor
-import com.teamapp.teamapp.network.interceptor.UploadProgressInterceptor
-import com.teamapp.teamapp.network.interceptor.UploadProgressListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext

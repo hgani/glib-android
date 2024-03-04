@@ -1,7 +1,7 @@
-package com.teamapp.teamapp.network.interceptor
+package com.glib.core.repository.network.interceptor
 
-import com.teamapp.teamapp.network.helpers.NetworkHelper
-import com.teamapp.teamapp.network.helpers.NoConnectivityException
+import com.glib.core.repository.network.helpers.NetworkHelper
+import com.glib.core.repository.network.helpers.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
 
