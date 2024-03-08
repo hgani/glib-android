@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,8 +25,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import com.glib.core.compose.components.ComponentScreen
 import com.glib.core.compose.core.extensions.parseColor
 import com.teamapp.teamapp.compose.theme.AppTheme
@@ -34,7 +40,7 @@ class JsonComposeScreen : ComponentActivity() {
     private val viewModel by viewModels<BaseViewModel>()
     private lateinit var pageUrl: String
 
-//    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageUrl = intent.getStringExtra(ARGUMENT_KEY_BASE_ACTIVITY_PAGE_URL) ?: ""
@@ -50,13 +56,13 @@ class JsonComposeScreen : ComponentActivity() {
             val inViewActionJson by viewModel.inViewAction.collectAsState(initial = null)
             val snackBarHostState = remember { SnackbarHostState() }
             val coroutineScope = rememberCoroutineScope()
-//            val pullToRefreshState = rememberPullToRefreshState()
+            val pullToRefreshState = rememberPullToRefreshState()
             AppTheme {
                 Surface {
                     Scaffold(snackbarHost = { SnackbarHost(hostState = snackBarHostState) }) {
                         Box(
                             modifier = Modifier
-//                                .nestedScroll(pullToRefreshState.nestedScrollConnection)
+                                .nestedScroll(pullToRefreshState.nestedScrollConnection)
                                 .padding(it)
                                 .fillMaxSize()
                         ) {
@@ -90,27 +96,27 @@ class JsonComposeScreen : ComponentActivity() {
                                 }
                             }
 
-//                            // --------------------- PullToRefresh --------------------- //
-//
-//                            // When pull to refresh state and start fetching result
-//                            if (pullToRefreshState.isRefreshing) {
-//                                LaunchedEffect(true) {
-//                                    viewModel.loadRemoteDataFlow(url = pageUrl, swipeRefresh = true)
-//                                }
-//                            }
-//
-//                            // When result is fetched either success or failure stop indicator
-//                            LaunchedEffect(key1 = true) {
-//                                viewModel.isRefreshing.collect {isRefreshing ->
-//                                    if (!isRefreshing) {
-//                                        pullToRefreshState.endRefresh()
-//                                    }
-//                                }
-//                            }
+                            // --------------------- PullToRefresh --------------------- //
+
+                            // When pull to refresh state and start fetching result
+                            if (pullToRefreshState.isRefreshing) {
+                                LaunchedEffect(true) {
+                                    viewModel.loadRemoteDataFlow(url = pageUrl, swipeRefresh = true)
+                                }
+                            }
+
+                            // When result is fetched either success or failure stop indicator
+                            LaunchedEffect(key1 = true) {
+                                viewModel.isRefreshing.collect {isRefreshing ->
+                                    if (!isRefreshing) {
+                                        pullToRefreshState.endRefresh()
+                                    }
+                                }
+                            }
 
                             // TODO
                             // Actual Pull to refresh indicator UI
-//                            PullToRefreshContainer(modifier = Modifier.align(Alignment.TopCenter), state = pullToRefreshState)
+                            PullToRefreshContainer(modifier = Modifier.align(Alignment.TopCenter), state = pullToRefreshState)
                         }
                     }
                 }
@@ -118,15 +124,15 @@ class JsonComposeScreen : ComponentActivity() {
         }
 
     // TODO
-//        // Collect Action
-//        lifecycleScope.launch {
-//            viewModel.navigator.collect { jsonObject ->
-//                handleAction(
-//                    jsonObject = jsonObject,
-//                    updateInViewAction = viewModel::updateInViewAction
-//                )
-//            }
-//        }
+        // Collect Action
+        lifecycleScope.launch {
+            viewModel.navigator.collect { jsonObject ->
+                handleAction(
+                    jsonObject = jsonObject,
+                    updateInViewAction = viewModel::updateInViewAction
+                )
+            }
+        }
     }
 
     // Note:- We can separate InView actions and Non InView Actions Directly into viewmodel but having here will be easy for readability

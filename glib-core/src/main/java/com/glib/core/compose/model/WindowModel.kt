@@ -1,15 +1,15 @@
 package com.glib.core.compose.model
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
-import com.glib.core.compose.components.EmptyModel
 import com.glib.core.compose.core.extensions.nullableColor
 import com.glib.core.compose.core.extensions.nullableString
-import com.glib.core.compose.core.extensions.sliceJSONObjectList
+import com.glib.core.compose.core.extensions.nullableObjectList
 import org.json.JSONObject
 
 // We're avoiding mapping of "component" as it is being mapped and handled in relevant class
 // We're avoiding mapping of "navMenu", "onLoad", "onFocus" for now, once we needed we can map them
-data class ComponentDetailScreenItem(
+data class WindowModel(
     val section: String,
     val title: String,
     val contentTitle: String,
@@ -22,11 +22,13 @@ data class ComponentDetailScreenItem(
     val reloadWindowOnFocus: Boolean,
     val toolbarType: String,
 //    val profileHeaderV2Model: ProfileHeaderV2Model?,
-    val components: List<ComponentModel>?
+//    val components: List<ComponentModel>?
+
+    val bodyViews: List<JSONObject>?
 ) {
 
     companion object {
-        fun map(jsonObject: JSONObject): ComponentDetailScreenItem {
+        fun map(jsonObject: JSONObject): WindowModel {
             val section = jsonObject.nullableString("section") ?: ""
             val title = jsonObject.nullableString("title") ?: ""
             val contentTitle = jsonObject.nullableString("contentTitle") ?: ""
@@ -42,9 +44,15 @@ data class ComponentDetailScreenItem(
             val toolbarType = jsonObject.nullableString("toolbarType") ?: ""
 
 //            val profileHeaderV2Model = jsonObject.sliceJsonObject("profileHeaderV2")?.let { ProfileHeaderV2Model.map(it) }
-            val components = jsonObject.sliceJSONObjectList("components")?.map { getComponentModel(it) }
 
-            return ComponentDetailScreenItem(
+            Log.d("TEST1", "getComponentModel3" + jsonObject)
+//            val components = jsonObject.getJSONObject("body").sliceJSONObjectList("childViews")?.map { getComponentModel(it) }
+
+            val bodyViews = jsonObject.getJSONObject("body").nullableObjectList("childViews")
+
+            Log.d("TEST1", "getComponentModel4" + bodyViews?.size)
+
+            return WindowModel(
                 section = section,
                 title = title,
                 contentTitle = contentTitle,
@@ -57,64 +65,9 @@ data class ComponentDetailScreenItem(
                 reloadWindowOnFocus = reloadWindowOnFocus,
                 toolbarType = toolbarType,
 //                profileHeaderV2Model = profileHeaderV2Model,
-                components = components
+
+                bodyViews = bodyViews
             )
         }
     }
-}
-
-private fun getComponentModel(jsonObject: JSONObject): ComponentModel {
-    return EmptyModel.map(jsonObject)
-
-//    val type = jsonObject.nullableString("type")
-//    return when (type) {
-        // TODO
-//        "profileHeaderV2" -> {
-//            ProfileHeaderV2Model.map(jsonObject)
-//        }
-//
-//        "spacer" -> {
-//            SpacerModel.map(jsonObject)
-//        }
-//
-//        "separator" -> {
-//            SeparatorModel.map(jsonObject)
-//        }
-//
-//        "sectionTitle" -> {
-//            SectionTitleModel.map(jsonObject)
-//        }
-//
-//        "chipGroup" -> {
-//            ChipGroupModel.map(jsonObject)
-//        }
-//
-//        "callToAction" -> {
-//            CallToActionModel.map(jsonObject)
-//        }
-//
-//        "fieldLabel" -> {
-//            FieldLabelModel.map(jsonObject)
-//        }
-//
-//        "accordionItemTop" -> {
-//            AccordionItemModel.map(jsonObject)
-//        }
-//
-//        "accordionItemCenter" -> {
-//            AccordionItemModel.map(jsonObject)
-//        }
-//
-//        "accordionItemBottom" -> {
-//            AccordionItemModel.map(jsonObject)
-//        }
-//
-//        "embeddedList" -> {
-//            EmbeddedListModel.map(jsonObject)
-//        }
-//
-//        else -> {
-//        EmptyModel.map(jsonObject)
-//        }
-//    }
 }

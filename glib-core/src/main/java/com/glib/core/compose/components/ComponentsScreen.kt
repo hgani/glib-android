@@ -1,5 +1,6 @@
 package com.glib.core.compose.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,11 +23,16 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.glib.core.compose.BaseViewModel
+import com.glib.core.compose.core.extensions.nullableString
 import com.glib.core.compose.core.extensions.parseColor
 import com.glib.core.compose.model.ComponentModel
+import com.glib.core.compose.model.H1Model
+import com.glib.core.compose.model.ScrollPanelModel
+import com.glib.core.compose.views.H1View
+import com.glib.core.compose.views.ScrollPanelView
+import org.json.JSONObject
 
 @Composable
-
 fun ComponentScreen(
     state: ComponentUiState,
     viewModel: BaseViewModel
@@ -56,7 +62,7 @@ private fun ComponentContent(
     state: ComponentUiState.Loaded,
     viewModel: BaseViewModel
 ) {
-    val bodyComponents = state.componentDetailScreenItem.components
+    val bodyComponents = state.windowModel.bodyViews
     Column {
         val maxPx = with(LocalDensity.current) { 250.dp.roundToPx().toFloat() }
         val minPx = with(LocalDensity.current) { 50.dp.roundToPx().toFloat() }
@@ -97,10 +103,54 @@ private fun ComponentContent(
     }
 }
 
+//@Composable
+//private fun ComponentBody(
+//    components: List<ComponentModel>,
+//    nestedScrollConnection: NestedScrollConnection,
+//    viewModel: BaseViewModel
+//) {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .nestedScroll(nestedScrollConnection)
+//            .background(color = "#f3f6f9".parseColor() ?: Color.White), contentAlignment = Alignment.TopCenter
+//    ) {
+//        LazyColumn(modifier = Modifier.fillMaxSize(), state = rememberLazyListState(), contentPadding = PaddingValues(bottom = 14.dp)) {
+//            items(items = components) { componentModel ->
+//                ComponentView(componentModel = componentModel, navigateTo = viewModel::navigateTo)
+//            }
+//        }
+//    }
+//}
+//
+//
+//@Composable
+//fun ComponentView(
+//    componentModel: ComponentModel,
+//    navigateTo: (JSONObject) -> Unit
+//) {
+//    when (componentModel) {
+//        is ScrollPanelModel -> {
+//            Log.i("TEST1", "ComponentBody2")
+//
+//            ScrollPanelView(scrollPanelModel = componentModel, navigateTo = navigateTo)
+//        }
+//        is H1Model -> {
+//            Log.i("TEST1", "ComponentBody2")
+//
+//            H1View(model = componentModel, navigateTo = navigateTo)
+//        }
+//
+//        is EmptyModel -> {
+//            Log.i("TEST1", "ComponentBody3 " + componentModel)
+//            EmptyComponent(emptyModel = componentModel)
+//        }
+//    }
+//}
 
 @Composable
 private fun ComponentBody(
-    components: List<ComponentModel>,
+    components: List<JSONObject>,
     nestedScrollConnection: NestedScrollConnection,
     viewModel: BaseViewModel
 ) {
@@ -112,48 +162,48 @@ private fun ComponentBody(
     ) {
         LazyColumn(modifier = Modifier.fillMaxSize(), state = rememberLazyListState(), contentPadding = PaddingValues(bottom = 14.dp)) {
             items(items = components) { componentModel ->
-                when (componentModel) {
-                    // TODO
-//                    is SpacerModel -> {
-//                        SpacerComponent(spacerModel = componentModel)
-//                    }
-//
-//                    is SectionTitleModel -> {
-//                        SectionTitleComponent(sectionTitleModel = componentModel, navigateTo = viewModel::navigateTo)
-//                    }
-//
-//                    is CallToActionModel -> {
-//                        CallToActionComponent(callToActionModel = componentModel, navigateTo = viewModel::navigateTo)
-//                    }
-//
-//                    is ChipGroupModel -> {
-//                        ChipGroupComponent(chipGroupModel = componentModel)
-//                    }
-//
-//                    is AccordionItemModel -> {
-//                        AccordionItemsComponent(
-//                            accordionItemModel = componentModel,
-//                            onItemClick = { viewModel.updateExpandCollapse(it) }
-//                        )
-//                    }
-//
-//                    is SeparatorModel -> {
-//                        SeparatorComponent(separatorModel = componentModel)
-//                    }
-//
-//                    is EmbeddedListModel -> {
-//                        EmbeddedListComponent(embeddedListModel = componentModel, navigateTo = viewModel::navigateTo)
-//                    }
-//
-//                    is FieldLabelModel -> {
-//                        FieldLabelComponent(filedLabelModel = componentModel, navigateTo = viewModel::navigateTo)
-//                    }
-//
-                    is EmptyModel -> {
-                        EmptyComponent(emptyModel = componentModel)
-                    }
-                }
+                ComponentView(componentModel = componentModel, navigateTo = viewModel::navigateTo)
             }
         }
     }
+}
+
+@Composable
+fun ComponentView(
+    componentModel: JSONObject,
+    navigateTo: (JSONObject) -> Unit
+) {
+    val type = componentModel.nullableString("view") ?: ""
+    Log.d("TEST1", "getComponentModel1: " + type + " -- " + type.removeSuffix("-v1"))
+    return when (type.removeSuffix("-v1")) {
+        "panels/scroll" -> {
+            Log.d("TEST1", "getComponentModel2")
+            ScrollPanelView(model = componentModel, navigateTo = navigateTo)
+        }
+        "h1" -> {
+            Log.d("TEST1", "getComponentModel2")
+            H1View(model = componentModel, navigateTo = navigateTo)
+        }
+        else -> {
+            EmptyComponent(model = componentModel)
+        }
+    }
+
+//    when (componentModel) {
+//        is ScrollPanelModel -> {
+//            Log.i("TEST1", "ComponentBody2")
+//
+//            ScrollPanelView(scrollPanelModel = componentModel, navigateTo = navigateTo)
+//        }
+//        is H1Model -> {
+//            Log.i("TEST1", "ComponentBody2")
+//
+//            H1View(model = componentModel, navigateTo = navigateTo)
+//        }
+//
+//        is EmptyModel -> {
+//            Log.i("TEST1", "ComponentBody3 " + componentModel)
+//            EmptyComponent(emptyModel = componentModel)
+//        }
+//    }
 }

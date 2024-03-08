@@ -13,6 +13,10 @@ fun JSONObject.nullableString(key: String): String? {
     }
 }
 
+fun JSONObject.string(key: String, defaultValue: String = ""): String {
+    return nullableString(key = key) ?: defaultValue
+}
+
 fun JSONObject.nullableInt(key: String): Int? {
     return try {
         this.getInt(key)
@@ -69,11 +73,15 @@ fun JSONArray.toJSONObjectList(): List<JSONObject> {
  * @param key (Make sure the key is for `JSONArray` and not the `JSONObject` otherwise return value will be null)
  * @return List<JSONObject>?
  * */
-fun JSONObject.sliceJSONObjectList(key: String): List<JSONObject>? =
+fun JSONObject.nullableObjectList(key: String): List<JSONObject>? =
     this.sliceJsonArray(key = key)?.toJSONObjectList()
 
 
-// Only use to getComponents from JSONObject
-fun JSONObject.sliceComponents(): JSONArray? {
-    return this.sliceJsonArray("components")
+fun JSONObject.objectList(key: String): List<JSONObject> {
+    return nullableObjectList(key = key) ?: listOf()
 }
+
+//// Only use to getComponents from JSONObject
+//fun JSONObject.sliceComponents(): JSONArray? {
+//    return this.sliceJsonArray("components")
+//}

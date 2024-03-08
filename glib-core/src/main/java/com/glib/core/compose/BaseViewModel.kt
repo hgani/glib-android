@@ -1,5 +1,6 @@
 package com.glib.core.compose
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Error
@@ -7,7 +8,7 @@ import androidx.compose.material.icons.filled.WifiOff
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.glib.core.compose.components.ComponentUiState
-import com.glib.core.compose.model.ComponentDetailScreenItem
+import com.glib.core.compose.model.WindowModel
 import com.glib.core.compose.model.ErrorItemModel
 import com.glib.core.repository.network.helpers.CallResult
 import com.glib.core.utils.Res
@@ -62,19 +63,23 @@ class BaseViewModel(private val repository: Repository = Repository(Res.context)
     }
 
     fun loadRemoteDataFlow(url: String, swipeRefresh: Boolean = false) {
+        Log.d("TEST1", "loadRemoteDataFlow1")
         viewModelScope.launch {
             if (!swipeRefresh) {
                 _componentsState.value = ComponentUiState.Loading
             }
             repository.genericGetNetworkCallFlow(url = url).collect { response ->
+                Log.d("TEST1", "loadRemoteDataFlow2")
                 when (response) {
                     is CallResult.Success -> {
                         val jsonObject = response.data
+
+                        Log.d("TEST1", "loadRemoteDataFlow2" + jsonObject)
                         withContext(Dispatchers.Default) {
-                            val componentDetailScreenItem: ComponentDetailScreenItem =
-                                ComponentDetailScreenItem.map(jsonObject)
+                            val windowModel: WindowModel =
+                                WindowModel.map(jsonObject)
                             _componentsState.value =
-                                ComponentUiState.Loaded(componentDetailScreenItem)
+                                ComponentUiState.Loaded(windowModel)
                         }
                     }
 
