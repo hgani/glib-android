@@ -1,4 +1,4 @@
-package com.teamapp.teamapp.compose.theme
+package com.glib.core.compose.theme
 
 import androidx.compose.material3.Typography
 

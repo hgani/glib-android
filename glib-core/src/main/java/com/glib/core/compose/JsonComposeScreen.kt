@@ -32,7 +32,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.glib.core.compose.components.ComponentScreen
 import com.glib.core.compose.core.extensions.parseColor
-import com.teamapp.teamapp.compose.theme.AppTheme
+import com.glib.core.compose.theme.AppTheme
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 

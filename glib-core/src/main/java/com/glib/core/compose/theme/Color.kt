@@ -1,4 +1,4 @@
-package com.example.motionlayoutexperinents.ui.theme
+package com.glib.core.compose.theme
 
 import androidx.compose.ui.graphics.Color
 

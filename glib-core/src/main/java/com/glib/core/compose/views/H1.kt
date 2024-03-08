@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.glib.core.compose.core.extensions.getTypography
 import com.glib.core.compose.core.extensions.string
 import org.json.JSONObject
 
@@ -14,10 +15,11 @@ import org.json.JSONObject
 fun H1(model: JSONObject, navigateTo: ((JSONObject) -> Unit)? = null) {
     Text(
         model.string("text"),
-        style = TextStyle(
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
-        )
+//        style = TextStyle(
+//            fontSize = 30.sp,
+//            fontWeight = FontWeight.Bold
+//        )
+        style = "h1".getTypography()
     )
 }
 

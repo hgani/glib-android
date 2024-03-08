@@ -21,9 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.teamapp.teamapp.compose.theme.PaddingMedium
-import com.teamapp.teamapp.compose.theme.RoundCornerMedium
-import com.teamapp.teamapp.compose.theme.ScreenDefaultHorizontalPadding
+import com.glib.core.compose.theme.PaddingMedium
+import com.glib.core.compose.theme.RoundCornerMedium
+import com.glib.core.compose.theme.ScreenDefaultHorizontalPadding
 
 @Composable
 fun CommonErrorScreen(errorText: String, errorIcon: ImageVector? = null, retry: (() -> Unit)? = null) {

@@ -2,7 +2,7 @@ package com.glib.core.compose.core.extensions
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.teamapp.teamapp.compose.theme.Typography
+import com.glib.core.compose.theme.Typography
 
 /**
  * @return typography based on the string

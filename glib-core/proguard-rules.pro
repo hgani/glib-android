@@ -12,6 +12,6 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.com.teamapp.teamapp.component.controller.webview {
+#-keepclassmembers class com.example.component.controller.webview {
 #   public *;
 #}

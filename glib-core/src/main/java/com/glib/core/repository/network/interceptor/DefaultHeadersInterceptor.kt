@@ -38,17 +38,4 @@ class DefaultHeadersInterceptor : Interceptor {
             else -> code
         }
     }
-
-//    companion object {
-//        private const val HEADER_NAME_BUILD = "TeamApp-Build"
-//        private const val HEADER_NAME_VERSION = "TeamApp-Version"
-//        private const val HEADER_NAME_DEVICE_OS = "TeamApp-DeviceOS"
-//        private const val HEADER_VALUE_DEVICE_OS = "android"
-//        private const val HEADER_NAME_DEVICE_MANUFACTURER = "TeamApp-DeviceManufacturer"
-//        private const val HEADER_NAME_DEVICE_MODEL = "TeamApp-DeviceModel"
-//        private const val HEADER_NAME_DEVICE_WIDTH = "TeamApp-DeviceWidth"
-//        private const val HEADER_NAME_DEVICE_REMOTE_DEVICE_UUID = "TeamApp-DeviceRemoteDeviceUUID"
-//        private const val HEADER_NAME_DEVICE_HEIGHT = "TeamApp-DeviceHeight"
-//        private const val HEADER_NAME_LANGUAGE = "TeamApp-Language"
-//    }
 }

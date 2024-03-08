@@ -1,6 +1,5 @@
 package com.glib.core.compose
 
-import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Error
@@ -8,11 +7,11 @@ import androidx.compose.material.icons.filled.WifiOff
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.glib.core.compose.components.ComponentUiState
-import com.glib.core.compose.model.WindowModel
 import com.glib.core.compose.model.ErrorItemModel
+import com.glib.core.compose.model.WindowModel
+import com.glib.core.repository.Repository
 import com.glib.core.repository.network.helpers.CallResult
 import com.glib.core.utils.Res
-import com.teamapp.teamapp.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

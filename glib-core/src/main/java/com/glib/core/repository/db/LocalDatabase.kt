@@ -11,7 +11,7 @@ import com.glib.core.utils.Res
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun dao(): Dao
     companion object {
-        private const val DATABASE_NAME: String = "team_app_local_db"
+        private const val DATABASE_NAME: String = "app_local_db"
         val INSTANCE = Room.databaseBuilder(Res.context, LocalDatabase::class.java, DATABASE_NAME).allowMainThreadQueries().fallbackToDestructiveMigration().build()
     }
 }
