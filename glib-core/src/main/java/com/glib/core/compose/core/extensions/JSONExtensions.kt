@@ -76,9 +76,30 @@ fun JSONArray.toJSONObjectList(): List<JSONObject> {
 fun JSONObject.nullableObjectList(key: String): List<JSONObject>? =
     this.sliceJsonArray(key = key)?.toJSONObjectList()
 
-
 fun JSONObject.objectList(key: String): List<JSONObject> {
     return nullableObjectList(key = key) ?: listOf()
+}
+
+//fun JSONObject.json(key: String): JSONObject? {
+//    return getJSONObject(key)
+//}
+
+//private fun JSONObject.string(name: String): String? {
+//    try {
+//        // isNull() is needed to check if the property is explicitly specified as null.
+//        // If the property is not specified (i.e. undefined), we'll get JSONException.
+//        return if (isNull(name)) null else strictString(name)
+//    } catch (e: JSONException) {
+//        return null
+//    }
+//}
+//
+//@Throws(JSONException::class)
+//private fun JSONObject.strictString(name: String): String {
+//    return getString(name)
+//}
+fun JSONObject.nullableObject(key: String): JSONObject? {
+    return getJSONObject(key)
 }
 
 //// Only use to getComponents from JSONObject

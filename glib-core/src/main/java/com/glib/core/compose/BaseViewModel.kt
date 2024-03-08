@@ -63,18 +63,15 @@ class BaseViewModel(private val repository: Repository = Repository(Res.context)
     }
 
     fun loadRemoteDataFlow(url: String, swipeRefresh: Boolean = false) {
-        Log.d("TEST1", "loadRemoteDataFlow1")
         viewModelScope.launch {
             if (!swipeRefresh) {
                 _componentsState.value = ComponentUiState.Loading
             }
             repository.genericGetNetworkCallFlow(url = url).collect { response ->
-                Log.d("TEST1", "loadRemoteDataFlow2")
                 when (response) {
                     is CallResult.Success -> {
                         val jsonObject = response.data
 
-                        Log.d("TEST1", "loadRemoteDataFlow2" + jsonObject)
                         withContext(Dispatchers.Default) {
                             val windowModel: WindowModel =
                                 WindowModel.map(jsonObject)

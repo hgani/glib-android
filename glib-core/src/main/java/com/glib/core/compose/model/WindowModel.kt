@@ -3,6 +3,7 @@ package com.glib.core.compose.model
 import android.util.Log
 import androidx.compose.ui.graphics.Color
 import com.glib.core.compose.core.extensions.nullableColor
+import com.glib.core.compose.core.extensions.nullableObject
 import com.glib.core.compose.core.extensions.nullableString
 import com.glib.core.compose.core.extensions.nullableObjectList
 import org.json.JSONObject
@@ -24,7 +25,9 @@ data class WindowModel(
 //    val profileHeaderV2Model: ProfileHeaderV2Model?,
 //    val components: List<ComponentModel>?
 
-    val bodyViews: List<JSONObject>?
+//    val bodyViews: List<JSONObject>?
+
+    val body: JSONObject?
 ) {
 
     companion object {
@@ -43,14 +46,12 @@ data class WindowModel(
                 jsonObject.nullableString("reloadWindowOnFocus")?.toBoolean() ?: false
             val toolbarType = jsonObject.nullableString("toolbarType") ?: ""
 
-//            val profileHeaderV2Model = jsonObject.sliceJsonObject("profileHeaderV2")?.let { ProfileHeaderV2Model.map(it) }
-
             Log.d("TEST1", "getComponentModel3" + jsonObject)
 //            val components = jsonObject.getJSONObject("body").sliceJSONObjectList("childViews")?.map { getComponentModel(it) }
 
-            val bodyViews = jsonObject.getJSONObject("body").nullableObjectList("childViews")
+//            val bodyViews = jsonObject.getJSONObject("body").nullableObjectList("childViews")
 
-            Log.d("TEST1", "getComponentModel4" + bodyViews?.size)
+//            Log.d("TEST1", "getComponentModel4" + bodyViews?.size)
 
             return WindowModel(
                 section = section,
@@ -66,7 +67,7 @@ data class WindowModel(
                 toolbarType = toolbarType,
 //                profileHeaderV2Model = profileHeaderV2Model,
 
-                bodyViews = bodyViews
+                body = jsonObject.nullableObject("body")
             )
         }
     }

@@ -26,8 +26,10 @@ import com.glib.core.compose.BaseViewModel
 import com.glib.core.compose.core.extensions.nullableString
 import com.glib.core.compose.core.extensions.parseColor
 import com.glib.core.compose.core.extensions.string
+import com.glib.core.compose.views.ComponentView
 import com.glib.core.compose.views.H1
 import com.glib.core.compose.views.H2
+import com.glib.core.compose.views.ResponsivePanel
 import com.glib.core.compose.views.ScrollPanel
 import com.glib.core.logging.GLog
 import org.json.JSONObject
@@ -62,7 +64,7 @@ private fun ComponentContent(
     state: ComponentUiState.Loaded,
     viewModel: BaseViewModel
 ) {
-    val bodyComponents = state.windowModel.bodyViews
+//    val bodyComponents = state.windowModel.bodyViews
     Column {
         val maxPx = with(LocalDensity.current) { 250.dp.roundToPx().toFloat() }
         val minPx = with(LocalDensity.current) { 50.dp.roundToPx().toFloat() }
@@ -93,9 +95,10 @@ private fun ComponentContent(
         }
 //        val progress = 1 - (toolbarHeight.value - minPx) / (maxPx - minPx)
 
-        if (bodyComponents != null) {
+        val bodySpec = state.windowModel.body
+        if (bodySpec != null) {
             ComponentBody(
-                components = bodyComponents,
+                model = bodySpec,
                 nestedScrollConnection = nestedScrollConnection,
                 viewModel = viewModel
             )
@@ -105,7 +108,7 @@ private fun ComponentContent(
 
 @Composable
 private fun ComponentBody(
-    components: List<JSONObject>,
+    model: JSONObject,
     nestedScrollConnection: NestedScrollConnection,
     viewModel: BaseViewModel
 ) {
@@ -115,34 +118,12 @@ private fun ComponentBody(
             .nestedScroll(nestedScrollConnection)
             .background(color = "#f3f6f9".parseColor() ?: Color.White), contentAlignment = Alignment.TopCenter
     ) {
-        LazyColumn(modifier = Modifier.fillMaxSize(), state = rememberLazyListState(), contentPadding = PaddingValues(bottom = 14.dp)) {
-            items(items = components) { componentModel ->
-                ComponentView(componentModel = componentModel, navigateTo = viewModel::navigateTo)
-            }
-        }
-    }
-}
+        ResponsivePanel(model = model, navigateTo = viewModel::navigateTo)
 
-@Composable
-fun ComponentView(
-    componentModel: JSONObject,
-    navigateTo: (JSONObject) -> Unit
-) {
-    val type = componentModel.string("view")
-    return when (type.removeSuffix("-v1")) {
-        "panels/scroll" -> {
-            ScrollPanel(model = componentModel, navigateTo = navigateTo)
-        }
-        "h1" -> {
-            H1(model = componentModel, navigateTo = navigateTo)
-        }
-        "h2" -> {
-            H2(model = componentModel, navigateTo = navigateTo)
-        }
-        else -> {
-            // From: https://stackoverflow.com/questions/72278954/get-composable-function-name-inside-it
-            GLog.e(object{}::class.java, "Invalid view type: ${type}")
-            EmptyComponent(model = componentModel)
-        }
+//        LazyColumn(modifier = Modifier.fillMaxSize(), state = rememberLazyListState(), contentPadding = PaddingValues(bottom = 14.dp)) {
+//            items(items = components) { componentModel ->
+//                ComponentView(componentModel = componentModel, navigateTo = viewModel::navigateTo)
+//            }
+//        }
     }
 }
