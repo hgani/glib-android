@@ -1,14 +1,11 @@
 package com.glib.core.ui.json.actions.windows
 
-import android.graphics.Color
 import android.view.Menu
 import android.view.MenuInflater
-import com.glib.core.BuildConfig
 import com.glib.core.http.GRestCallback
 import com.glib.core.http.Rest
 import com.glib.core.http.UrlUtils
 import com.glib.core.json.GJson
-import com.glib.core.logging.GLog
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreen
@@ -17,8 +14,6 @@ import com.glib.core.ui.json.JsonAction
 import com.glib.core.ui.json.JsonUi
 import com.glib.core.ui.json.JsonView
 import com.glib.core.ui.menu.GMenu
-import com.glib.core.ui.view.GButton
-import java.lang.UnsupportedOperationException
 
 abstract class JsonUiFragment : GFragment {
     var path: String? = null
@@ -119,13 +114,6 @@ abstract class JsonUiFragment : GFragment {
                 }
             }
         }
-
-//        args[JsonUiScreen.ARG_ACTION_SPEC].json?.let {
-//            JsonAction.execute(it, activity, null, null)
-//
-//            // This doesn't work in practice because the execution will get killed along with the Activity.
-////            activity.finish()
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

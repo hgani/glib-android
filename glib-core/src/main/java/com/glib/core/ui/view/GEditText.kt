@@ -43,16 +43,17 @@ class GEditText : TextInputEditText, IView {
     }
 
     private fun init() {
+        // TODO: Disabled during Compose upgrade
         // See https://stackoverflow.com/questions/21397977/android-edit-text-cursor-is-not-visible
         // See https://stackoverflow.com/questions/11554078/set-textcursordrawable-programmatically
-        try {
-            // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
-            val f = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-            f.isAccessible = true
-            f.set(this, R.drawable.edit_text_cursor)
-        } catch (e: Exception) {
-            GLog.e(javaClass, "Failed setting cursor", e)
-        }
+//        try {
+//            // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
+//            val f = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+//            f.isAccessible = true
+//            f.set(this, R.drawable.edit_text_cursor)
+//        } catch (e: Exception) {
+//            GLog.e(javaClass, "Failed setting cursor", e)
+//        }
 
         addTextChangedListener(textWatcher)
     }
@@ -63,8 +64,9 @@ class GEditText : TextInputEditText, IView {
 
         addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) {
-                val clearIcon = if (editable?.toString() != originalText) R.drawable.abc_ic_clear_material else 0
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
+                // TODO: Disabled during Compose upgrade
+//                val clearIcon = if (editable?.toString() != originalText) R.drawable.abc_ic_clear_material else 0
+//                setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
