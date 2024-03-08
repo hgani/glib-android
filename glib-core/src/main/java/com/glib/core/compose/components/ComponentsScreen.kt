@@ -25,11 +25,11 @@ import androidx.compose.ui.unit.dp
 import com.glib.core.compose.BaseViewModel
 import com.glib.core.compose.core.extensions.nullableString
 import com.glib.core.compose.core.extensions.parseColor
-import com.glib.core.compose.model.ComponentModel
-import com.glib.core.compose.model.H1Model
-import com.glib.core.compose.model.ScrollPanelModel
-import com.glib.core.compose.views.H1View
-import com.glib.core.compose.views.ScrollPanelView
+import com.glib.core.compose.core.extensions.string
+import com.glib.core.compose.views.H1
+import com.glib.core.compose.views.H2
+import com.glib.core.compose.views.ScrollPanel
+import com.glib.core.logging.GLog
 import org.json.JSONObject
 
 @Composable
@@ -103,51 +103,6 @@ private fun ComponentContent(
     }
 }
 
-//@Composable
-//private fun ComponentBody(
-//    components: List<ComponentModel>,
-//    nestedScrollConnection: NestedScrollConnection,
-//    viewModel: BaseViewModel
-//) {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .nestedScroll(nestedScrollConnection)
-//            .background(color = "#f3f6f9".parseColor() ?: Color.White), contentAlignment = Alignment.TopCenter
-//    ) {
-//        LazyColumn(modifier = Modifier.fillMaxSize(), state = rememberLazyListState(), contentPadding = PaddingValues(bottom = 14.dp)) {
-//            items(items = components) { componentModel ->
-//                ComponentView(componentModel = componentModel, navigateTo = viewModel::navigateTo)
-//            }
-//        }
-//    }
-//}
-//
-//
-//@Composable
-//fun ComponentView(
-//    componentModel: ComponentModel,
-//    navigateTo: (JSONObject) -> Unit
-//) {
-//    when (componentModel) {
-//        is ScrollPanelModel -> {
-//            Log.i("TEST1", "ComponentBody2")
-//
-//            ScrollPanelView(scrollPanelModel = componentModel, navigateTo = navigateTo)
-//        }
-//        is H1Model -> {
-//            Log.i("TEST1", "ComponentBody2")
-//
-//            H1View(model = componentModel, navigateTo = navigateTo)
-//        }
-//
-//        is EmptyModel -> {
-//            Log.i("TEST1", "ComponentBody3 " + componentModel)
-//            EmptyComponent(emptyModel = componentModel)
-//        }
-//    }
-//}
-
 @Composable
 private fun ComponentBody(
     components: List<JSONObject>,
@@ -173,37 +128,21 @@ fun ComponentView(
     componentModel: JSONObject,
     navigateTo: (JSONObject) -> Unit
 ) {
-    val type = componentModel.nullableString("view") ?: ""
-    Log.d("TEST1", "getComponentModel1: " + type + " -- " + type.removeSuffix("-v1"))
+    val type = componentModel.string("view")
     return when (type.removeSuffix("-v1")) {
         "panels/scroll" -> {
-            Log.d("TEST1", "getComponentModel2")
-            ScrollPanelView(model = componentModel, navigateTo = navigateTo)
+            ScrollPanel(model = componentModel, navigateTo = navigateTo)
         }
         "h1" -> {
-            Log.d("TEST1", "getComponentModel2")
-            H1View(model = componentModel, navigateTo = navigateTo)
+            H1(model = componentModel, navigateTo = navigateTo)
+        }
+        "h2" -> {
+            H2(model = componentModel, navigateTo = navigateTo)
         }
         else -> {
+            // From: https://stackoverflow.com/questions/72278954/get-composable-function-name-inside-it
+            GLog.e(object{}::class.java, "Invalid view type: ${type}")
             EmptyComponent(model = componentModel)
         }
     }
-
-//    when (componentModel) {
-//        is ScrollPanelModel -> {
-//            Log.i("TEST1", "ComponentBody2")
-//
-//            ScrollPanelView(scrollPanelModel = componentModel, navigateTo = navigateTo)
-//        }
-//        is H1Model -> {
-//            Log.i("TEST1", "ComponentBody2")
-//
-//            H1View(model = componentModel, navigateTo = navigateTo)
-//        }
-//
-//        is EmptyModel -> {
-//            Log.i("TEST1", "ComponentBody3 " + componentModel)
-//            EmptyComponent(emptyModel = componentModel)
-//        }
-//    }
 }
