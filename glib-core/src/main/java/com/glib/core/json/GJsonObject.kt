@@ -147,6 +147,19 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return bool ?: false
         }
 
+    val long: Long?
+        get() {
+            try {
+                return stringValue.toLong()
+            } catch (e: NumberFormatException) {
+                return null
+            }
+        }
+
+    val longValue: Long
+        get() {
+            return long ?: 0
+        }
     val presence: JO?
         get() {
             return if (isNull()) null else (this as? JO)

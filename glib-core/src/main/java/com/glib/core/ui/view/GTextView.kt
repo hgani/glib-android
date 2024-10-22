@@ -12,6 +12,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.widget.AppCompatTextView
+import com.glib.core.ui.layout.GRelativeLayoutParams
 import com.glib.core.utils.Res
 import java.util.*
 import java.util.regex.Pattern
@@ -36,6 +37,11 @@ open class GTextView : AppCompatTextView, IView {
 
     private fun self(): GTextView {
         return this
+    }
+
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): GTextView {
+        helper.relative(addRules)
+        return self()
     }
 
     fun specs(vararg specs: Spec): GTextView {

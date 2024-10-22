@@ -20,6 +20,20 @@ class GJsonBuilder {
         return this
     }
 
+    fun put(key: String, value: Int): GJsonBuilder {
+        rawMap.put(key, value)
+        return this
+    }
+
+    fun put(key: String, value: Boolean): GJsonBuilder {
+        rawMap.put(key, value)
+        return this
+    }
+
+    fun put(key: String, value: List<Long>): GJsonBuilder {
+        rawMap.put(key, value.toLongArray())
+        return this
+    }
     fun put(key: String, value: Date): GJsonBuilder {
         rawMap.put(key, ISO8601Utils.format(value))
         return this
