@@ -5,8 +5,9 @@ import android.widget.CheckBox
 import com.gani.lib.select.ItemSelectScreenHelper
 import com.glib.core.R
 import com.glib.core.ui.list.DtoBindingHolder
+import com.glib.core.ui.panel.GVerticalPanel
 
-abstract class DtoItemSelectHolder<I : SelectableItem?> protected constructor(
+abstract class DtoItemSelectHolder<I : SelectableItem> protected constructor(
     context: Context?,
     private val helper: ItemSelectScreenHelper<I>,
     multiselect: Boolean
@@ -14,17 +15,18 @@ abstract class DtoItemSelectHolder<I : SelectableItem?> protected constructor(
     context!!, false
 ) {
     //  private boolean multiselect;
-    private val selectButton: CheckBox
+//    private var selectButton: CheckBox
 
-    init {
-        //    this.multiselect = multiselect;
-        selectButton = getLayout().findViewById(R.id.toggle_select)
-
-        // TODO
-//        this.selectButton = itemView.findViewById(R.id.toggle_select);
-    }
+//    init {
+//        //    this.multiselect = multiselect;
+//        selectButton = getLayout().findViewById(R.id.toggle_select)
+//
+//        // TODO
+////        this.selectButton = itemView.findViewById(R.id.toggle_select);
+//    }
 
     override fun update(item: I) {
+        val selectButton = getSelectButton()
         selectButton.isChecked = helper.mutableSelectedItems.contains(item)
         selectButton.setOnCheckedChangeListener(helper.ActivityNotifier(item))
     } //  @Override
@@ -43,4 +45,6 @@ abstract class DtoItemSelectHolder<I : SelectableItem?> protected constructor(
     //
     //    return false;
     //  }
+
+    protected abstract fun getSelectButton(): CheckBox
 }

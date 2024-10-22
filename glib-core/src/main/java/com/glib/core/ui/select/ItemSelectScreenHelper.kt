@@ -16,13 +16,18 @@ import java.util.*
 
 class ItemSelectScreenHelper<I : SelectableItem?> {
     private var activity: GScreen? = null
-//    private var fragment: FragmentItemSelect<I>? = null
+    //    private var fragment: FragmentItemSelect<I?>? = null
     var mutableSelectedItems: MutableSet<I?>
         private set
     private var multiselect: Boolean
+//
+//    constructor(
+//        activity: GScreen, savedInstanceState: Bundle?, fragment: FragmentItemSelect<I?>?,
+//        multiselect: Boolean
+//    ) {
 
     constructor(
-        activity: GScreen, savedInstanceState: Bundle?, fragment: FragmentItemSelect<I>?,
+        activity: GScreen, savedInstanceState: Bundle?,
         multiselect: Boolean
     ) {
         this.activity = activity
