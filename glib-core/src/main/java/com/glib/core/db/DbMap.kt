@@ -1,7 +1,6 @@
 package com.glib.core.db
 
 import androidx.room.*
-import com.glib.core.json.GJson
 import com.glib.core.json.GJsonObject
 
 @Entity(indices = arrayOf(Index("name", unique = true)))
@@ -24,11 +23,7 @@ class DbMap {
             return DbRoom.INSTANCE.map().where(key)
         }
 
-//        fun put(key: String, obj: GJsonObject.Default) {
-//            put(key, obj.stringValue)
-//        }
-
-        fun put(key: String, obj: GJson) {
+        fun put(key: String, obj: GJsonObject.Default) {
             put(key, obj.stringValue)
         }
 

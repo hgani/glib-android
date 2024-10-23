@@ -106,7 +106,7 @@ open class GActivity : AppCompatActivity(), GContainer {
 //    }
 
     fun setOkResult(resultKey: String, resultValue: Serializable) {
-        GLog.t(javaClass, "setOkResult: ${Activity.RESULT_OK} - ${resultKey} - ${resultValue}")
+        GLog.t(javaClass, "setOkResult: ${Activity.RESULT_OK } - ${resultKey} - ${resultValue}")
 
         val extras = Intent()
         extras.putExtra(resultKey, resultValue)
@@ -298,7 +298,8 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
 
         fun <T> withArg(key: String, value: Array<T>): IntentBuilder {
-            intent.putExtra(key, GBundle.ArrayWrapper(value))
+//            intent.putExtra(key, GBundle.ArrayWrapper(value))
+            intent.putExtra(key, value)
             return this
         }
 

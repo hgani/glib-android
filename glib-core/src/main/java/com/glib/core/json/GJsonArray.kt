@@ -1,7 +1,9 @@
 package com.glib.core.json
 
+import com.glib.core.logging.GLog
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 
 abstract class GJsonArray<JO : GJsonObject<*, *>> : Iterable<JO> {
@@ -22,6 +24,15 @@ abstract class GJsonArray<JO : GJsonObject<*, *>> : Iterable<JO> {
 //    constructor(elements: Array<JO>) {
 //        this.elements = elements
 //    }
+
+    constructor(list: List<JO>) {
+        list.forEach {
+            elementList.add(it)
+        }
+//        val rawJson = JSONObject(map)
+//        this.rawString = rawJson.toString()
+//        this.rawJson = rawJson
+    }
 
     constructor(backend: JSONArray) {
 //        val temp = ArrayList<JSONObject>()
@@ -63,6 +74,8 @@ abstract class GJsonArray<JO : GJsonObject<*, *>> : Iterable<JO> {
 //    }
 
     override fun toString(): String {
+//        GLog.t(javaClass, "LIST2" + elementList.map { it[GJsonBuilder.KEY_SINGLETON] }.toString())
+//        return elementList.map { it[GJsonBuilder.KEY_SINGLETON] }.toString()
         return elementList.toString()
 //        return Arrays.toString(elements)
     }
@@ -94,6 +107,7 @@ abstract class GJsonArray<JO : GJsonObject<*, *>> : Iterable<JO> {
         constructor(str: String) : super(str) {
         }
 
+        constructor(list: List<GJsonObject.Default>) : super(list) {}
         constructor(array: JSONArray) : super(array) {}
 
 //        override fun createArray(length: Int): Array<GJsonObject.Default> {

@@ -1,5 +1,6 @@
 package com.glib.core.json
 
+import com.glib.core.model.GBundle
 import com.google.gson.internal.bind.util.ISO8601Utils
 import org.json.JSONArray
 import org.json.JSONException
@@ -47,6 +48,16 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
         this.rawString = rawString
         this.rawJson = rawJsonFrom(rawString)
     }
+
+//    fun set(value: Serializable): GBundle {
+//        native.putSerializable(GBundle.KEY_SINGLETON, value)
+//        return this
+//    }
+
+//    val single: Serializable
+//        get() {
+//            return get(KEY_SINGLETON)
+//        }
 
     val array: JA?
         get() {
@@ -103,6 +114,20 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return int ?: 0
         }
 
+    val long: Long?
+        get() {
+            try {
+                return stringValue.toLong()
+            } catch (e: NumberFormatException) {
+                return null
+            }
+        }
+
+    val longValue: Long
+        get() {
+            return long ?: 0
+        }
+
     val double: Double?
         get() {
             try {
@@ -147,19 +172,6 @@ abstract class GJsonObject<JO : GJsonObject<JO, JA>, JA : GJsonArray<JO>> : Seri
             return bool ?: false
         }
 
-    val long: Long?
-        get() {
-            try {
-                return stringValue.toLong()
-            } catch (e: NumberFormatException) {
-                return null
-            }
-        }
-
-    val longValue: Long
-        get() {
-            return long ?: 0
-        }
     val presence: JO?
         get() {
             return if (isNull()) null else (this as? JO)

@@ -39,11 +39,6 @@ open class GTextView : AppCompatTextView, IView {
         return this
     }
 
-    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): GTextView {
-        helper.relative(addRules)
-        return self()
-    }
-
     fun specs(vararg specs: Spec): GTextView {
         for (spec in specs) {
             spec.decorate(this)
@@ -187,6 +182,11 @@ open class GTextView : AppCompatTextView, IView {
 
     fun maxLines(max: Int): GTextView {
         maxLines = max
+        return this
+    }
+
+    fun relative(addRules: (GRelativeLayoutParams) -> (Unit)): GTextView {
+        helper.relative(addRules)
         return this
     }
 

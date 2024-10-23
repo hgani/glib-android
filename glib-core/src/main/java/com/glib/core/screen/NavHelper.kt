@@ -156,8 +156,6 @@ open class NavHelper(protected val screen: GScreen): INavHelper() {
 
         fun add(iconDrawable: Drawable?, string: String, onClick: (MenuItem) -> Unit): MenuItem {
             val item = menu.add(Menu.NONE, Menu.NONE, Menu.NONE, string)
-//            val item = menu.add(Menu.NONE, Menu.NONE, Menu.NONE, string + " TEST1")
-
 
             item.setOnMenuItemClickListener {
                 onClick(it)
