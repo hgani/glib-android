@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.glib.core.R
+import com.glib.core.logging.GLog
 
 abstract class DtoRecyclerAdapter<DO, VH : DtoBindingHolder<DO>> protected constructor(private val objects: List<DO>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -78,6 +79,7 @@ abstract class DtoRecyclerAdapter<DO, VH : DtoBindingHolder<DO>> protected const
     }
 
     override fun getItemCount(): Int {
+        GLog.t(javaClass, "COUNT: " + objects.size)
         return objects.size + 2  // Header and footer
     }
 

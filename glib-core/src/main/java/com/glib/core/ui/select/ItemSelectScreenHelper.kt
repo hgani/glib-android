@@ -16,7 +16,7 @@ import java.util.*
 
 class ItemSelectScreenHelper<I : SelectableItem?> {
     private var activity: GScreen? = null
-    //    private var fragment: FragmentItemSelect<I?>? = null
+//    private var fragment: FragmentItemSelect<I?>? = null
     var mutableSelectedItems: MutableSet<I?>
         private set
     private var multiselect: Boolean
