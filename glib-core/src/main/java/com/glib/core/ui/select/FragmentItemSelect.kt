@@ -1,8 +1,10 @@
 package com.gani.lib.select
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TabHost
 import android.widget.TabHost.OnTabChangeListener
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +43,7 @@ abstract class FragmentItemSelect<I : SelectableItem?> protected constructor(
     override fun initContent(activity: GActivity, container: GScreenContainer) {
 //        val layout = LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list, null)
         val listView = GRecyclerView(activity)
+        listView.width(ViewGroup.LayoutParams.MATCH_PARENT)
         container.append(listView)
 
 //        val listView = layout.findViewById(R.id.list_common) as RecyclerView
