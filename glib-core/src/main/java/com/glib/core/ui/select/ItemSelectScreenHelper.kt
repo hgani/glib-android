@@ -16,17 +16,22 @@ import java.util.*
 
 class ItemSelectScreenHelper<I : SelectableItem?> {
     private var activity: GScreen? = null
-    private var fragment: FragmentItemSelect<I?>? = null
+//    private var fragment: FragmentItemSelect<I?>? = null
     var mutableSelectedItems: MutableSet<I?>
         private set
     private var multiselect: Boolean
+//
+//    constructor(
+//        activity: GScreen, savedInstanceState: Bundle?, fragment: FragmentItemSelect<I?>?,
+//        multiselect: Boolean
+//    ) {
 
     constructor(
-        activity: GScreen, savedInstanceState: Bundle?, fragment: FragmentItemSelect<I?>?,
+        activity: GScreen, savedInstanceState: Bundle?,
         multiselect: Boolean
     ) {
         this.activity = activity
-        this.fragment = fragment
+//        this.fragment = fragment
         this.multiselect = multiselect
         mutableSelectedItems = if (savedInstanceState == null) LinkedHashSet(
             activity.getIntent()
@@ -35,7 +40,7 @@ class ItemSelectScreenHelper<I : SelectableItem?> {
             savedInstanceState.getSerializable(BUNDLE_SELECTED_ITEMS) as LinkedHashSet<I?>
 
 //    onCreate(savedInstanceState);
-        activity.setFragmentWithToolbar(fragment, savedInstanceState)
+//        activity.setFragmentWithToolbar(fragment, savedInstanceState)
     }
 
     constructor(savedInstanceState: Bundle?, multiselect: Boolean) {

@@ -71,10 +71,12 @@ class GBundle(val native: Bundle) {
     }
 
     fun getSerializable(key: String): Serializable? {
-        val `object` = native.getSerializable(key)
-        // In lower API levels (e.g. Kitkat), T[] is returned as Object[] so we use a wrapper to retain the original array type.
-        // See http://stackoverflow.com/questions/30154807/java-lang-classcastexception-java-lang-object-cannot-be-cast-to-pfe-essat-obj
-        return (`object` as? ArrayWrapper<*>)?.array ?: `object`
+//        val `object` = native.getSerializable(key)
+//        // In lower API levels (e.g. Kitkat), T[] is returned as Object[] so we use a wrapper to retain the original array type.
+//        // See http://stackoverflow.com/questions/30154807/java-lang-classcastexception-java-lang-object-cannot-be-cast-to-pfe-essat-obj
+//        return (`object` as? ArrayWrapper<*>)?.array ?: `object`
+
+        return native.getSerializable(key)
     }
 
     class ArrayWrapper<T>(val array: Array<T>) : Serializable

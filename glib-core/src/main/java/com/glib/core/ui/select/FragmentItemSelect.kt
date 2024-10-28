@@ -1,8 +1,10 @@
 package com.gani.lib.select
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TabHost
 import android.widget.TabHost.OnTabChangeListener
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +12,7 @@ import com.glib.core.R
 import com.glib.core.screen.GActivity
 import com.glib.core.screen.GFragment
 import com.glib.core.screen.GScreenContainer
+import com.glib.core.ui.list.GRecyclerView
 import com.glib.core.ui.select.SelectableItem
 import com.glib.core.ui.view.ViewHelper
 
@@ -19,37 +22,32 @@ abstract class FragmentItemSelect<I : SelectableItem?> protected constructor(
 //    private val tabHelper: ViewHelper?
 //    private var selectedTab: T? = null
 
-    private fun onCreateView(
-        inflater: LayoutInflater?,
-        layoutId: Int,
-        savedInstanceState: Bundle?
-    ): View? {
-        val fragmentLayout = inflater!!.inflate(layoutId, null)
-//        selectedTab = tabHelper.initView(
-//            savedInstanceState, getActivity(),
-//            fragmentLayout!!.findViewById<View?>(R.id.tabhost) as TabHost?,
-//            inflater.inflate(R.layout.tabcontent_common_list, null)
-//        )
-//        initTabsIn(inflater)
-
-        val listView: RecyclerView = fragmentLayout.findViewById(R.id.list_common) as RecyclerView
-        initList(listView)
-        return fragmentLayout
-    }
-
-//    fun initContent(activity: GActivity, container: GLinearLayout) {
-////    super.initContent(activity, container);
-//        container.append(
-//            LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list, null)
-//        )
+//    private fun onCreateView(
+//        inflater: LayoutInflater?,
+//        layoutId: Int,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val fragmentLayout = inflater!!.inflate(layoutId, null)
+////        selectedTab = tabHelper.initView(
+////            savedInstanceState, getActivity(),
+////            fragmentLayout!!.findViewById<View?>(R.id.tabhost) as TabHost?,
+////            inflater.inflate(R.layout.tabcontent_common_list, null)
+////        )
+////        initTabsIn(inflater)
 //
-////    View.inflate(getContext(), )
+//        val listView: RecyclerView = fragmentLayout.findViewById(R.id.list_common) as RecyclerView
+//        initList(listView)
+//        return fragmentLayout
 //    }
 
     override fun initContent(activity: GActivity, container: GScreenContainer) {
-        container.append(
-            LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list, null)
-        )
+//        val layout = LayoutInflater.from(getContext()).inflate(R.layout.fragment_common_list, null)
+        val listView = GRecyclerView(activity)
+        listView.width(ViewGroup.LayoutParams.MATCH_PARENT)
+        container.append(listView)
+
+//        val listView = layout.findViewById(R.id.list_common) as RecyclerView
+        initList(listView)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -79,7 +77,7 @@ abstract class FragmentItemSelect<I : SelectableItem?> protected constructor(
 //        initList(listView)
 //    }
 
-    protected abstract fun initList(listView: RecyclerView?)
+    protected abstract fun initList(listView: RecyclerView)
 
 //    private inner class TabContentSwitcher : OnTabChangeListener {
 //        override fun onTabChanged(topicTabName: String?) {

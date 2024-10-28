@@ -114,6 +114,13 @@ abstract class JsonUiFragment : GFragment {
                 }
             }
         }
+
+//        args[JsonUiScreen.ARG_ACTION_SPEC].json?.let {
+//            JsonAction.execute(it, activity, null, null)
+//
+//            // This doesn't work in practice because the execution will get killed along with the Activity.
+////            activity.finish()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

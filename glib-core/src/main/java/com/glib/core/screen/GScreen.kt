@@ -1,33 +1,12 @@
 package com.glib.core.screen
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import com.glib.core.R
 import com.glib.core.json.GJsonObject
-import com.glib.core.logging.GLog
-import com.glib.core.model.GBundle
-import com.glib.core.ui.ProgressIndicator
-import com.glib.core.ui.icon.GIcon
-import com.glib.core.ui.json.JsonAction
-import com.glib.core.ui.json.actions.windows.Close
 import com.glib.core.ui.json.actions.windows.JsonUiScreen
-import com.glib.core.ui.style.LibIcon
-import com.glib.core.utils.Res
-import java.io.Serializable
-import kotlin.reflect.KClass
 
 open class GScreen : GActivity() {
     val nav: NavHelper

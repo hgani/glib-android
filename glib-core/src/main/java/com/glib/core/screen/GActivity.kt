@@ -4,13 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.glib.core.R
 import com.glib.core.logging.GLog
@@ -298,7 +296,8 @@ open class GActivity : AppCompatActivity(), GContainer {
         }
 
         fun <T> withArg(key: String, value: Array<T>): IntentBuilder {
-            intent.putExtra(key, GBundle.ArrayWrapper(value))
+//            intent.putExtra(key, GBundle.ArrayWrapper(value))
+            intent.putExtra(key, value)
             return this
         }
 
